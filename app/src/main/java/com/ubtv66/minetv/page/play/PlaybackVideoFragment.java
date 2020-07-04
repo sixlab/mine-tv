@@ -1,4 +1,4 @@
-package com.ubtv66.minetv;
+package com.ubtv66.minetv.page.play;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import androidx.leanback.media.MediaPlayerAdapter;
 import androidx.leanback.media.MinePlayer;
 import androidx.leanback.widget.PlaybackControlsRow;
 
-import com.ubtv66.minetv.vo.VodInfo;
+import com.ubtv66.minetv.page.detail.VodDetailActivity;
+import com.ubtv66.minetv.vo.UrlInfo;
 
 /**
  * Handles video playback with media controls.
@@ -23,8 +24,8 @@ public class PlaybackVideoFragment extends VideoSupportFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final VodInfo info =
-                (VodInfo) getActivity().getIntent().getSerializableExtra(VodItemActivity.MOVIE);
+        final UrlInfo info =
+                (UrlInfo) getActivity().getIntent().getSerializableExtra(VodDetailActivity.MOVIE);
 
         VideoSupportFragmentGlueHost glueHost =
                 new VideoSupportFragmentGlueHost(PlaybackVideoFragment.this);
@@ -35,10 +36,11 @@ public class PlaybackVideoFragment extends VideoSupportFragment {
         mTransportControlGlue = new MinePlayer<>(getContext(), playerAdapter);
         mTransportControlGlue.setHost(glueHost);
         mTransportControlGlue.setTitle(info.getVodName());
+        mTransportControlGlue.setSubtitle("["+info.getGroupName()+"]"+info.getItemName());
         mTransportControlGlue.playWhenPrepared();
 
         // TODO 播放器地址
-        playerAdapter.setDataSource(Uri.parse(info.getVodIntro()));
+        playerAdapter.setDataSource(Uri.parse(info.getPlayUrl()));
     }
 
     @Override

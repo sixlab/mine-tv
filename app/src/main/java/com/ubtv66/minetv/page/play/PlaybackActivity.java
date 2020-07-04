@@ -1,4 +1,4 @@
-package com.ubtv66.minetv;
+package com.ubtv66.minetv.page.play;
 
 import android.os.Bundle;
 

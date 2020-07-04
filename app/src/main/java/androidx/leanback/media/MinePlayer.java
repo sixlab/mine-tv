@@ -2,6 +2,7 @@ package androidx.leanback.media;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -12,15 +13,16 @@ import androidx.leanback.widget.PlaybackControlsRow;
 
 public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportControlGlue<T> {
 
-    private static Toast toast = null;
+    private Toast toast = null;
+    private int seconds =10;
 
     @SuppressLint("ShowToast")
-    public void show(CharSequence text, int toastDuration){
+    public void toast(CharSequence text){
         try{
             toast.getView().isShown();
             toast.setText(text);
         } catch (Exception e) {
-            toast = Toast.makeText(getContext(), text, toastDuration);
+            toast = Toast.makeText(getContext(), text, Toast.LENGTH_LONG);
         }
         toast.show();
     }
@@ -37,6 +39,36 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_UP) {
+            // 按下
+
+        }else if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            // 起来
+
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_DPAD_RIGHT:  //向右键
+                    Log.d("key", "right--->");
+                    forward();
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_LEFT: //向左键
+                    Log.d("key", "left--->");
+                    backward();
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_UP: // 菜单
+                    Log.d("key", "up--->");
+                    updateSeconds(seconds+10);
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_DOWN: // 菜单
+                    Log.d("key", "down--->");
+                    updateSeconds(seconds-10);
+                    return true;
+                case KeyEvent.KEYCODE_ENTER: // OK
+                    Log.d("key", "enter--->");
+                    updateSeconds(10);
+                    return true;
+            }
+        }
+
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_UP:
             case KeyEvent.KEYCODE_DPAD_DOWN:
@@ -96,28 +128,23 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
         return handled;
     }
 
-    /**
+    public void forward() {
+        long currentPosition = getCurrentPosition();
+        seekTo(currentPosition + seconds*1000);
+    }
 
-     switch (keyCode) {
-     case KeyEvent.KEYCODE_DPAD_RIGHT:  //向右键
-     Log.d("key", "right--->");
-     fragment.forward();
-     break;
-     case KeyEvent.KEYCODE_DPAD_LEFT: //向左键
-     Log.d("key", "left--->");
-     fragment.backward();
-     break;
-     case KeyEvent.KEYCODE_MENU: //向左键
-     Log.d("key", "menu--->");
-     fragment.updateSeconds();
-     break;
-     }
-     */
+    public void backward() {
+        long currentPosition = getCurrentPosition();
+        seekTo(currentPosition - seconds*1000);
+    }
 
+    public void updateSeconds(int seconds) {
+        this.seconds = seconds;
+        toast("当前快进/快退间隔 " +seconds +" 秒");
+    }
 
-    // KeyEvent.KEYCODE_ENTER; //66 不确定
-    //
-    // HOME 键 class  HomeRecaiver extends BroadcastReceiver{ onReceive
+    // HOME
+    // class HomeRecaiver extends BroadcastReceiver{ onReceive
     // action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
     // SYSTEM_DIALOG_REASON_HOME_KEY  equal intent.getStringExtra(SYSTEM_DIALOG_REASON_KEY)
     //
@@ -125,33 +152,14 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
     // KeyEvent.KEYCODE_MENU; //82
     // KeyEvent.KEYCODE_F5; //135 语音
     //
+    //
     // KeyEvent.KEYCODE_DPAD_UP; //19
     // KeyEvent.KEYCODE_DPAD_DOWN; // 20
     // KeyEvent.KEYCODE_DPAD_LEFT; // 21
     // KeyEvent.KEYCODE_DPAD_RIGHT; // 22
     //
+    // KeyEvent.KEYCODE_ENTER;        // 66 不确定
+    //
     // KeyEvent.KEYCODE_VOLUME_UP; // 24
     // KeyEvent.KEYCODE_VOLUME_DOWN; // 25
-    //
-    //
-    //
-    //
-    // public void forward() {
-    //     if (mTransportControlGlue != null) {
-    //         long currentPosition = mTransportControlGlue.getCurrentPosition();
-    //         mTransportControlGlue.seekTo(currentPosition + seconds*1000);
-    //     }
-    // }
-    //
-    // public void backward() {
-    //     if (mTransportControlGlue != null) {
-    //         long currentPosition = mTransportControlGlue.getCurrentPosition();
-    //         mTransportControlGlue.seekTo(currentPosition - seconds*1000);
-    //     }
-    // }
-    //
-    // public void updateSeconds() {
-    //     seconds+=10;
-    //     Toast.makeText(getActivity(), "当前快进/快退间隔 " +seconds +" 秒", Toast.LENGTH_LONG).show();
-    // }
 }

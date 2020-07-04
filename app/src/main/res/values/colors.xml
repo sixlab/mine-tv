@@ -1,8 +1,13 @@
 <resources>
-    <color name="background_gradient_start">#000000</color>
-    <color name="background_gradient_end">#DDDDDD</color>
-    <color name="fastlane_background">#4565E6</color>
-    <color name="search_opaque">#ffaa3f</color>
-    <color name="selected_background">#ffaa3f</color>
-    <color name="default_background">#3A55C3</color>
+    <color name="background_gradient_start">#0ffff0</color>
+    <color name="background_gradient_end">#ffaa3f</color>
+
+    <!-- 主页左侧背景色 -->
+    <color name="fastlane_background">#2196F3</color>
+    <!-- 主页搜索背景色 -->
+    <color name="search_opaque">#20B5FA</color>
+    <!-- 已选中背景色 -->
+    <color name="selected_background">#2196F3</color>
+    <!-- 未选中背景色 -->
+    <color name="default_background">#20B5FA</color>
 </resources>
