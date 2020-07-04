@@ -1,14 +1,20 @@
 package com.ubtv66.minetv.data;
 
+import android.content.Context;
+
 import com.ubtv66.minetv.vo.VodInfo;
 
 public class SampleData {
     private static String[] names = {
+            "m3u8",
+            "mp4",
     };
     private static String[] urls = {
+            "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8",
+            "https://media.w3.org/2010/05/sintel/trailer.mp4",
     };
 
-    public static VodInfo getDate() {
+    private static VodInfo getDate() {
         VodInfo vodInfo = new VodInfo();
 
         vodInfo.setVod_id(-1);
@@ -33,5 +39,9 @@ public class SampleData {
         vodInfo.setVod_play_url(sb.toString());
 
         return vodInfo;
+    }
+
+    public static void initSampleData(Context context) {
+        DbHelper.insertStar(context, getDate());
     }
 }

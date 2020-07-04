@@ -24,6 +24,7 @@ import androidx.leanback.widget.Row;
 import androidx.leanback.widget.RowPresenter;
 
 import com.ubtv66.minetv.data.DbHelper;
+import com.ubtv66.minetv.data.SampleData;
 import com.ubtv66.minetv.page.CardPresenter;
 import com.ubtv66.minetv.page.detail.VodDetailActivity;
 import com.ubtv66.minetv.page.search.MineSearchActivity;
@@ -51,6 +52,8 @@ public class MainFragment extends BrowseFragment {
         super.onActivityCreated(savedInstanceState);
 
         DbHelper.init(getContext());
+
+        SampleData.initSampleData(getContext());
 
         prepareBackgroundManager();
 
