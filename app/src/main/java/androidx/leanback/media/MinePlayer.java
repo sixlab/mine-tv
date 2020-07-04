@@ -65,7 +65,6 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
                 case KeyEvent.KEYCODE_ENTER: // OK
                     Log.d("key", "enter--->");
                     updateSeconds(10);
-                    return true;
             }
         }
 
