@@ -53,7 +53,7 @@ public class MainFragment extends BrowseFragment {
 
         DbHelper.init(getContext());
 
-        SampleData.initSampleData(getContext());
+        // SampleData.initSampleData(getContext());
 
         prepareBackgroundManager();
 
