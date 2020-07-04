@@ -2,8 +2,8 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/details_fragment"
-    android:name="com.ubtv66.minetv.VodItemFragment"
+    android:name="com.ubtv66.minetv.page.detail.VodDetailFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VodItemActivity"
+    tools:context=".page.detail.VodDetailActivity"
     tools:deviceIds="tv" />

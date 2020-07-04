@@ -1,0 +1,260 @@
+package com.ubtv66.minetv.page.detail;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
+import androidx.leanback.app.DetailsFragment;
+import androidx.leanback.app.DetailsFragmentBackgroundController;
+import androidx.leanback.widget.Action;
+import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.ClassPresenterSelector;
+import androidx.leanback.widget.DetailsOverviewRow;
+import androidx.leanback.widget.FullWidthDetailsOverviewRowPresenter;
+import androidx.leanback.widget.FullWidthDetailsOverviewSharedElementHelper;
+import androidx.leanback.widget.HeaderItem;
+import androidx.leanback.widget.ListRow;
+import androidx.leanback.widget.ListRowPresenter;
+import androidx.leanback.widget.OnActionClickedListener;
+import androidx.leanback.widget.OnItemViewClickedListener;
+import androidx.leanback.widget.Presenter;
+import androidx.leanback.widget.Row;
+import androidx.leanback.widget.RowPresenter;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.ubtv66.minetv.MainActivity;
+import com.ubtv66.minetv.R;
+import com.ubtv66.minetv.data.DbHelper;
+import com.ubtv66.minetv.data.RetrofitHelper;
+import com.ubtv66.minetv.page.BlockPresenter;
+import com.ubtv66.minetv.page.play.PlaybackActivity;
+import com.ubtv66.minetv.utils.MineCallback;
+import com.ubtv66.minetv.vo.UrlInfo;
+import com.ubtv66.minetv.vo.VodInfo;
+import com.ubtv66.minetv.vo.VodListVo;
+
+import java.util.List;
+
+/*
+ * LeanbackDetailsFragment extends DetailsFragment, a Wrapper fragment for leanback details screens.
+ * It shows a detailed view of video and its meta plus related videos.
+ */
+public class VodDetailFragment extends DetailsFragment {
+    private static final String TAG = "VideoDetailsFragment";
+
+    private static final int ACTION_STAR = 1;
+    private static final int ACTION_NOT = 2;
+    private static final int ACTION_CLEAR = 3;
+    private static final int ACTION_UPDATE = 4;
+
+    private static final int DETAIL_THUMB_WIDTH = 274;
+    private static final int DETAIL_THUMB_HEIGHT = 274;
+
+    private VodInfo mSelectedMovie;
+
+    private ArrayObjectAdapter mAdapter;
+    private ClassPresenterSelector mPresenterSelector;
+
+    private DetailsFragmentBackgroundController mDetailsBackground;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate DetailsFragment");
+        super.onCreate(savedInstanceState);
+
+        mDetailsBackground = new DetailsFragmentBackgroundController(this);
+
+        mSelectedMovie = (VodInfo) getActivity().getIntent().getSerializableExtra(VodDetailActivity.MOVIE);
+        if (mSelectedMovie != null) {
+            mPresenterSelector = new ClassPresenterSelector();
+            mAdapter = new ArrayObjectAdapter(mPresenterSelector);
+            setupDetailsOverviewRow();
+            setupDetailsOverviewRowPresenter();
+            setupRelatedMovieListRow();
+            setAdapter(mAdapter);
+            initializeBackground(mSelectedMovie);
+            setOnItemViewClickedListener(new ItemViewClickedListener());
+        } else {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private void initializeBackground(VodInfo data) {
+        mDetailsBackground.enableParallax();
+        Glide.with(getActivity()).load(data.getVod_pic()).asBitmap().centerCrop().error(R.drawable.default_background).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
+                mDetailsBackground.setCoverBitmap(bitmap);
+                mAdapter.notifyArrayItemRangeChanged(0, mAdapter.size());
+            }
+        });
+    }
+
+    private void setupDetailsOverviewRow() {
+        Log.d(TAG, "doInBackground: " + mSelectedMovie.toString());
+        final DetailsOverviewRow row = new DetailsOverviewRow(mSelectedMovie);
+        row.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.default_background));
+        int width = convertDpToPixel(getActivity().getApplicationContext(), DETAIL_THUMB_WIDTH);
+        int height = convertDpToPixel(getActivity().getApplicationContext(), DETAIL_THUMB_HEIGHT);
+        Glide.with(getActivity()).load(mSelectedMovie.getVod_pic()).centerCrop().error(R.drawable.default_background).into(new SimpleTarget<GlideDrawable>(width, height) {
+            @Override
+            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                Log.d(TAG, "details overview card image url ready: " + resource);
+                row.setImageDrawable(resource);
+                mAdapter.notifyArrayItemRangeChanged(0, mAdapter.size());
+            }
+        });
+
+        ArrayObjectAdapter actionAdapter = new ArrayObjectAdapter();
+
+        actionAdapter.add(new Action(ACTION_STAR, getResources().getString(R.string.type_star)));
+
+        actionAdapter.add(new Action(ACTION_NOT, getResources().getString(R.string.action_star_not)));
+
+        actionAdapter.add(new Action(ACTION_CLEAR, getResources().getString(R.string.action_clear)));
+
+        actionAdapter.add(new Action(ACTION_UPDATE, getResources().getString(R.string.action_update)));
+
+        row.setActionsAdapter(actionAdapter);
+
+        mAdapter.add(row);
+    }
+
+    private void setupDetailsOverviewRowPresenter() {
+        // Set detail background.
+        FullWidthDetailsOverviewRowPresenter detailsPresenter = new FullWidthDetailsOverviewRowPresenter(new DetailsDescriptionPresenter());
+        detailsPresenter.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.selected_background));
+
+        // Hook up transition element.
+        FullWidthDetailsOverviewSharedElementHelper sharedElementHelper = new FullWidthDetailsOverviewSharedElementHelper();
+        sharedElementHelper.setSharedElementEnterTransition(getActivity(), VodDetailActivity.SHARED_ELEMENT_NAME);
+        detailsPresenter.setListener(sharedElementHelper);
+        detailsPresenter.setParticipatingEntranceTransition(true);
+
+        detailsPresenter.setOnActionClickedListener(new OnActionClickedListener() {
+            @Override
+            public void onActionClicked(Action action) {
+                if (action.getId() == ACTION_UPDATE) {
+                    updateUrl();
+                }else{
+                    if (action.getId() == ACTION_STAR) {
+                        DbHelper.insertStar(getContext(), mSelectedMovie);
+                    } else if (action.getId() == ACTION_NOT) {
+                        DbHelper.delStar(getContext(), mSelectedMovie.getVod_id());
+                    } else if (action.getId() == ACTION_CLEAR) {
+                        DbHelper.delHis(getContext(), mSelectedMovie.getVod_id());
+                    }
+
+                    Toast.makeText(getContext(), "done", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        mPresenterSelector.addClassPresenter(DetailsOverviewRow.class, detailsPresenter);
+    }
+
+    private void updateUrl() {
+        if (mSelectedMovie.getVod_id() < 0) {
+            return;
+        }
+        RetrofitHelper.service.detail(mSelectedMovie.getVod_id()).enqueue(new MineCallback<VodListVo>() {
+            @Override
+            public void success(VodListVo body) {
+                List<VodInfo> list = body.getList();
+                if (null == list) {
+                    Toast.makeText(getContext(), "返回的list为null", Toast.LENGTH_LONG).show();
+                } else if (list.size() == 1) {
+                    VodInfo info = list.get(0);
+                    mSelectedMovie = info;
+
+                    DbHelper.updateInfo(getContext(), info);
+
+                    mAdapter.clear();
+                    setupRelatedMovieListRow();
+                    setAdapter(mAdapter);
+                } else {
+                    Toast.makeText(getContext(), "返回的list长度为：" + list.size(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void setupRelatedMovieListRow() {
+        /*
+"vod_play_from": "zkyun$$$zkm3u8$$$33uu$$$33uuck$$$kuyun$$$ckm3u8",
+"vod_play_server": "no$$$no$$$no$$$no$$$no$$$no",
+"vod_play_note": "$$$$$$$$$$$$$$$",
+"vod_play_url": "蓝光1080P$https://zk.sd-dykj.com/share/BGLpBLhHvAeK8wYS$$$蓝光1080P$https://zk.sd-dykj.com/2020/07/02/BGLpBLhHvAeK8wYS/playlist.m3u8$$$蓝光1080P$https://zk.sd-dykj.com/share/BGLpBLhHvAeK8wYS$$$蓝光1080P$https://zk.sd-dykj.com/2020/07/02/BGLpBLhHvAeK8wYS/playlist.m3u8$$$HD中字$https://iqiyi.cdn27-okzy.com/share/8153349b1eb6f6c01622d4f395993bfe$$$HD中字$https://iqiyi.cdn27-okzy.com/20200702/5586_debea6cd/index.m3u8",
+         */
+
+        // mAdapter.clear();
+
+        String playFrom = mSelectedMovie.getVod_play_from();
+        String playUrl = mSelectedMovie.getVod_play_url();
+
+        String[] groups = TextUtils.split(playFrom, "\\$\\$\\$");
+        String[] groupsUrls = TextUtils.split(playUrl, "\\$\\$\\$");
+
+        for (int i = 0; i < groups.length; i++) {
+            String group = groups[i];
+            String groupUrls = groupsUrls[i];   //   蓝光1080P$https://zk.sd-dykj.com/share/BGLpBLhHvAeK8wYS#蓝光1080P$https://zk.sd-dykj.com/share/BGLpBLhHvAeK8wYS
+
+            ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(new BlockPresenter());
+            String[] urls = TextUtils.split(groupUrls, "#");
+            for (String url : urls) {
+                //   蓝光1080P$https://zk.sd-dykj.com/share/BGLpBLhHvAeK8wYS
+                String[] urlInfos = TextUtils.split(url, "\\$");
+
+                if (urlInfos.length == 2) {
+                    UrlInfo info = new UrlInfo();
+                    info.setVodName(mSelectedMovie.getVod_name());
+                    info.setGroupName(group);
+                    info.setItemName(urlInfos[0]);
+                    info.setPlayUrl(urlInfos[1]);
+                    listRowAdapter.add(info);
+                } else {
+                    UrlInfo info = new UrlInfo();
+                    info.setVodName(url);
+                    info.setGroupName(String.valueOf(urlInfos.length));
+                    info.setItemName("Error");
+                    info.setPlayUrl("Error");
+                    listRowAdapter.add(info);
+                }
+            }
+
+            HeaderItem header = new HeaderItem(0, group);
+            mAdapter.add(new ListRow(header, listRowAdapter));
+            mPresenterSelector.addClassPresenter(ListRow.class, new ListRowPresenter());
+        }
+    }
+
+    private int convertDpToPixel(Context context, int dp) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
+    }
+
+    private final class ItemViewClickedListener implements OnItemViewClickedListener {
+        @Override
+        public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
+
+            if (item instanceof UrlInfo) {
+                UrlInfo info = (UrlInfo) item;
+                if ("Error".equals(info.getPlayUrl())) {
+                    Toast.makeText(getContext(), info.getGroupName() + ":" + info.getVodName(), Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(getActivity(), PlaybackActivity.class);
+                    intent.putExtra(VodDetailActivity.MOVIE, info);
+                    startActivity(intent);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,88 @@
+package com.ubtv66.minetv.page;
+
+import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+import androidx.core.content.ContextCompat;
+import androidx.leanback.widget.Presenter;
+
+import com.ubtv66.minetv.R;
+import com.ubtv66.minetv.vo.UrlInfo;
+
+/*
+ * A CardPresenter is used to generate Views and bind Objects to them on demand.
+ * It contains an Button
+ */
+public class BlockPresenter extends Presenter {
+    private static final String TAG = "CardPresenter";
+
+    private static final int CARD_WIDTH = 200; // 313;
+    private static final int CARD_HEIGHT = 100; // 176;
+    private static int sSelectedBackgroundColor;
+    private static int sDefaultBackgroundColor;
+    // private Drawable mDefaultCardImage;
+
+    private static void updateCardBackgroundColor(Button view, boolean selected) {
+        int color = selected ? sSelectedBackgroundColor : sDefaultBackgroundColor;
+        // Both background colors should be set because the view's background is temporarily visible
+        // during animations.
+        view.setBackgroundColor(color);
+        // view.findViewById(R.id.info_field).setBackgroundColor(color);
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent) {
+        Log.d(TAG, "onCreateViewHolder");
+
+        sDefaultBackgroundColor =
+                ContextCompat.getColor(parent.getContext(), R.color.default_background);
+        sSelectedBackgroundColor =
+                ContextCompat.getColor(parent.getContext(), R.color.selected_background);
+        /*
+         * This template uses a default image in res/drawable, but the general case for Android TV
+         * will require your resources in xhdpi. For more information, see
+         * https://developer.android.com/training/tv/start/layouts.html#density-resources
+         */
+
+        Button button = new Button(parent.getContext());
+
+        button.setFocusable(true);
+        button.setFocusableInTouchMode(true);
+
+        updateCardBackgroundColor(button, false);
+        return new ViewHolder(button);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, Object item) {
+        UrlInfo info = (UrlInfo) item;
+        Button button = (Button) viewHolder.view;
+
+        Log.d(TAG, "onBindViewHolder");
+
+        button.setText(info.getItemName());
+
+        // button.setMinimumWidth(CARD_WIDTH);
+        // button.setMinimumHeight(CARD_HEIGHT);
+
+        // button.setTitleText(info.getVodName());
+        // button.setContentText(null);
+        // button.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
+        //
+        // Glide.with(viewHolder.view.getContext())
+        //         .load(info.getVod_pic())
+        //         .centerCrop()
+        //         .error(mDefaultCardImage)
+        //         .into(button.getMainImageView());
+
+    }
+
+    @Override
+    public void onUnbindViewHolder(ViewHolder viewHolder) {
+        Log.d(TAG, "onUnbindViewHolder");
+        // viewHolder.view;
+        // Remove references to images so that the garbage collector can free up memory
+    }
+}
+// finish

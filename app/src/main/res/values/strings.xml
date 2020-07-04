@@ -1,25 +1,20 @@
 <resources>
     <string name="app_name">Mine TV</string>
     <string name="browse_title">Mine TV</string>
-    <string name="related_movies">Related Videos</string>
-
-<!--    <string name="grid_view">Grid View</string>-->
-<!--    <string name="error_fragment">Error Fragment</string>-->
-<!--    <string name="personal_settings">Personal Settings</string>-->
 
     <string name="clear_his">清空历史</string>
     <string name="clear_star">清空收藏</string>
-    <string name="update_star">更新收藏</string>
+    <string name="clear_all">清空所有</string>
 
-    <string name="watch_trailer_1">Watch trailer</string>
-    <string name="watch_trailer_2">FREE</string>
-    <string name="rent_1">Rent By Day</string>
-    <string name="rent_2">From $1.99</string>
-    <string name="buy_1">Buy and Own</string>
-    <string name="buy_2">AT $9.99</string>
-    <string name="movie">Movie</string>
+    <string name="type_star">收藏</string>
+    <string name="type_his">记录</string>
 
-    <!-- Error messages -->
-    <string name="error_fragment_message">An error occurred</string>
-    <string name="dismiss_error">Dismiss</string>
+    <string name="action_settings">设置</string>
+    <string name="action_star_not">取消收藏</string>
+    <string name="action_update">更新</string>
+    <string name="action_clear">清除记录</string>
+
+    <!--    <string name="no_search_results">未搜索到 %s 的结果</string>-->
+<!--    <string name="search_results">搜索结果</string>-->
+
 </resources>

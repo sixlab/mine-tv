@@ -3,12 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ubtv66.minetv">
 
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".page.search.MineSearchActivity" />
+        <activity android:name=".page.play.PlaybackActivity" />
         <activity
             android:name=".MainActivity"
             android:banner="@drawable/app_icon_your_company"
@@ -23,18 +35,7 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VodItemActivity" />
-        <activity android:name=".PlaybackActivity" />
-        <activity android:name=".BrowseErrorActivity" />
+        <activity android:name=".page.detail.VodDetailActivity" />
     </application>
-    <uses-feature
-        android:name="android.software.leanback"
-        android:required="true" />
-
-    <uses-feature
-        android:name="android.hardware.touchscreen"
-        android:required="false" />
-
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

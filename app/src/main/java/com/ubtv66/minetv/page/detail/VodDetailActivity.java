@@ -1,12 +1,14 @@
-package com.ubtv66.minetv;
+package com.ubtv66.minetv.page.detail;
 
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.ubtv66.minetv.R;
+
 /*
  * Details activity class that loads LeanbackDetailsFragment class
  */
-public class VodItemActivity extends Activity {
+public class VodDetailActivity extends Activity {
     public static final String SHARED_ELEMENT_NAME = "hero";
     public static final String MOVIE = "Movie";
 
