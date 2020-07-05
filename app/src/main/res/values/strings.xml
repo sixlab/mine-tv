@@ -5,6 +5,7 @@
     <string name="clear_his">清空历史</string>
     <string name="clear_star">清空收藏</string>
     <string name="clear_all">清空所有</string>
+    <string name="clear_view">清空观影记录</string>
 
     <string name="type_star">收藏</string>
     <string name="type_his">记录</string>

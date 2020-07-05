@@ -24,7 +24,6 @@ import androidx.leanback.widget.Row;
 import androidx.leanback.widget.RowPresenter;
 
 import com.ubtv66.minetv.data.DbHelper;
-import com.ubtv66.minetv.data.SampleData;
 import com.ubtv66.minetv.page.CardPresenter;
 import com.ubtv66.minetv.page.detail.VodDetailActivity;
 import com.ubtv66.minetv.page.search.MineSearchActivity;
@@ -109,6 +108,7 @@ public class MainFragment extends BrowseFragment {
         gridRowAdapter.add(getResources().getString(R.string.clear_his));
         gridRowAdapter.add(getString(R.string.clear_star));
         gridRowAdapter.add(getString(R.string.clear_all));
+        gridRowAdapter.add(getString(R.string.clear_view));
         rowsAdapter.add(new ListRow(gridHeader, gridRowAdapter));
 
         setAdapter(rowsAdapter);
@@ -195,12 +195,17 @@ public class MainFragment extends BrowseFragment {
 
                 getActivity().startActivity(intent, bundle);
             } else if (item instanceof String) {
-                DbHelper.clearStar(getContext());
                 if (((String) item).contains(getString(R.string.clear_star))) {
+                    DbHelper.clearStar(getContext());
+                } else if (((String) item).contains(getString(R.string.clear_star))) {
+                    DbHelper.clearHis(getContext());
+                } else if (((String) item).contains(getString(R.string.clear_all))) {
+                    DbHelper.clearStar(getContext());
+                    DbHelper.clearHis(getContext());
+                } else if (((String) item).contains(getString(R.string.clear_view))) {
+                    DbHelper.delAllViews(getContext());
                     return;
                 }
-
-                DbHelper.clearHis(getContext());
 
                 loadRows();
             }

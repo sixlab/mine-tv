@@ -9,8 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.google.gson.Gson;
 import com.ubtv66.minetv.vo.VodInfo;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
@@ -21,13 +24,16 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DbEntry.SQL_CREATE_ENTRIES);
+        db.execSQL(DbEntry.SQL_CREATE_RECORD);
+
+        db.execSQL(DbEntry.SQL_CREATE_VIEW);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        db.execSQL(DbEntry.SQL_DELETE_ENTRIES);
+        db.execSQL(DbEntry.SQL_DELETE_RECORD);
+        db.execSQL(DbEntry.SQL_DELETE_VIEW);
         onCreate(db);
     }
 
@@ -42,6 +48,22 @@ public class DbHelper extends SQLiteOpenHelper {
         dbHelper.close();
     }
 
+    public static boolean isStar(Context context, Integer vodId) {
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.query(DbEntry.TABLE_RECORD, new String[]{DbEntry.RECORD_ID},
+                DbEntry.RECORD_TYPE + " = ? and " + DbEntry.RECORD_VOD_ID + " = ? ",
+                new String[]{DbEntry.TYPE_STAR, vodId.toString()}, null, null,
+                DbEntry.RECORD_ID + " DESC ");
+
+        boolean isStar = (cursor.getCount() > 0);
+        cursor.close();
+        dbHelper.close();
+
+        return isStar;
+    }
+
     public static void clearHis(Context context) {
         deleteRecord(context, DbEntry.TYPE_HIS);
     }
@@ -54,8 +76,7 @@ public class DbHelper extends SQLiteOpenHelper {
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        db.execSQL("delete from " + DbEntry.TABLE_NAME + " where " + DbEntry.COLUMN_TYPE + " = ? "
-                , new String[]{type});
+        db.execSQL("delete from " + DbEntry.TABLE_RECORD + " where " + DbEntry.RECORD_TYPE + " = ? ", new String[]{type});
 
         db.close();
     }
@@ -72,11 +93,11 @@ public class DbHelper extends SQLiteOpenHelper {
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        Cursor cursor = db.query(DbEntry.TABLE_NAME, new String[]{DbEntry.COLUMN_VOD_INFO}, DbEntry.COLUMN_TYPE + " = ? ", new String[]{type}, null, null, DbEntry.COLUMN_ID + " DESC ");
+        Cursor cursor = db.query(DbEntry.TABLE_RECORD, new String[]{DbEntry.RECORD_VOD_INFO}, DbEntry.RECORD_TYPE + " = ? ", new String[]{type}, null, null, DbEntry.RECORD_ID + " DESC ");
 
         List<VodInfo> vodInfoList = new ArrayList<>();
         while (cursor.moveToNext()) {
-            String json = cursor.getString(cursor.getColumnIndex(DbEntry.COLUMN_VOD_INFO));
+            String json = cursor.getString(cursor.getColumnIndex(DbEntry.RECORD_VOD_INFO));
 
             VodInfo vodInfo = new Gson().fromJson(json, VodInfo.class);
 
@@ -103,18 +124,18 @@ public class DbHelper extends SQLiteOpenHelper {
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        Cursor cursor = db.query(DbEntry.TABLE_NAME, new String[]{DbEntry.COLUMN_ID},
-                DbEntry.COLUMN_TYPE + " = ? and " + DbEntry.COLUMN_VOD_ID + " = ? ",
+        Cursor cursor = db.query(DbEntry.TABLE_RECORD, new String[]{DbEntry.RECORD_ID},
+                DbEntry.RECORD_TYPE + " = ? and " + DbEntry.RECORD_VOD_ID + " = ? ",
                 new String[]{type, info.getVod_id().toString()}, null, null,
-                DbEntry.COLUMN_ID + " DESC ");
+                DbEntry.RECORD_ID + " DESC ");
 
         if (cursor.getCount() == 0) {
             ContentValues values = new ContentValues();
-            values.put(DbEntry.COLUMN_TYPE, type);
-            values.put(DbEntry.COLUMN_VOD_ID, info.getVod_id());
-            values.put(DbEntry.COLUMN_VOD_INFO, new Gson().toJson(info));
+            values.put(DbEntry.RECORD_TYPE, type);
+            values.put(DbEntry.RECORD_VOD_ID, info.getVod_id());
+            values.put(DbEntry.RECORD_VOD_INFO, new Gson().toJson(info));
 
-            db.insert(DbEntry.TABLE_NAME, null, values);
+            db.insert(DbEntry.TABLE_RECORD, null, values);
         }
 
         db.close();
@@ -133,8 +154,8 @@ public class DbHelper extends SQLiteOpenHelper {
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        db.delete(DbEntry.TABLE_NAME,
-                DbEntry.COLUMN_TYPE + " = ？ and " + DbEntry.COLUMN_VOD_ID + " = ? ",
+        db.delete(DbEntry.TABLE_RECORD,
+                DbEntry.RECORD_TYPE + " = ? and " + DbEntry.RECORD_VOD_ID + " = ? ",
                 new String[]{type, vodId.toString()});
 
         db.close();
@@ -145,14 +166,75 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(DbEntry.COLUMN_VOD_INFO, new Gson().toJson(info));
+        values.put(DbEntry.RECORD_VOD_INFO, new Gson().toJson(info));
 
-        db.update(DbEntry.TABLE_NAME, values,
-                DbEntry.COLUMN_VOD_ID + " = ? ",
+        db.update(DbEntry.TABLE_RECORD, values,
+                DbEntry.RECORD_VOD_ID + " = ? ",
                 new String[]{info.getVod_id().toString()});
 
         db.close();
     }
+
+    public static void insertView(Context context, Integer vodId, String from, String name) {
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DbEntry.VIEW_VOD_ID, vodId);
+        values.put(DbEntry.VIEW_FROM, from);
+        values.put(DbEntry.VIEW_NAME, name);
+
+        db.insert(DbEntry.TABLE_VIEW, null, values);
+
+        db.close();
+    }
+
+    public static Map<String, Integer> queryView(Context context, Integer vodId) {
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.query(DbEntry.TABLE_VIEW, new String[]{
+                        DbEntry.VIEW_FROM,
+                        DbEntry.VIEW_NAME,
+                },
+                DbEntry.VIEW_VOD_ID + " = ? ", new String[]{vodId.toString()},
+                null, null,
+                DbEntry.VIEW_ID + " DESC ");
+
+        Map<String, Integer> viewed = new HashMap<>();
+        while (cursor.moveToNext()) {
+            String from = cursor.getString(cursor.getColumnIndex(DbEntry.VIEW_FROM));
+            String name = cursor.getString(cursor.getColumnIndex(DbEntry.VIEW_NAME));
+
+            String key = MessageFormat.format("{0}${1}", from, name);
+            viewed.put(key, 1);
+        }
+        cursor.close();
+        dbHelper.close();
+
+        return viewed;
+    }
+
+    public static void delAllViews(Context context) {
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        db.delete(DbEntry.TABLE_VIEW, null, null);
+
+        db.close();
+    }
+
+    public static void delViews(Context context, Integer vodId) {
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        db.delete(DbEntry.TABLE_VIEW,
+                DbEntry.VIEW_VOD_ID + " = ? ",
+                new String[]{vodId.toString()});
+
+        db.close();
+    }
+
 
 
     // public static void main(String[] args) {

@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitHelper {
+public class RequestHelper {
     private static final String BASE_URL = "https://api.okzy.tv/api.php/provide/vod/at/json/";
 
     public static RetrofitService service;
