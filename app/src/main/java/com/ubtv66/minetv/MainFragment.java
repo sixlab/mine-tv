@@ -35,8 +35,8 @@ public class MainFragment extends BrowseFragment {
     private static final String TAG = "MainFragment";
 
     // private static final int BACKGROUND_UPDATE_DELAY = 300;
-    private static final int GRID_ITEM_WIDTH = 200; // 200
-    private static final int GRID_ITEM_HEIGHT = 300; // 200
+    private static final int GRID_ITEM_WIDTH = 250; // 200
+    private static final int GRID_ITEM_HEIGHT = 100; // 200
 
     // private final Handler mHandler = new Handler();
     // private Drawable mDefaultBackground;
@@ -132,9 +132,9 @@ public class MainFragment extends BrowseFragment {
         setHeadersTransitionOnBackEnabled(true);
 
         // set fastLane (or headers) background color
-        setBrandColor(ContextCompat.getColor(getContext(), R.color.fastlane_background));
+        setBrandColor(ContextCompat.getColor(getContext(), R.color.bl_blue));
         // set search icon color
-        setSearchAffordanceColor(ContextCompat.getColor(getContext(), R.color.search_opaque));
+        setSearchAffordanceColor(ContextCompat.getColor(getContext(), R.color.bl_yellow));
     }
 
     private void setupEventListeners() {
@@ -247,8 +247,7 @@ public class MainFragment extends BrowseFragment {
             view.setLayoutParams(new ViewGroup.LayoutParams(GRID_ITEM_WIDTH, GRID_ITEM_HEIGHT));
             view.setFocusable(true);
             view.setFocusableInTouchMode(true);
-            view.setBackgroundColor(
-                    ContextCompat.getColor(getContext(), R.color.default_background));
+            view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.bl_cyan));
             view.setTextColor(Color.WHITE);
             view.setGravity(Gravity.CENTER);
             return new ViewHolder(view);

@@ -8,8 +8,6 @@ import java.lang.reflect.Field;
 
 public class MineImageCardView extends ImageCardView {
 
-    private TextView mContentView;
-
     public MineImageCardView(Context context, int themeResId) {
         super(context, themeResId);
     }
@@ -35,10 +33,10 @@ public class MineImageCardView extends ImageCardView {
             mContentField.setAccessible(true);
 
             TextView mTitleView = (TextView) mTitleField.get(this);
-            mTitleView.setTextSize(0);
+            mTitleView.setTextSize(10);
 
             TextView mContentView = (TextView) mContentField.get(this);
-            mContentView.setTextSize(10);
+            mContentView.setTextSize(8);
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();

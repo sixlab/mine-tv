@@ -38,9 +38,9 @@ public class CardPresenter extends Presenter {
         Log.d(TAG, "onCreateViewHolder");
 
         sDefaultBackgroundColor =
-                ContextCompat.getColor(parent.getContext(), R.color.default_background);
+                ContextCompat.getColor(parent.getContext(), R.color.bl_blue);
         sSelectedBackgroundColor =
-                ContextCompat.getColor(parent.getContext(), R.color.selected_background);
+                ContextCompat.getColor(parent.getContext(), R.color.bl_green);
         /*
          * This template uses a default image in res/drawable, but the general case for Android TV
          * will require your resources in xhdpi. For more information, see
@@ -71,7 +71,7 @@ public class CardPresenter extends Presenter {
         Log.d(TAG, "onBindViewHolder");
         if (info.getVod_pic() != null) {
             cardView.setTitleText(info.getVod_name());
-            cardView.setContentText(info.getVod_name());
+            cardView.setContentText(info.getVod_year()+":"+info.getVod_director());
             cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
             Glide.with(viewHolder.view.getContext())
                     .load(info.getVod_pic())
@@ -92,4 +92,3 @@ public class CardPresenter extends Presenter {
         cardView.setMainImage(null);
     }
 }
-// finish
