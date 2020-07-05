@@ -6,8 +6,11 @@
     <color name="fastlane_background">#2196F3</color>
     <!-- 主页搜索背景色 -->
     <color name="search_opaque">#20B5FA</color>
+
     <!-- 已选中背景色 -->
     <color name="selected_background">#2196F3</color>
     <!-- 未选中背景色 -->
     <color name="default_background">#20B5FA</color>
+    <!-- 未选中背景色 -->
+    <color name="viewed_font">#ffaa3f</color>
 </resources>

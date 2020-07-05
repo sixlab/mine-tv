@@ -21,6 +21,7 @@ public class BlockPresenter extends Presenter {
     private static final int CARD_HEIGHT = 100; // 176;
     private static int sSelectedBackgroundColor;
     private static int sDefaultBackgroundColor;
+    private static int sViewedFontColor;
     // private Drawable mDefaultCardImage;
 
     private static void updateCardBackgroundColor(Button view, boolean selected) {
@@ -39,6 +40,8 @@ public class BlockPresenter extends Presenter {
                 ContextCompat.getColor(parent.getContext(), R.color.default_background);
         sSelectedBackgroundColor =
                 ContextCompat.getColor(parent.getContext(), R.color.selected_background);
+        sViewedFontColor =
+                ContextCompat.getColor(parent.getContext(), R.color.viewed_font);
         /*
          * This template uses a default image in res/drawable, but the general case for Android TV
          * will require your resources in xhdpi. For more information, see
@@ -62,20 +65,9 @@ public class BlockPresenter extends Presenter {
         Log.d(TAG, "onBindViewHolder");
 
         button.setText(info.getItemName());
-
-        // button.setMinimumWidth(CARD_WIDTH);
-        // button.setMinimumHeight(CARD_HEIGHT);
-
-        // button.setTitleText(info.getVodName());
-        // button.setContentText(null);
-        // button.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
-        //
-        // Glide.with(viewHolder.view.getContext())
-        //         .load(info.getVod_pic())
-        //         .centerCrop()
-        //         .error(mDefaultCardImage)
-        //         .into(button.getMainImageView());
-
+        if(info.isViewed()){
+            button.setTextColor(sViewedFontColor);
+        }
     }
 
     @Override

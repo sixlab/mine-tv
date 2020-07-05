@@ -23,7 +23,7 @@ import androidx.leanback.widget.RowPresenter;
 import androidx.leanback.widget.SpeechRecognitionCallback;
 
 import com.ubtv66.minetv.data.DbHelper;
-import com.ubtv66.minetv.data.RetrofitHelper;
+import com.ubtv66.minetv.data.RequestHelper;
 import com.ubtv66.minetv.page.CardPresenter;
 import com.ubtv66.minetv.page.detail.VodDetailActivity;
 import com.ubtv66.minetv.utils.ListUtils;
@@ -137,7 +137,7 @@ public class MineSearchFragment extends SearchFragment
      */
     private void loadRows() {
         // offload processing from the UI thread
-        RetrofitHelper.service.detail(mQuery,1).enqueue(new MineCallback<VodListVo>() {
+        RequestHelper.service.detail(mQuery,1).enqueue(new MineCallback<VodListVo>() {
             @Override
             public void success(VodListVo body) {
                 mRowsAdapter.clear();

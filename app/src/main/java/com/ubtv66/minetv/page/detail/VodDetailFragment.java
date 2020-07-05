@@ -33,7 +33,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.ubtv66.minetv.MainActivity;
 import com.ubtv66.minetv.R;
 import com.ubtv66.minetv.data.DbHelper;
-import com.ubtv66.minetv.data.RetrofitHelper;
+import com.ubtv66.minetv.data.RequestHelper;
 import com.ubtv66.minetv.page.BlockPresenter;
 import com.ubtv66.minetv.page.play.PlaybackActivity;
 import com.ubtv66.minetv.utils.MineCallback;
@@ -41,7 +41,9 @@ import com.ubtv66.minetv.vo.UrlInfo;
 import com.ubtv66.minetv.vo.VodInfo;
 import com.ubtv66.minetv.vo.VodListVo;
 
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.Map;
 
 /*
  * LeanbackDetailsFragment extends DetailsFragment, a Wrapper fragment for leanback details screens.
@@ -51,8 +53,8 @@ public class VodDetailFragment extends DetailsFragment {
     private static final String TAG = "VideoDetailsFragment";
 
     private static final int ACTION_STAR = 1;
-    private static final int ACTION_NOT = 2;
-    private static final int ACTION_CLEAR = 3;
+    private static final int ACTION_CLEAR = 2;
+    private static final int ACTION_VIEWED = 3;
     private static final int ACTION_UPDATE = 4;
 
     private static final int DETAIL_THUMB_WIDTH = 274;
@@ -88,6 +90,15 @@ public class VodDetailFragment extends DetailsFragment {
         }
     }
 
+    // @Override
+    // public void onResume() {
+    //     super.onResume();
+    //
+    //     mAdapter.clear();
+    //     setupRelatedMovieListRow();
+    //     setAdapter(mAdapter);
+    // }
+
     private void initializeBackground(VodInfo data) {
         mDetailsBackground.enableParallax();
         Glide.with(getActivity()).load(data.getVod_pic()).asBitmap().centerCrop().error(R.drawable.default_background).into(new SimpleTarget<Bitmap>() {
@@ -105,6 +116,7 @@ public class VodDetailFragment extends DetailsFragment {
         row.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.default_background));
         int width = convertDpToPixel(getActivity().getApplicationContext(), DETAIL_THUMB_WIDTH);
         int height = convertDpToPixel(getActivity().getApplicationContext(), DETAIL_THUMB_HEIGHT);
+
         Glide.with(getActivity()).load(mSelectedMovie.getVod_pic()).centerCrop().error(R.drawable.default_background).into(new SimpleTarget<GlideDrawable>(width, height) {
             @Override
             public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
@@ -116,11 +128,15 @@ public class VodDetailFragment extends DetailsFragment {
 
         ArrayObjectAdapter actionAdapter = new ArrayObjectAdapter();
 
-        actionAdapter.add(new Action(ACTION_STAR, getResources().getString(R.string.type_star)));
-
-        actionAdapter.add(new Action(ACTION_NOT, getResources().getString(R.string.action_star_not)));
+        if(DbHelper.isStar(getContext(), mSelectedMovie.getVod_id())){
+            actionAdapter.add(new Action(ACTION_STAR, getResources().getString(R.string.action_star_not)));
+        }else{
+            actionAdapter.add(new Action(ACTION_STAR, getResources().getString(R.string.type_star)));
+        }
 
         actionAdapter.add(new Action(ACTION_CLEAR, getResources().getString(R.string.action_clear)));
+
+        actionAdapter.add(new Action(ACTION_VIEWED, getResources().getString(R.string.clear_view)));
 
         actionAdapter.add(new Action(ACTION_UPDATE, getResources().getString(R.string.action_update)));
 
@@ -130,9 +146,11 @@ public class VodDetailFragment extends DetailsFragment {
     }
 
     private void setupDetailsOverviewRowPresenter() {
+        final Context context = getContext();
+
         // Set detail background.
         FullWidthDetailsOverviewRowPresenter detailsPresenter = new FullWidthDetailsOverviewRowPresenter(new DetailsDescriptionPresenter());
-        detailsPresenter.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.selected_background));
+        detailsPresenter.setBackgroundColor(ContextCompat.getColor(context, R.color.selected_background));
 
         // Hook up transition element.
         FullWidthDetailsOverviewSharedElementHelper sharedElementHelper = new FullWidthDetailsOverviewSharedElementHelper();
@@ -145,16 +163,31 @@ public class VodDetailFragment extends DetailsFragment {
             public void onActionClicked(Action action) {
                 if (action.getId() == ACTION_UPDATE) {
                     updateUrl();
-                }else{
+                    // } else if (action.getId() == ACTION_VIEWED) {
+                    //
+                } else {
+                    String msg = "";
                     if (action.getId() == ACTION_STAR) {
-                        DbHelper.insertStar(getContext(), mSelectedMovie);
-                    } else if (action.getId() == ACTION_NOT) {
-                        DbHelper.delStar(getContext(), mSelectedMovie.getVod_id());
+                        if (DbHelper.isStar(context, mSelectedMovie.getVod_id())) {
+                            msg = getString(R.string.action_star_not);
+                            DbHelper.delStar(getContext(), mSelectedMovie.getVod_id());
+                        }else{
+                            msg = getString(R.string.type_star);
+                            DbHelper.insertStar(context, mSelectedMovie);
+                        }
                     } else if (action.getId() == ACTION_CLEAR) {
-                        DbHelper.delHis(getContext(), mSelectedMovie.getVod_id());
+                        msg = getString(R.string.action_clear);
+                        DbHelper.delHis(context, mSelectedMovie.getVod_id());
+                    } else if (action.getId() == ACTION_VIEWED) {
+                        msg = getString(R.string.clear_view);
+                        DbHelper.delViews(context, mSelectedMovie.getVod_id());
+
+                        mAdapter.clear();
+                        setupRelatedMovieListRow();
+                        setAdapter(mAdapter);
                     }
 
-                    Toast.makeText(getContext(), "done", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, msg + " done", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -165,7 +198,7 @@ public class VodDetailFragment extends DetailsFragment {
         if (mSelectedMovie.getVod_id() < 0) {
             return;
         }
-        RetrofitHelper.service.detail(mSelectedMovie.getVod_id()).enqueue(new MineCallback<VodListVo>() {
+        RequestHelper.service.detail(mSelectedMovie.getVod_id()).enqueue(new MineCallback<VodListVo>() {
             @Override
             public void success(VodListVo body) {
                 List<VodInfo> list = body.getList();
@@ -195,13 +228,13 @@ public class VodDetailFragment extends DetailsFragment {
 "vod_play_url": "蓝光1080P$https://zk.sd-dykj.com/share/BGLpBLhHvAeK8wYS$$$蓝光1080P$https://zk.sd-dykj.com/2020/07/02/BGLpBLhHvAeK8wYS/playlist.m3u8$$$蓝光1080P$https://zk.sd-dykj.com/share/BGLpBLhHvAeK8wYS$$$蓝光1080P$https://zk.sd-dykj.com/2020/07/02/BGLpBLhHvAeK8wYS/playlist.m3u8$$$HD中字$https://iqiyi.cdn27-okzy.com/share/8153349b1eb6f6c01622d4f395993bfe$$$HD中字$https://iqiyi.cdn27-okzy.com/20200702/5586_debea6cd/index.m3u8",
          */
 
-        // mAdapter.clear();
-
         String playFrom = mSelectedMovie.getVod_play_from();
         String playUrl = mSelectedMovie.getVod_play_url();
 
         String[] groups = TextUtils.split(playFrom, "\\$\\$\\$");
         String[] groupsUrls = TextUtils.split(playUrl, "\\$\\$\\$");
+
+        Map<String, Integer> map = DbHelper.queryView(getContext(), mSelectedMovie.getVod_id());
 
         for (int i = 0; i < groups.length; i++) {
             String group = groups[i];
@@ -213,21 +246,27 @@ public class VodDetailFragment extends DetailsFragment {
                 //   蓝光1080P$https://zk.sd-dykj.com/share/BGLpBLhHvAeK8wYS
                 String[] urlInfos = TextUtils.split(url, "\\$");
 
+                UrlInfo info = new UrlInfo();
+                info.setVodId(mSelectedMovie.getVod_id());
+
                 if (urlInfos.length == 2) {
-                    UrlInfo info = new UrlInfo();
                     info.setVodName(mSelectedMovie.getVod_name());
                     info.setGroupName(group);
                     info.setItemName(urlInfos[0]);
                     info.setPlayUrl(urlInfos[1]);
-                    listRowAdapter.add(info);
+
+                    String key = MessageFormat.format("{0}${1}", group, info.getItemName());
+                    info.setViewed(map.containsKey(key));
                 } else {
-                    UrlInfo info = new UrlInfo();
                     info.setVodName(url);
                     info.setGroupName(String.valueOf(urlInfos.length));
                     info.setItemName("Error");
                     info.setPlayUrl("Error");
-                    listRowAdapter.add(info);
+                    info.setViewed(false);
                 }
+
+                listRowAdapter.add(info);
+
             }
 
             HeaderItem header = new HeaderItem(0, group);
@@ -250,6 +289,8 @@ public class VodDetailFragment extends DetailsFragment {
                 if ("Error".equals(info.getPlayUrl())) {
                     Toast.makeText(getContext(), info.getGroupName() + ":" + info.getVodName(), Toast.LENGTH_LONG).show();
                 } else {
+                    DbHelper.insertView(getContext(), info.getVodId(), info.getGroupName(), info.getItemName());
+
                     Intent intent = new Intent(getActivity(), PlaybackActivity.class);
                     intent.putExtra(VodDetailActivity.MOVIE, info);
                     startActivity(intent);
