@@ -1,6 +1,7 @@
 package androidx.leanback.media;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -8,24 +9,16 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.leanback.widget.Action;
+import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ObjectAdapter;
 import androidx.leanback.widget.PlaybackControlsRow;
+
+import com.ubtv66.minetv.page.play.PlaybackActivity;
 
 public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportControlGlue<T> {
 
     private Toast toast = null;
-    private int seconds =10;
-
-    @SuppressLint("ShowToast")
-    public void toast(CharSequence text){
-        try{
-            toast.getView().isShown();
-            toast.setText(text);
-        } catch (Exception e) {
-            toast = Toast.makeText(getContext(), text, Toast.LENGTH_LONG);
-        }
-        toast.show();
-    }
+    private int seconds = 30;
 
     /**
      * Constructor for the glue.
@@ -42,7 +35,7 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
         if (event.getAction() == KeyEvent.ACTION_UP) {
             // 按下
 
-        }else if (event.getAction() == KeyEvent.ACTION_DOWN) {
+        } else if (event.getAction() == KeyEvent.ACTION_DOWN) {
             // 起来
 
             switch (keyCode) {
@@ -56,15 +49,21 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
                     return true;
                 case KeyEvent.KEYCODE_DPAD_UP: // 菜单
                     Log.d("key", "up--->");
-                    updateSeconds(seconds+10);
+                    updateSeconds(seconds + 10);
                     return true;
                 case KeyEvent.KEYCODE_DPAD_DOWN: // 菜单
                     Log.d("key", "down--->");
-                    updateSeconds(seconds-10);
+                    updateSeconds(seconds - 10);
                     return true;
-                case KeyEvent.KEYCODE_ENTER: // OK
-                    Log.d("key", "enter--->");
-                    updateSeconds(10);
+                case KeyEvent.KEYCODE_BACK: // 返回
+                    Log.d("key", "back--->");
+                    updateSeconds(30);
+                    new AlertDialog.Builder(getContext())
+                            .setMessage("确定退出？")
+                            .setPositiveButton("确定", (dialog, id) -> ((PlaybackActivity) getContext()).finish())
+                            .setNegativeButton("取消", null)
+                            .show();
+                    return true;
             }
         }
 
@@ -92,6 +91,21 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onActionClicked(Action action) {
+        if (action instanceof PlaybackControlsRow.ThumbsUpAction) {
+            updateSeconds(seconds + 60);
+        } else if (action instanceof PlaybackControlsRow.ThumbsDownAction) {
+            updateSeconds(30);
+        } else if (action instanceof PlaybackControlsRow.RewindAction) {
+            backward();
+        } else if (action instanceof PlaybackControlsRow.FastForwardAction) {
+            forward();
+        } else {
+            super.onActionClicked(action);
+        }
     }
 
     @Override
@@ -127,19 +141,44 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
         return handled;
     }
 
+    @Override
+    protected void onCreatePrimaryActions(ArrayObjectAdapter adapter) {
+        super.onCreatePrimaryActions(adapter);
+        adapter.add(new PlaybackControlsRow.RewindAction(getContext()));
+        adapter.add(new PlaybackControlsRow.FastForwardAction(getContext()));
+    }
+
+    @Override
+    protected void onCreateSecondaryActions(ArrayObjectAdapter adapter) {
+        super.onCreateSecondaryActions(adapter);
+        adapter.add(new PlaybackControlsRow.ThumbsUpAction(getContext()));
+        adapter.add(new PlaybackControlsRow.ThumbsDownAction(getContext()));
+    }
+
+    @SuppressLint("ShowToast")
+    public void toast(CharSequence text) {
+        try {
+            toast.getView().isShown();
+            toast.setText(text);
+        } catch (Exception e) {
+            toast = Toast.makeText(getContext(), text, Toast.LENGTH_LONG);
+        }
+        toast.show();
+    }
+
     public void forward() {
         long currentPosition = getCurrentPosition();
-        seekTo(currentPosition + seconds*1000);
+        seekTo(currentPosition + seconds * 1000);
     }
 
     public void backward() {
         long currentPosition = getCurrentPosition();
-        seekTo(currentPosition - seconds*1000);
+        seekTo(currentPosition - seconds * 1000);
     }
 
     public void updateSeconds(int seconds) {
         this.seconds = seconds;
-        toast("当前快进/快退间隔 " +seconds +" 秒");
+        toast("当前快进/快退间隔 " + seconds + " 秒");
     }
 
     // HOME
