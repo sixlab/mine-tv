@@ -25,6 +25,7 @@ import androidx.leanback.widget.PlaybackControlsRow;
 import com.ubtv66.minetv.page.detail.VodDetailActivity;
 import com.ubtv66.minetv.vo.UrlInfo;
 
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 
 /**
@@ -134,30 +135,50 @@ public class PlaybackVideoFragment extends VideoSupportFragment {
         }
     }
 
-    private String time = "";
-
     private class Run implements Runnable{
         @Override
         public void run() {
             SimpleDateFormat df = new SimpleDateFormat("HH:mm");
             String date = df.format(new java.util.Date());
 
-            if(!time.equals(date)){
-                time = date;
+            String current = timeParse(mTransportControlGlue.getCurrentPosition());
+            String duration = timeParse(mTransportControlGlue.getDuration());
 
-                Canvas canvas = holder.lockCanvas(null);
+            String text = MessageFormat.format("{0}({1}/{2})", date, current, duration);
 
-                canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            Canvas canvas = holder.lockCanvas(null);
 
-                Paint timePaint = new Paint();
-                timePaint.setColor(Color.WHITE);
-                timePaint.setTextSize(25);
-                canvas.drawText(date, 100, 250, timePaint);
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
-                holder.unlockCanvasAndPost(canvas);
-            }
+            Paint timePaint = new Paint();
+            timePaint.setColor(Color.WHITE);
+            timePaint.setTextSize(25);
+            canvas.drawText(text, 100, 250, timePaint);
 
-            timeHandler.postDelayed(this, 5000);
+            holder.unlockCanvasAndPost(canvas);
+
+            timeHandler.postDelayed(this, 1000);
         }
+    }
+
+    public static String timeParse(long duration) {
+        String time = "";
+
+        long minute = duration / 60000;
+        long seconds = duration % 60000;
+
+        long second = Math.round((float) seconds / 1000);
+
+        if (minute < 10) {
+            time += "0";
+        }
+        time += minute + ":";
+
+        if (second < 10) {
+            time += "0";
+        }
+        time += second;
+
+        return time;
     }
 }
