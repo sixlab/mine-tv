@@ -1,16 +1,11 @@
 <resources>
-    <color name="background_gradient_start">#0ffff0</color>
-    <color name="background_gradient_end">#ffaa3f</color>
 
-    <!-- 主页左侧背景色 -->
-    <color name="fastlane_background">#2196F3</color>
-    <!-- 主页搜索背景色 -->
-    <color name="search_opaque">#20B5FA</color>
+    <color name="bl_yellow">#FEC52C</color>
+    <color name="bl_pink">#FC7394</color>
+    <color name="bl_red">#F34F4F</color>
+    <color name="bl_green">#5BEBBC</color>
+    <color name="bl_purple">#AB5DC2</color>
+    <color name="bl_blue">#53B3E6</color>
+    <color name="bl_cyan">#B5E233</color>
 
-    <!-- 已选中背景色 -->
-    <color name="selected_background">#2196F3</color>
-    <!-- 未选中背景色 -->
-    <color name="default_background">#20B5FA</color>
-    <!-- 未选中背景色 -->
-    <color name="viewed_font">#ffaa3f</color>
 </resources>

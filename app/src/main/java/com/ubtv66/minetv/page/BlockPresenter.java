@@ -17,8 +17,8 @@ import com.ubtv66.minetv.vo.UrlInfo;
 public class BlockPresenter extends Presenter {
     private static final String TAG = "CardPresenter";
 
-    private static final int CARD_WIDTH = 200; // 313;
-    private static final int CARD_HEIGHT = 100; // 176;
+    // private static final int CARD_WIDTH = 200; // 313;
+    // private static final int CARD_HEIGHT = 100; // 176;
     private static int sSelectedBackgroundColor;
     private static int sDefaultBackgroundColor;
     private static int sViewedFontColor;
@@ -37,19 +37,26 @@ public class BlockPresenter extends Presenter {
         Log.d(TAG, "onCreateViewHolder");
 
         sDefaultBackgroundColor =
-                ContextCompat.getColor(parent.getContext(), R.color.default_background);
+                ContextCompat.getColor(parent.getContext(), R.color.bl_blue);
         sSelectedBackgroundColor =
-                ContextCompat.getColor(parent.getContext(), R.color.selected_background);
+                ContextCompat.getColor(parent.getContext(), R.color.bl_green);
         sViewedFontColor =
-                ContextCompat.getColor(parent.getContext(), R.color.viewed_font);
+                ContextCompat.getColor(parent.getContext(), R.color.bl_purple);
         /*
          * This template uses a default image in res/drawable, but the general case for Android TV
          * will require your resources in xhdpi. For more information, see
          * https://developer.android.com/training/tv/start/layouts.html#density-resources
          */
 
-        Button button = new Button(parent.getContext());
+        Button button = new androidx.appcompat.widget.AppCompatButton(parent.getContext()) {
+            @Override
+            public void setSelected(boolean selected) {
+                updateCardBackgroundColor(this, selected);
+                super.setSelected(selected);
+            }
+        };
 
+        button.setPadding(40, 18, 40, 18);
         button.setFocusable(true);
         button.setFocusableInTouchMode(true);
 

@@ -150,7 +150,7 @@ public class VodDetailFragment extends DetailsFragment {
 
         // Set detail background.
         FullWidthDetailsOverviewRowPresenter detailsPresenter = new FullWidthDetailsOverviewRowPresenter(new DetailsDescriptionPresenter());
-        detailsPresenter.setBackgroundColor(ContextCompat.getColor(context, R.color.selected_background));
+        detailsPresenter.setBackgroundColor(ContextCompat.getColor(context, R.color.bl_blue));
 
         // Hook up transition element.
         FullWidthDetailsOverviewSharedElementHelper sharedElementHelper = new FullWidthDetailsOverviewSharedElementHelper();

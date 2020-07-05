@@ -20,6 +20,5 @@ public class DetailsDescriptionPresenter extends AbstractDetailsDescriptionPrese
             viewHolder.getBody().setText(info.getVod_content());
         }
 
-        // viewHolder.getBody().setHeight(HEIGHT);
     }
 }

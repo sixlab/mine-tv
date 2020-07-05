@@ -11,14 +11,14 @@ import com.ubtv66.minetv.R;
 public class MineSearchActivity extends Activity {
 
     private static final String TAG = MineSearchActivity.class.getSimpleName();
-    private MineSearchFragment mSearchFragment;
+    // private MineSearchFragment mSearchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
-        mSearchFragment = (MineSearchFragment) getFragmentManager().findFragmentById(R.id.search_fragment);
+        //
+        // mSearchFragment = (MineSearchFragment) getFragmentManager().findFragmentById(R.id.search_fragment);
     }
 
     @Override
