@@ -7,6 +7,7 @@ import androidx.leanback.app.VideoSupportFragment;
 import androidx.leanback.app.VideoSupportFragmentGlueHost;
 import androidx.leanback.media.MediaPlayerAdapter;
 import androidx.leanback.media.MinePlayer;
+import androidx.leanback.media.PlaybackGlue;
 import androidx.leanback.widget.PlaybackControlsRow;
 
 import com.ubtv66.minetv.page.detail.VodDetailActivity;
@@ -38,6 +39,13 @@ public class PlaybackVideoFragment extends VideoSupportFragment {
         mTransportControlGlue.setTitle(info.getVodName());
         mTransportControlGlue.setSubtitle("["+info.getGroupName()+"]"+info.getItemName());
         mTransportControlGlue.playWhenPrepared();
+        mTransportControlGlue.addPlayerCallback(new PlaybackGlue.PlayerCallback(){
+            @Override
+            public void onPlayCompleted(PlaybackGlue glue) {
+                super.onPlayCompleted(glue);
+                ((PlaybackActivity) getContext()).finish();
+            }
+        });
 
         // TODO 播放器地址
         playerAdapter.setDataSource(Uri.parse(info.getPlayUrl()));
