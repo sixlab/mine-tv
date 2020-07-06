@@ -1,6 +1,8 @@
 package com.ubtv66.minetv.page.play;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -19,5 +21,10 @@ public class PlaybackActivity extends FragmentActivity {
                     .commit();
         }
     }
-    
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.i("","");
+        return super.onKeyDown(keyCode, event);
+    }
 }

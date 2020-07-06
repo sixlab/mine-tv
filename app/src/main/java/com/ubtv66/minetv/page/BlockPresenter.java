@@ -84,4 +84,3 @@ public class BlockPresenter extends Presenter {
         // Remove references to images so that the garbage collector can free up memory
     }
 }
-// finish

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.core.content.ContextCompat;
+import androidx.leanback.app.MineVideoFragment;
 import androidx.leanback.app.VideoSupportFragment;
 import androidx.leanback.app.VideoSupportFragmentGlueHost;
 import androidx.leanback.media.MediaPlayerAdapter;
@@ -31,10 +32,11 @@ import java.text.SimpleDateFormat;
 /**
  * Handles video playback with media controls.
  */
-public class PlaybackVideoFragment extends VideoSupportFragment {
+public class PlaybackVideoFragment extends MineVideoFragment {
 
     private MinePlayer<MediaPlayerAdapter> mTransportControlGlue;
     private Handler timeHandler = new Handler();
+    private Runnable runnable;
     private SurfaceHolder holder;
 
     @Override
@@ -44,8 +46,7 @@ public class PlaybackVideoFragment extends VideoSupportFragment {
         final UrlInfo info =
                 (UrlInfo) getActivity().getIntent().getSerializableExtra(VodDetailActivity.MOVIE);
 
-        VideoSupportFragmentGlueHost glueHost =
-                new VideoSupportFragmentGlueHost(PlaybackVideoFragment.this);
+        VideoSupportFragmentGlueHost glueHost = new VideoSupportFragmentGlueHost((VideoSupportFragment) PlaybackVideoFragment.this);
 
         MediaPlayerAdapter playerAdapter = new MediaPlayerAdapter(getContext());
         playerAdapter.setRepeatAction(PlaybackControlsRow.RepeatAction.INDEX_NONE);
@@ -53,9 +54,9 @@ public class PlaybackVideoFragment extends VideoSupportFragment {
         mTransportControlGlue = new MinePlayer<>(getContext(), playerAdapter);
         mTransportControlGlue.setHost(glueHost);
         mTransportControlGlue.setTitle(info.getVodName());
-        mTransportControlGlue.setSubtitle("["+info.getGroupName()+"]"+info.getItemName());
+        mTransportControlGlue.setSubtitle("[" + info.getGroupName() + "]" + info.getItemName());
         mTransportControlGlue.playWhenPrepared();
-        mTransportControlGlue.addPlayerCallback(new PlaybackGlue.PlayerCallback(){
+        mTransportControlGlue.addPlayerCallback(new PlaybackGlue.PlayerCallback() {
             @Override
             public void onPlayCompleted(PlaybackGlue glue) {
                 super.onPlayCompleted(glue);
@@ -82,12 +83,13 @@ public class PlaybackVideoFragment extends VideoSupportFragment {
         root.addView(timeView, 0);
         this.holder = timeView.getHolder();
 
+        runnable = new DrawTime();
         holder.addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    timeHandler.postDelayed(new Run(), 1000);
-                }catch (Exception e){
+                    timeHandler.postDelayed(runnable, 1000);
+                } catch (Exception e) {
                 }
             }
 
@@ -127,6 +129,14 @@ public class PlaybackVideoFragment extends VideoSupportFragment {
         return root;
     }
 
+    public void backward() {
+        mTransportControlGlue.backward(mTransportControlGlue.getSeconds());
+    }
+
+    public void forward() {
+        mTransportControlGlue.forward(mTransportControlGlue.getSeconds());
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -135,7 +145,14 @@ public class PlaybackVideoFragment extends VideoSupportFragment {
         }
     }
 
-    private class Run implements Runnable{
+    @Override
+    public void onDestroy() {
+        timeHandler.removeCallbacks(runnable);
+        runnable = null;
+        super.onDestroy();
+    }
+
+    private class DrawTime implements Runnable {
         @Override
         public void run() {
             SimpleDateFormat df = new SimpleDateFormat("HH:mm");

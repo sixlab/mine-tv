@@ -22,4 +22,3 @@ public class VodDetailActivity extends Activity {
     }
 
 }
-// finish
