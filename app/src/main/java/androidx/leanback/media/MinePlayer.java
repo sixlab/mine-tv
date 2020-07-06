@@ -3,12 +3,10 @@ package androidx.leanback.media;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.leanback.widget.Action;
 import androidx.leanback.widget.ArrayObjectAdapter;
-import androidx.leanback.widget.ObjectAdapter;
 import androidx.leanback.widget.PlaybackControlsRow;
 
 public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportControlGlue<T> {
@@ -27,51 +25,6 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
     }
 
     @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        // if (event.getAction() == KeyEvent.ACTION_UP) {
-        //     // 按下
-        //
-        // } else if (event.getAction() == KeyEvent.ACTION_DOWN) {
-        //     // 起来
-        //     switch (keyCode) {
-        //         case KeyEvent.KEYCODE_BACK: // 返回
-        //             Log.d("key", "back--->");
-        //             new AlertDialog.Builder(getContext())
-        //                     .setMessage("确定退出？")
-        //                     .setNegativeButton("确定", (dialog, id) -> ((PlaybackActivity) getContext()).finish())
-        //                     .setPositiveButton("取消", null)
-        //                     .show();
-        //             return true;
-        //     }
-        // }
-        //
-        // switch (keyCode) {
-        //     case KeyEvent.KEYCODE_DPAD_UP:
-        //     case KeyEvent.KEYCODE_DPAD_DOWN:
-        //     case KeyEvent.KEYCODE_DPAD_RIGHT:
-        //     case KeyEvent.KEYCODE_DPAD_LEFT:
-        //     case KeyEvent.KEYCODE_BACK:
-        //     case KeyEvent.KEYCODE_ESCAPE:
-        //         return false;
-        // }
-
-        final ObjectAdapter primaryActionsAdapter = mControlsRow.getPrimaryActionsAdapter();
-        Action action = mControlsRow.getActionForKeyCode(primaryActionsAdapter, keyCode);
-        if (action == null) {
-            action = mControlsRow.getActionForKeyCode(mControlsRow.getSecondaryActionsAdapter(),
-                    keyCode);
-        }
-
-        if (action != null) {
-            if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                dispatchAction(action, event);
-            }
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public void onActionClicked(Action action) {
         if (action instanceof PlaybackControlsRow.ThumbsUpAction) {
             updateSeconds(seconds + 10);
@@ -83,16 +36,16 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
             updateSeconds(seconds - 60);
         } else if (action instanceof PlaybackControlsRow.RepeatAction) {
             updateSeconds(30);
-            // } else if (action instanceof PictureInPictureAction.RewindAction) {
-            //     backward();
-            // } else if (action instanceof ClosedCaptioningAction.RewindAction) {
-            //     backward();
-            // } else if (action instanceof HighQualityAction.RewindAction) {
-            //     backward();
-            // } else if (action instanceof ShuffleAction.RewindAction) {
-            //     backward();
-            // } else if (action instanceof MoreActions.RewindAction) {
-            //     backward();
+        } else if (action instanceof PlaybackControlsRow.PictureInPictureAction) {
+            toast("未实现");
+        } else if (action instanceof PlaybackControlsRow.ClosedCaptioningAction) {
+            toast("未实现");
+        } else if (action instanceof PlaybackControlsRow.HighQualityAction) {
+            toast("未实现");
+        } else if (action instanceof PlaybackControlsRow.ShuffleAction) {
+            toast("未实现");
+        } else if (action instanceof PlaybackControlsRow.MoreActions) {
+            toast("未实现");
         } else if (action instanceof PlaybackControlsRow.RewindAction) {
             backward(seconds);
         } else if (action instanceof PlaybackControlsRow.FastForwardAction) {
@@ -100,39 +53,6 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
         } else {
             super.onActionClicked(action);
         }
-    }
-
-    @Override
-    boolean dispatchAction(Action action, KeyEvent keyEvent) {
-        boolean handled = false;
-        if (action instanceof PlaybackControlsRow.PlayPauseAction) {
-            boolean canPlay = keyEvent == null
-                    || keyEvent.getKeyCode() == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE
-                    || keyEvent.getKeyCode() == KeyEvent.KEYCODE_MEDIA_PLAY;
-            boolean canPause = keyEvent == null
-                    || keyEvent.getKeyCode() == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE
-                    || keyEvent.getKeyCode() == KeyEvent.KEYCODE_MEDIA_PAUSE;
-            //            PLAY_PAUSE    PLAY      PAUSE
-            // playing    paused                  paused
-            // paused     playing       playing
-            // ff/rw      playing       playing   paused
-            if (canPause && mIsPlaying) {
-                mIsPlaying = false;
-                pause();
-            } else if (canPlay && !mIsPlaying) {
-                mIsPlaying = true;
-                play();
-            }
-            onUpdatePlaybackStatusAfterUserAction();
-            handled = true;
-        } else if (action instanceof PlaybackControlsRow.SkipNextAction) {
-            next();
-            handled = true;
-        } else if (action instanceof PlaybackControlsRow.SkipPreviousAction) {
-            previous();
-            handled = true;
-        }
-        return handled;
     }
 
     @Override
@@ -177,11 +97,13 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
     public void forward(int seconds) {
         long currentPosition = getCurrentPosition();
         seekTo(currentPosition + seconds * 1000);
+        toast("前进：" + seconds + " 秒");
     }
 
     public void backward(int seconds) {
         long currentPosition = getCurrentPosition();
         seekTo(currentPosition - seconds * 1000);
+        toast("后退：" + seconds + " 秒");
     }
 
     public void updateSeconds(int seconds) {
@@ -189,7 +111,7 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
             seconds = 10;
         }
         this.seconds = seconds;
-        toast("当前快进/快退间隔 " + seconds + " 秒");
+        toast("步进间隔 " + seconds + " 秒");
     }
 
     // HOME
