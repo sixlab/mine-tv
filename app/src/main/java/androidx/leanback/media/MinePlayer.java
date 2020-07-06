@@ -1,9 +1,7 @@
 package androidx.leanback.media;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -12,8 +10,6 @@ import androidx.leanback.widget.Action;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ObjectAdapter;
 import androidx.leanback.widget.PlaybackControlsRow;
-
-import com.ubtv66.minetv.page.play.PlaybackActivity;
 
 public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportControlGlue<T> {
 
@@ -32,50 +28,32 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_UP) {
-            // 按下
-
-        } else if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            // 起来
-
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_DPAD_RIGHT:  //向右键
-                    Log.d("key", "right--->");
-                    forward();
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_LEFT: //向左键
-                    Log.d("key", "left--->");
-                    backward();
-                    return true;
-                case KeyEvent.KEYCODE_BACK: // 返回
-                    Log.d("key", "back--->");
-                    updateSeconds(30);
-                    new AlertDialog.Builder(getContext())
-                            .setMessage("确定退出？")
-                            .setPositiveButton("确定", (dialog, id) -> ((PlaybackActivity) getContext()).finish())
-                            .setNegativeButton("取消", null)
-                            .show();
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_UP: // 菜单
-                    Log.d("key", "up--->");
-                    updateSeconds(seconds + 10);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_DOWN: // 菜单
-                    Log.d("key", "down--->");
-                    updateSeconds(seconds - 10);
-                    break;
-            }
-        }
-
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_UP:
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-            case KeyEvent.KEYCODE_BACK:
-            case KeyEvent.KEYCODE_ESCAPE:
-                return false;
-        }
+        // if (event.getAction() == KeyEvent.ACTION_UP) {
+        //     // 按下
+        //
+        // } else if (event.getAction() == KeyEvent.ACTION_DOWN) {
+        //     // 起来
+        //     switch (keyCode) {
+        //         case KeyEvent.KEYCODE_BACK: // 返回
+        //             Log.d("key", "back--->");
+        //             new AlertDialog.Builder(getContext())
+        //                     .setMessage("确定退出？")
+        //                     .setNegativeButton("确定", (dialog, id) -> ((PlaybackActivity) getContext()).finish())
+        //                     .setPositiveButton("取消", null)
+        //                     .show();
+        //             return true;
+        //     }
+        // }
+        //
+        // switch (keyCode) {
+        //     case KeyEvent.KEYCODE_DPAD_UP:
+        //     case KeyEvent.KEYCODE_DPAD_DOWN:
+        //     case KeyEvent.KEYCODE_DPAD_RIGHT:
+        //     case KeyEvent.KEYCODE_DPAD_LEFT:
+        //     case KeyEvent.KEYCODE_BACK:
+        //     case KeyEvent.KEYCODE_ESCAPE:
+        //         return false;
+        // }
 
         final ObjectAdapter primaryActionsAdapter = mControlsRow.getPrimaryActionsAdapter();
         Action action = mControlsRow.getActionForKeyCode(primaryActionsAdapter, keyCode);
@@ -96,13 +74,29 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
     @Override
     public void onActionClicked(Action action) {
         if (action instanceof PlaybackControlsRow.ThumbsUpAction) {
-            updateSeconds(seconds + 60);
+            updateSeconds(seconds + 10);
         } else if (action instanceof PlaybackControlsRow.ThumbsDownAction) {
+            updateSeconds(seconds - 10);
+        } else if (action instanceof PlaybackControlsRow.SkipPreviousAction) {
+            updateSeconds(seconds + 60);
+        } else if (action instanceof PlaybackControlsRow.SkipNextAction) {
+            updateSeconds(seconds - 60);
+        } else if (action instanceof PlaybackControlsRow.RepeatAction) {
             updateSeconds(30);
+            // } else if (action instanceof PictureInPictureAction.RewindAction) {
+            //     backward();
+            // } else if (action instanceof ClosedCaptioningAction.RewindAction) {
+            //     backward();
+            // } else if (action instanceof HighQualityAction.RewindAction) {
+            //     backward();
+            // } else if (action instanceof ShuffleAction.RewindAction) {
+            //     backward();
+            // } else if (action instanceof MoreActions.RewindAction) {
+            //     backward();
         } else if (action instanceof PlaybackControlsRow.RewindAction) {
-            backward();
+            backward(seconds);
         } else if (action instanceof PlaybackControlsRow.FastForwardAction) {
-            forward();
+            forward(seconds);
         } else {
             super.onActionClicked(action);
         }
@@ -146,13 +140,23 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
         super.onCreatePrimaryActions(adapter);
         adapter.add(new PlaybackControlsRow.RewindAction(getContext()));
         adapter.add(new PlaybackControlsRow.FastForwardAction(getContext()));
+
+        adapter.add(new PlaybackControlsRow.MoreActions(getContext()));
     }
 
     @Override
     protected void onCreateSecondaryActions(ArrayObjectAdapter adapter) {
         super.onCreateSecondaryActions(adapter);
+        adapter.add(new PlaybackControlsRow.RepeatAction(getContext()));
         adapter.add(new PlaybackControlsRow.ThumbsUpAction(getContext()));
         adapter.add(new PlaybackControlsRow.ThumbsDownAction(getContext()));
+        adapter.add(new PlaybackControlsRow.SkipPreviousAction(getContext()));
+        adapter.add(new PlaybackControlsRow.SkipNextAction(getContext()));
+
+        adapter.add(new PlaybackControlsRow.PictureInPictureAction(getContext()));
+        adapter.add(new PlaybackControlsRow.ClosedCaptioningAction(getContext()));
+        adapter.add(new PlaybackControlsRow.HighQualityAction(getContext()));
+        adapter.add(new PlaybackControlsRow.ShuffleAction(getContext()));
     }
 
     @SuppressLint("ShowToast")
@@ -166,17 +170,24 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
         toast.show();
     }
 
-    public void forward() {
+    public int getSeconds(){
+        return seconds;
+    }
+
+    public void forward(int seconds) {
         long currentPosition = getCurrentPosition();
         seekTo(currentPosition + seconds * 1000);
     }
 
-    public void backward() {
+    public void backward(int seconds) {
         long currentPosition = getCurrentPosition();
         seekTo(currentPosition - seconds * 1000);
     }
 
     public void updateSeconds(int seconds) {
+        if (seconds <= 0) {
+            seconds = 10;
+        }
         this.seconds = seconds;
         toast("当前快进/快退间隔 " + seconds + " 秒");
     }
