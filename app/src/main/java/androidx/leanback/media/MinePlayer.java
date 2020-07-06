@@ -2,7 +2,6 @@ package androidx.leanback.media;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.view.KeyEvent;
 import android.widget.Toast;
 
 import androidx.leanback.widget.Action;
