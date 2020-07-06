@@ -13,6 +13,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.leanback.app.MineVideoFragment;
@@ -155,26 +156,30 @@ public class PlaybackVideoFragment extends MineVideoFragment {
     private class DrawTime implements Runnable {
         @Override
         public void run() {
-            SimpleDateFormat df = new SimpleDateFormat("HH:mm");
-            String date = df.format(new java.util.Date());
+            try {
+                SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+                String date = df.format(new java.util.Date());
 
-            String current = timeParse(mTransportControlGlue.getCurrentPosition());
-            String duration = timeParse(mTransportControlGlue.getDuration());
+                String current = timeParse(mTransportControlGlue.getCurrentPosition());
+                String duration = timeParse(mTransportControlGlue.getDuration());
 
-            String text = MessageFormat.format("{0}({1}/{2})", date, current, duration);
+                String text = MessageFormat.format("{0}({1}/{2})", date, current, duration);
 
-            Canvas canvas = holder.lockCanvas(null);
+                Canvas canvas = holder.lockCanvas(null);
 
-            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
-            Paint timePaint = new Paint();
-            timePaint.setColor(Color.WHITE);
-            timePaint.setTextSize(25);
-            canvas.drawText(text, 100, 250, timePaint);
+                Paint timePaint = new Paint();
+                timePaint.setColor(Color.WHITE);
+                timePaint.setTextSize(25);
+                canvas.drawText(text, 100, 250, timePaint);
 
-            holder.unlockCanvasAndPost(canvas);
+                holder.unlockCanvasAndPost(canvas);
 
-            timeHandler.postDelayed(this, 1000);
+                timeHandler.postDelayed(this, 1000);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
