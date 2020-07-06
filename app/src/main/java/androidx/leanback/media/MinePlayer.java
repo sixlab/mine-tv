@@ -47,14 +47,6 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
                     Log.d("key", "left--->");
                     backward();
                     return true;
-                case KeyEvent.KEYCODE_DPAD_UP: // 菜单
-                    Log.d("key", "up--->");
-                    updateSeconds(seconds + 10);
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_DOWN: // 菜单
-                    Log.d("key", "down--->");
-                    updateSeconds(seconds - 10);
-                    return true;
                 case KeyEvent.KEYCODE_BACK: // 返回
                     Log.d("key", "back--->");
                     updateSeconds(30);
@@ -64,6 +56,14 @@ public class MinePlayer<T extends PlayerAdapter> extends PlaybackTransportContro
                             .setNegativeButton("取消", null)
                             .show();
                     return true;
+                case KeyEvent.KEYCODE_DPAD_UP: // 菜单
+                    Log.d("key", "up--->");
+                    updateSeconds(seconds + 10);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_DOWN: // 菜单
+                    Log.d("key", "down--->");
+                    updateSeconds(seconds - 10);
+                    break;
             }
         }
 
