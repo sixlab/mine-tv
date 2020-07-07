@@ -147,18 +147,17 @@ public class MineSearchFragment extends SearchFragment
                 List<VodInfo> list = body.getList();
 
                 if(null!=list && list.size()>0){
-                    List<List> listList = ListUtils.splitList(list, 6);
+                    HeaderItem header = new HeaderItem(getString(R.string.search_results, list.size() + ""));
+                    ListRow row = new ListRow(header, new ArrayObjectAdapter());
+                    mRowsAdapter.add(row);
 
+                    List<List> listList = ListUtils.splitList(list, 6);
                     for (List itemList : listList) {
                         ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(new CardPresenter());
                         listRowAdapter.addAll(0, itemList);
                         ListRow listRow = new ListRow(listRowAdapter);
                         mRowsAdapter.add(listRow);
                     }
-
-                    HeaderItem header = new HeaderItem(getString(R.string.search_results, list.size() + ""));
-                    ListRow row = new ListRow(header, new ArrayObjectAdapter());
-                    mRowsAdapter.add(row);
                 }else{
                     HeaderItem header = new HeaderItem(getString(R.string.search_results_none, mQuery));
                     ListRow row = new ListRow(header, new ArrayObjectAdapter());
