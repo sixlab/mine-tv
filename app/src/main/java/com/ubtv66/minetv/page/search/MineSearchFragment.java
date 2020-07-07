@@ -106,7 +106,7 @@ public class MineSearchFragment extends SearchFragment
     }
 
     @Override
-    public boolean onQueryTextChange(String newQuery){
+    public boolean onQueryTextChange(String newQuery) {
         Log.i(TAG, String.format("Search Query Text Change %s", newQuery));
         // loadQueryWithDelay(newQuery, SEARCH_DELAY_MS);
         return true;
@@ -123,6 +123,7 @@ public class MineSearchFragment extends SearchFragment
     /**
      * Starts {@link #loadRows()} method after delay.
      * It also cancels previously registered task if it has not yet executed.
+     *
      * @param query the word to be searched
      * @param delay the time to wait until loadRows will be executed (milliseconds).
      */
@@ -139,26 +140,31 @@ public class MineSearchFragment extends SearchFragment
      */
     private void loadRows() {
         // offload processing from the UI thread
-        RequestHelper.service.detail(mQuery,1).enqueue(new MineCallback<VodListVo>() {
+        RequestHelper.service.detail(mQuery, 1).enqueue(new MineCallback<VodListVo>() {
             @Override
             public void success(VodListVo body) {
                 mRowsAdapter.clear();
 
                 List<VodInfo> list = body.getList();
 
-                if(null!=list && list.size()>0){
-                    HeaderItem header = new HeaderItem(getString(R.string.search_results, list.size() + ""));
-                    ListRow row = new ListRow(header, new ArrayObjectAdapter());
-                    mRowsAdapter.add(row);
-
+                if (null != list && list.size() > 0) {
+                    boolean noneTitle = true;
                     List<List> listList = ListUtils.splitList(list, 6);
                     for (List itemList : listList) {
                         ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(new CardPresenter());
                         listRowAdapter.addAll(0, itemList);
-                        ListRow listRow = new ListRow(listRowAdapter);
+
+                        ListRow listRow;
+                        if (noneTitle) {
+                            noneTitle = false;
+                            HeaderItem header = new HeaderItem(getString(R.string.search_results, list.size() + ""));
+                            listRow = new ListRow(header, listRowAdapter);
+                        } else {
+                            listRow = new ListRow(listRowAdapter);
+                        }
                         mRowsAdapter.add(listRow);
                     }
-                }else{
+                } else {
                     HeaderItem header = new HeaderItem(getString(R.string.search_results_none, mQuery));
                     ListRow row = new ListRow(header, new ArrayObjectAdapter());
                     mRowsAdapter.add(row);
