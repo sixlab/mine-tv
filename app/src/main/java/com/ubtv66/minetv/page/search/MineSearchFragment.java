@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.leanback.app.SearchFragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.HeaderItem;
 import androidx.leanback.widget.ImageCardView;
 import androidx.leanback.widget.ListRow;
 import androidx.leanback.widget.ListRowPresenter;
@@ -22,6 +23,7 @@ import androidx.leanback.widget.Row;
 import androidx.leanback.widget.RowPresenter;
 import androidx.leanback.widget.SpeechRecognitionCallback;
 
+import com.ubtv66.minetv.R;
 import com.ubtv66.minetv.data.DbHelper;
 import com.ubtv66.minetv.data.RequestHelper;
 import com.ubtv66.minetv.page.CardPresenter;
@@ -153,6 +155,14 @@ public class MineSearchFragment extends SearchFragment
                         ListRow listRow = new ListRow(listRowAdapter);
                         mRowsAdapter.add(listRow);
                     }
+
+                    HeaderItem header = new HeaderItem(getString(R.string.search_results, list.size() + ""));
+                    ListRow row = new ListRow(header, new ArrayObjectAdapter());
+                    mRowsAdapter.add(row);
+                }else{
+                    HeaderItem header = new HeaderItem(getString(R.string.search_results_none, mQuery));
+                    ListRow row = new ListRow(header, new ArrayObjectAdapter());
+                    mRowsAdapter.add(row);
                 }
             }
         });
