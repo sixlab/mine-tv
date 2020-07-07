@@ -15,7 +15,7 @@
     <string name="action_update">更新</string>
     <string name="action_clear">清除记录</string>
 
-    <!--    <string name="no_search_results">未搜索到 %s 的结果</string>-->
-<!--    <string name="search_results">搜索结果</string>-->
+    <string name="search_results">搜索结果 %s 个</string>
+    <string name="search_results_none">未搜索到 %s 的结果</string>
 
 </resources>

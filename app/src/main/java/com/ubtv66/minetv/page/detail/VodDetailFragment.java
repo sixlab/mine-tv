@@ -90,14 +90,28 @@ public class VodDetailFragment extends DetailsFragment {
         }
     }
 
-    // @Override
-    // public void onResume() {
-    //     super.onResume();
-    //
-    //     mAdapter.clear();
-    //     setupRelatedMovieListRow();
-    //     setAdapter(mAdapter);
-    // }
+    public void setup() {
+        try{
+            mAdapter.clear();
+
+            setupDetailsOverviewRow();
+            // setupDetailsOverviewRowPresenter();
+            setupRelatedMovieListRow();
+            // setAdapter(mAdapter);
+            // initializeBackground(mSelectedMovie);
+            // setOnItemViewClickedListener(new ItemViewClickedListener());
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(getContext(), "更新界面异常", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setup();
+    }
 
     private void initializeBackground(VodInfo data) {
         mDetailsBackground.enableParallax();
@@ -175,6 +189,8 @@ public class VodDetailFragment extends DetailsFragment {
                             msg = getString(R.string.type_star);
                             DbHelper.insertStar(context, mSelectedMovie);
                         }
+
+                        setup();
                     } else if (action.getId() == ACTION_CLEAR) {
                         msg = getString(R.string.action_clear);
                         DbHelper.delHis(context, mSelectedMovie.getVod_id());
@@ -182,9 +198,7 @@ public class VodDetailFragment extends DetailsFragment {
                         msg = getString(R.string.clear_view);
                         DbHelper.delViews(context, mSelectedMovie.getVod_id());
 
-                        mAdapter.clear();
-                        setupRelatedMovieListRow();
-                        setAdapter(mAdapter);
+                        setup();
                     }
 
                     Toast.makeText(context, msg + " done", Toast.LENGTH_LONG).show();
@@ -210,9 +224,9 @@ public class VodDetailFragment extends DetailsFragment {
 
                     DbHelper.updateInfo(getContext(), info);
 
-                    mAdapter.clear();
-                    setupRelatedMovieListRow();
-                    setAdapter(mAdapter);
+                    Toast.makeText(getContext(), "更新成功", Toast.LENGTH_LONG).show();
+
+                    setup();
                 } else {
                     Toast.makeText(getContext(), "返回的list长度为：" + list.size(), Toast.LENGTH_LONG).show();
                 }
