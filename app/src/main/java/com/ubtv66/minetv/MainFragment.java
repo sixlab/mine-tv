@@ -247,7 +247,7 @@ public class MainFragment extends BrowseFragment {
             view.setLayoutParams(new ViewGroup.LayoutParams(GRID_ITEM_WIDTH, GRID_ITEM_HEIGHT));
             view.setFocusable(true);
             view.setFocusableInTouchMode(true);
-            view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.bl_cyan));
+            view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.bl_green));
             view.setTextColor(Color.WHITE);
             view.setGravity(Gravity.CENTER);
             return new ViewHolder(view);
