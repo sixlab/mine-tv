@@ -39,7 +39,7 @@ public class BlockPresenter extends Presenter {
         sDefaultBackgroundColor =
                 ContextCompat.getColor(parent.getContext(), R.color.bl_blue);
         sSelectedBackgroundColor =
-                ContextCompat.getColor(parent.getContext(), R.color.bl_green);
+                ContextCompat.getColor(parent.getContext(), R.color.bl_cyan);
         sViewedFontColor =
                 ContextCompat.getColor(parent.getContext(), R.color.bl_purple);
         /*
