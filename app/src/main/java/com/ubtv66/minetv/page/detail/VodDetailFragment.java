@@ -2,15 +2,15 @@ package com.ubtv66.minetv.page.detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.leanback.app.DetailsFragment;
-import androidx.leanback.app.DetailsFragmentBackgroundController;
 import androidx.leanback.widget.Action;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ClassPresenterSelector;
@@ -42,6 +42,8 @@ import com.ubtv66.minetv.vo.VodInfo;
 import com.ubtv66.minetv.vo.VodListVo;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -52,10 +54,11 @@ import java.util.Map;
 public class VodDetailFragment extends DetailsFragment {
     private static final String TAG = "VideoDetailsFragment";
 
-    private static final int ACTION_STAR = 1;
-    private static final int ACTION_CLEAR = 2;
-    private static final int ACTION_VIEWED = 3;
-    private static final int ACTION_UPDATE = 4;
+    private static final int ACTION_UPDATE = 1;
+    private static final int ACTION_STAR = 2;
+    private static final int ACTION_HIS = 3;
+    private static final int ACTION_VIEWED = 4;
+    private static final int ACTION_REVERSE = 5;
 
     private static final int DETAIL_THUMB_WIDTH = 274;
     private static final int DETAIL_THUMB_HEIGHT = 274;
@@ -65,14 +68,13 @@ public class VodDetailFragment extends DetailsFragment {
     private ArrayObjectAdapter mAdapter;
     private ClassPresenterSelector mPresenterSelector;
 
-    private DetailsFragmentBackgroundController mDetailsBackground;
+    private View clickedView;
+    private boolean reverse = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate DetailsFragment");
         super.onCreate(savedInstanceState);
-
-        mDetailsBackground = new DetailsFragmentBackgroundController(this);
 
         mSelectedMovie = (VodInfo) getActivity().getIntent().getSerializableExtra(VodDetailActivity.MOVIE);
         if (mSelectedMovie != null) {
@@ -84,14 +86,20 @@ public class VodDetailFragment extends DetailsFragment {
             setAdapter(mAdapter);
             initializeBackground(mSelectedMovie);
             setOnItemViewClickedListener(new ItemViewClickedListener());
+
+            reverse = DbHelper.needReverse(getContext(), mSelectedMovie.getVod_id());
         } else {
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
         }
     }
 
-    public void setup() {
+    public void reloadUI() {
         try{
+            ViewGroup.LayoutParams layoutParams = getActivity().findViewById(R.id.details_root).getLayoutParams();
+            Log.d(TAG, "onCreate DetailsFragment:" + layoutParams.height);
+            Log.d(TAG, "onCreate DetailsFragment:" + layoutParams.height);
+
             mAdapter.clear();
 
             setupDetailsOverviewRow();
@@ -100,6 +108,10 @@ public class VodDetailFragment extends DetailsFragment {
             // setAdapter(mAdapter);
             // initializeBackground(mSelectedMovie);
             // setOnItemViewClickedListener(new ItemViewClickedListener());
+
+            if (clickedView != null) {
+                clickedView.requestFocus();
+            }
         }catch (Exception e){
             e.printStackTrace();
             Toast.makeText(getContext(), "更新界面异常", Toast.LENGTH_LONG).show();
@@ -110,18 +122,18 @@ public class VodDetailFragment extends DetailsFragment {
     public void onResume() {
         super.onResume();
 
-        setup();
+        reloadUI();
     }
 
     private void initializeBackground(VodInfo data) {
-        mDetailsBackground.enableParallax();
-        Glide.with(getActivity()).load(data.getVod_pic()).asBitmap().centerCrop().error(R.drawable.default_background).into(new SimpleTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
-                mDetailsBackground.setCoverBitmap(bitmap);
-                mAdapter.notifyArrayItemRangeChanged(0, mAdapter.size());
-            }
-        });
+        // mDetailsBackground.enableParallax();
+        // Glide.with(getActivity()).load(data.getVod_pic()).asBitmap().centerCrop().error(R.drawable.default_background).into(new SimpleTarget<Bitmap>() {
+        //     @Override
+        //     public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
+        //         mDetailsBackground.setCoverBitmap(bitmap);
+        //         mAdapter.notifyArrayItemRangeChanged(0, mAdapter.size());
+        //     }
+        // });
     }
 
     private void setupDetailsOverviewRow() {
@@ -148,11 +160,13 @@ public class VodDetailFragment extends DetailsFragment {
             actionAdapter.add(new Action(ACTION_STAR, getResources().getString(R.string.type_star)));
         }
 
-        actionAdapter.add(new Action(ACTION_CLEAR, getResources().getString(R.string.action_clear)));
+        actionAdapter.add(new Action(ACTION_UPDATE, getResources().getString(R.string.action_update)));
+
+        actionAdapter.add(new Action(ACTION_HIS, getResources().getString(R.string.clear_his)));
 
         actionAdapter.add(new Action(ACTION_VIEWED, getResources().getString(R.string.clear_view)));
 
-        actionAdapter.add(new Action(ACTION_UPDATE, getResources().getString(R.string.action_update)));
+        actionAdapter.add(new Action(ACTION_REVERSE, getResources().getString(R.string.action_reverse)));
 
         row.setActionsAdapter(actionAdapter);
 
@@ -181,24 +195,33 @@ public class VodDetailFragment extends DetailsFragment {
                     //
                 } else {
                     String msg = "";
+                    Integer vodId = mSelectedMovie.getVod_id();
+
                     if (action.getId() == ACTION_STAR) {
-                        if (DbHelper.isStar(context, mSelectedMovie.getVod_id())) {
+                        if (DbHelper.isStar(context, vodId)) {
                             msg = getString(R.string.action_star_not);
-                            DbHelper.delStar(getContext(), mSelectedMovie.getVod_id());
+                            DbHelper.delStar(getContext(), vodId);
                         }else{
                             msg = getString(R.string.type_star);
                             DbHelper.insertStar(context, mSelectedMovie);
                         }
 
-                        setup();
-                    } else if (action.getId() == ACTION_CLEAR) {
-                        msg = getString(R.string.action_clear);
-                        DbHelper.delHis(context, mSelectedMovie.getVod_id());
+                        reloadUI();
+                    } else if (action.getId() == ACTION_HIS) {
+                        msg = getString(R.string.clear_his);
+                        DbHelper.delHis(context, vodId);
                     } else if (action.getId() == ACTION_VIEWED) {
                         msg = getString(R.string.clear_view);
-                        DbHelper.delViews(context, mSelectedMovie.getVod_id());
+                        DbHelper.delViews(context, vodId);
 
-                        setup();
+                        reloadUI();
+                    } else if (action.getId() == ACTION_REVERSE) {
+                        msg = getString(R.string.action_reverse);
+
+                        reverse = !reverse;
+                        DbHelper.updateReverse(context, vodId, reverse);
+
+                        reloadUI();
                     }
 
                     Toast.makeText(context, msg + " done", Toast.LENGTH_LONG).show();
@@ -226,7 +249,7 @@ public class VodDetailFragment extends DetailsFragment {
 
                     Toast.makeText(getContext(), "更新成功", Toast.LENGTH_LONG).show();
 
-                    setup();
+                    reloadUI();
                 } else {
                     Toast.makeText(getContext(), "返回的list长度为：" + list.size(), Toast.LENGTH_LONG).show();
                 }
@@ -256,6 +279,12 @@ public class VodDetailFragment extends DetailsFragment {
 
             ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(new BlockPresenter());
             String[] urls = TextUtils.split(groupUrls, "#");
+            if(reverse){
+                List<String> urlsList = Arrays.asList(urls);
+                Collections.reverse(urlsList);
+                urls = urlsList.toArray(urls);
+            }
+
             for (String url : urls) {
                 //   蓝光1080P$https://zk.sd-dykj.com/share/BGLpBLhHvAeK8wYS
                 String[] urlInfos = TextUtils.split(url, "\\$");
@@ -297,6 +326,7 @@ public class VodDetailFragment extends DetailsFragment {
     private final class ItemViewClickedListener implements OnItemViewClickedListener {
         @Override
         public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row) {
+            clickedView = rowViewHolder.view;
 
             if (item instanceof UrlInfo) {
                 UrlInfo info = (UrlInfo) item;

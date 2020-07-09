@@ -36,9 +36,17 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.okhttp3:okhttp:4.7.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     // implementation 'com.squareup.retrofit2:retrofit-adapters:2.8.1'
+
+//    implementation 'com.facebook.stetho:stetho:1.5.1'
+//    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+//    implementation 'com.facebook.stetho:stetho-js-rhino:1.5.1'
+
+//    debugImplementation 'com.exyui.android:debug-bottle-runtime:1.1.1'
+//    releaseImplementation 'com.exyui.android:debug-bottle-noop-java:1.1.1'
+//    testImplementation 'com.exyui.android:debug-bottle-noop-java:1.1.1'
 
 }

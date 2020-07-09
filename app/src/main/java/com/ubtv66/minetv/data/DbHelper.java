@@ -17,34 +17,37 @@ import java.util.Map;
 
 public class DbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     public DbHelper(Context context) {
         super(context, DbEntry.DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DbEntry.SQL_CREATE_RECORD);
-
         db.execSQL(DbEntry.SQL_CREATE_VIEW);
     }
 
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // This database is only a cache for online data, so its upgrade policy is
-        // to simply to discard the data and start over
-        db.execSQL(DbEntry.SQL_DELETE_RECORD);
-        db.execSQL(DbEntry.SQL_DELETE_VIEW);
-        onCreate(db);
+        if (oldVersion == 1) {
+            upgradeFrom1(db);
+        }
     }
 
+    private void upgradeFrom1(SQLiteDatabase db) {
+        db.execSQL(DbEntry.SQL_1);
+    }
+
+    @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        onUpgrade(db, oldVersion, newVersion);
+        // super.onDowngrade(db, oldVersion, newVersion);
     }
 
     public static void init(Context context) {
         DbHelper dbHelper = new DbHelper(context);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        dbHelper.onCreate(db);
+        dbHelper.getWritableDatabase(); // 会调用 升降级
         dbHelper.close();
     }
 
@@ -53,8 +56,8 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         Cursor cursor = db.query(DbEntry.TABLE_RECORD, new String[]{DbEntry.RECORD_ID},
-                DbEntry.RECORD_TYPE + " = ? and " + DbEntry.RECORD_VOD_ID + " = ? ",
-                new String[]{DbEntry.TYPE_STAR, vodId.toString()}, null, null,
+                DbEntry.RECORD_VOD_ID + " = ? ",
+                new String[]{vodId.toString()}, null, null,
                 DbEntry.RECORD_ID + " DESC ");
 
         boolean isStar = (cursor.getCount() > 0);
@@ -72,7 +75,7 @@ public class DbHelper extends SQLiteOpenHelper {
         deleteRecord(context, DbEntry.TYPE_STAR);
     }
 
-    private static void deleteRecord(Context context, String type){
+    private static void deleteRecord(Context context, String type) {
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -235,6 +238,40 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public static boolean needReverse(Context context, Integer vodId) {
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.query(DbEntry.TABLE_RECORD, new String[]{DbEntry.RECORD_ID},
+                DbEntry.RECORD_TYPE + " = ? and " + DbEntry.RECORD_VOD_ID + " = ? ",
+                new String[]{DbEntry.TYPE_STAR, vodId.toString()}, null, null,
+                DbEntry.RECORD_ID + " DESC ");
+
+        boolean needReverse = false;
+        if (cursor.moveToNext()) {
+            int reverse = cursor.getInt(cursor.getColumnIndex(DbEntry.RECORD_VOD_REVERSE));
+            needReverse = (1 == reverse);
+        }
+
+        cursor.close();
+        dbHelper.close();
+
+        return needReverse;
+    }
+
+    public static void updateReverse(Context context, Integer vodId, boolean reverse) {
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DbEntry.RECORD_VOD_REVERSE, reverse ? 1 : 0);
+
+        db.update(DbEntry.TABLE_RECORD, values,
+                DbEntry.RECORD_VOD_ID + " = ? ",
+                new String[]{vodId.toString()});
+
+        db.close();
+    }
 
 
     // public static void main(String[] args) {
