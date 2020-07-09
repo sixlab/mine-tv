@@ -10,9 +10,11 @@ public class RequestHelper {
     private static final String BASE_URL = "https://api.okzy.tv/api.php/provide/vod/at/json/";
 
     public static RetrofitService service;
+    public static OkHttpClient client;
 
     static {
-        OkHttpClient client = new OkHttpClient.Builder()
+        client = new OkHttpClient.Builder()
+                // .addNetworkInterceptor(new StethoInterceptor())
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .connectTimeout(30, TimeUnit.SECONDS)
