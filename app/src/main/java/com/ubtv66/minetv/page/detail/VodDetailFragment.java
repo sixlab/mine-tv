@@ -78,6 +78,8 @@ public class VodDetailFragment extends DetailsFragment {
 
         mSelectedMovie = (VodInfo) getActivity().getIntent().getSerializableExtra(VodDetailActivity.MOVIE);
         if (mSelectedMovie != null) {
+            reverse = DbHelper.needReverse(getContext(), mSelectedMovie.getVod_id());
+
             mPresenterSelector = new ClassPresenterSelector();
             mAdapter = new ArrayObjectAdapter(mPresenterSelector);
             setupDetailsOverviewRow();
@@ -86,8 +88,6 @@ public class VodDetailFragment extends DetailsFragment {
             setAdapter(mAdapter);
             initializeBackground(mSelectedMovie);
             setOnItemViewClickedListener(new ItemViewClickedListener());
-
-            reverse = DbHelper.needReverse(getContext(), mSelectedMovie.getVod_id());
         } else {
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
