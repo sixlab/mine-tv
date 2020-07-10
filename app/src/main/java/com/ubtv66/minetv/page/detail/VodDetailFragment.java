@@ -114,7 +114,7 @@ public class VodDetailFragment extends DetailsFragment {
             }
         }catch (Exception e){
             e.printStackTrace();
-            Toast.makeText(getContext(), "更新界面异常", Toast.LENGTH_LONG).show();
+            // Toast.makeText(getContext(), "更新界面异常", Toast.LENGTH_LONG).show();
         }
     }
 
