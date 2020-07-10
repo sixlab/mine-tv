@@ -242,7 +242,7 @@ public class DbHelper extends SQLiteOpenHelper {
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        Cursor cursor = db.query(DbEntry.TABLE_RECORD, new String[]{DbEntry.RECORD_ID},
+        Cursor cursor = db.query(DbEntry.TABLE_RECORD, new String[]{DbEntry.RECORD_VOD_REVERSE},
                 DbEntry.RECORD_VOD_ID + " = ? ",
                 new String[]{vodId.toString()}, null, null,
                 DbEntry.RECORD_ID + " DESC ");
