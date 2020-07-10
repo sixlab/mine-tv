@@ -56,8 +56,8 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         Cursor cursor = db.query(DbEntry.TABLE_RECORD, new String[]{DbEntry.RECORD_ID},
-                DbEntry.RECORD_VOD_ID + " = ? ",
-                new String[]{vodId.toString()}, null, null,
+                DbEntry.RECORD_TYPE + " = ? and " + DbEntry.RECORD_VOD_ID + " = ? ",
+                new String[]{DbEntry.TYPE_STAR, vodId.toString()}, null, null,
                 DbEntry.RECORD_ID + " DESC ");
 
         boolean isStar = (cursor.getCount() > 0);
@@ -243,8 +243,8 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         Cursor cursor = db.query(DbEntry.TABLE_RECORD, new String[]{DbEntry.RECORD_ID},
-                DbEntry.RECORD_TYPE + " = ? and " + DbEntry.RECORD_VOD_ID + " = ? ",
-                new String[]{DbEntry.TYPE_STAR, vodId.toString()}, null, null,
+                DbEntry.RECORD_VOD_ID + " = ? ",
+                new String[]{vodId.toString()}, null, null,
                 DbEntry.RECORD_ID + " DESC ");
 
         boolean needReverse = false;
