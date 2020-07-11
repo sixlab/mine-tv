@@ -14,8 +14,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.List;
 
-public class MineFragment extends Fragment {
-    private static final String TAG = MineFragment.class.getName();
+public class MineFragment1 extends Fragment {
+    private static final String TAG = MineFragment1.class.getName();
 
     // private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -28,7 +28,7 @@ public class MineFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_test, container, false);
+        View view = inflater.inflate(R.layout.layout_test1, container, false);
 
         return view;
     }

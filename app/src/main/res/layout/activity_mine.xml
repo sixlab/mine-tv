@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mine_fragment"
-    android:name="tech.minesoft.minetv.MineFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="tech.minesoft.minetv.MineActivity"
-    tools:deviceIds="tv"
-    tools:ignore="MergeRootFrame" />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mine_fragment"
+        android:name="tech.minesoft.minetv.MineActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="tech.minesoft.minetv.MineActivity"
+        tools:deviceIds="tv"
+        android:background="@color/bl_blue"
+        tools:ignore="MergeRootFrame"
+        android:orientation="vertical">
+
+    <tech.minesoft.minetv.layout.TVTabLayout
+            android:id="@+id/mine_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_height"
+            android:layout_centerHorizontal="true" />
+
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/mine_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/mine_tab_layout" />
+
+</RelativeLayout>
+
