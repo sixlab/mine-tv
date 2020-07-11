@@ -4,7 +4,7 @@ import android.app.AlertDialog;
 import android.view.InputEvent;
 import android.view.KeyEvent;
 
-import com.ubtv66.minetv.page.play.PlaybackActivity;
+import tech.minesoft.minetv.page.play.PlaybackActivity;
 
 public class MineVideoFragment extends VideoSupportFragment {
 
