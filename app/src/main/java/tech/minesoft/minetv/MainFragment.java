@@ -52,10 +52,6 @@ public class MainFragment extends BrowseFragment {
         Log.i(TAG, "onCreate");
         super.onActivityCreated(savedInstanceState);
 
-        DbHelper.init(getContext());
-
-        // SampleData.initSampleData(getContext());
-
         prepareBackgroundManager();
 
         setupUIElements();
