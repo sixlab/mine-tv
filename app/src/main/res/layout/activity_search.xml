@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    android:name="com.ubtv66.minetv.page.search.MineSearchFragment"
+    android:name="tech.minesoft.minetv.page.search.MineSearchFragment"
     android:id="@+id/search_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

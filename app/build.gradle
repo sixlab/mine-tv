@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.ubtv66.minetv"
+        applicationId "tech.minesoft.minetv"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
