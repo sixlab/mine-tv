@@ -2,6 +2,7 @@ package com.ubtv66.minetv.page.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.leanback.app.DetailsFragment;
+import androidx.leanback.app.DetailsFragmentBackgroundController;
 import androidx.leanback.widget.Action;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ClassPresenterSelector;
@@ -71,10 +73,14 @@ public class VodDetailFragment extends DetailsFragment {
     private View clickedView;
     private boolean reverse = false;
 
+    private DetailsFragmentBackgroundController mDetailsBackground;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate DetailsFragment");
         super.onCreate(savedInstanceState);
+
+        mDetailsBackground = new DetailsFragmentBackgroundController(this);
 
         mSelectedMovie = (VodInfo) getActivity().getIntent().getSerializableExtra(VodDetailActivity.MOVIE);
         if (mSelectedMovie != null) {
@@ -126,14 +132,14 @@ public class VodDetailFragment extends DetailsFragment {
     }
 
     private void initializeBackground(VodInfo data) {
-        // mDetailsBackground.enableParallax();
-        // Glide.with(getActivity()).load(data.getVod_pic()).asBitmap().centerCrop().error(R.drawable.default_background).into(new SimpleTarget<Bitmap>() {
-        //     @Override
-        //     public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
-        //         mDetailsBackground.setCoverBitmap(bitmap);
-        //         mAdapter.notifyArrayItemRangeChanged(0, mAdapter.size());
-        //     }
-        // });
+        mDetailsBackground.enableParallax();
+        Glide.with(getActivity()).load(data.getVod_pic()).asBitmap().centerCrop().error(R.drawable.default_background).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
+                mDetailsBackground.setCoverBitmap(bitmap);
+                mAdapter.notifyArrayItemRangeChanged(0, mAdapter.size());
+            }
+        });
     }
 
     private void setupDetailsOverviewRow() {
