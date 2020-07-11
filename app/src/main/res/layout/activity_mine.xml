@@ -5,6 +5,6 @@
     android:name="tech.minesoft.minetv.MineFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tech.minesoft.minetv.MainActivity"
+    tools:context="tech.minesoft.minetv.MineActivity"
     tools:deviceIds="tv"
     tools:ignore="MergeRootFrame" />
