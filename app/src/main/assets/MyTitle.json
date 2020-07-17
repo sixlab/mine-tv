@@ -1,0 +1,30 @@
+﻿{
+  "code": 200,
+  "totalCount": 4,
+  "data": [
+    {
+      "id": 1114,
+      "tabCode": "TabStar",
+      "name": "收藏",
+      "icon": ""
+    },
+    {
+      "id": 1113,
+      "tabCode": "TabHistory",
+      "name": "历史",
+      "icon": ""
+    },
+    {
+      "id": 1138,
+      "tabCode": "TabSearch",
+      "name": "搜索",
+      "icon": ""
+    },
+    {
+      "id": 1095,
+      "tabCode": "TabMine",
+      "name": "我的",
+      "icon": ""
+    }
+  ]
+}
