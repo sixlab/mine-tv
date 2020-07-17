@@ -20,8 +20,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="tech.minesoft.minetv.page.search.MineSearchActivity" />
-        <activity android:name="tech.minesoft.minetv.page.play.PlaybackActivity" />
         <activity
             android:name="tech.minesoft.minetv.MainActivity"
             android:banner="@drawable/app_icon_your_company"
@@ -37,9 +35,10 @@
             </intent-filter>
         </activity>
         <activity android:name="tech.minesoft.minetv.page.detail.VodDetailActivity" />
-        <activity android:name="tech.minesoft.minetv.MineActivity" />
+        <activity android:name="tech.minesoft.minetv.page.search.MineSearchActivity" />
+        <activity android:name="tech.minesoft.minetv.page.play.PlaybackActivity" />
 
-<!--        <activity-->
+        <!--        <activity-->
 <!--                android:name="com.exyui.android.debugbottle.components.DTDrawerActivity"-->
 <!--                android:theme="@style/Theme.AppCompat.Light"-->
 <!--                android:label="MineTV Debugger" />-->

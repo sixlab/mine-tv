@@ -23,15 +23,13 @@ import androidx.leanback.widget.Presenter;
 import androidx.leanback.widget.Row;
 import androidx.leanback.widget.RowPresenter;
 
-import tech.minesoft.minetv.R;
+import java.util.List;
 
 import tech.minesoft.minetv.data.DbHelper;
 import tech.minesoft.minetv.page.CardPresenter;
 import tech.minesoft.minetv.page.detail.VodDetailActivity;
 import tech.minesoft.minetv.page.search.MineSearchActivity;
 import tech.minesoft.minetv.vo.VodInfo;
-
-import java.util.List;
 
 public class MainFragment extends BrowseFragment {
     private static final String TAG = "MainFragment";
@@ -51,10 +49,6 @@ public class MainFragment extends BrowseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate");
         super.onActivityCreated(savedInstanceState);
-
-        DbHelper.init(getContext());
-
-        // SampleData.initSampleData(getContext());
 
         prepareBackgroundManager();
 
