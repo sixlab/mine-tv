@@ -1,27 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/mine_fragment"
-        android:name="tech.minesoft.minetv.MineActivity"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:context=".MineActivity">
+
+    <tech.minesoft.minetv.v2.widgets.TabHorizontalGridView
+        android:id="@+id/row_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="67dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingStart="48dp"
+        android:paddingEnd="48dp"
+        app:focusOutEnd="true"
+        app:focusOutFront="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <tech.minesoft.minetv.v2.widgets.TabViewPager
+        android:id="@+id/tvp_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="tech.minesoft.minetv.MineActivity"
-        tools:deviceIds="tv"
-        android:background="@color/bl_blue"
-        tools:ignore="MergeRootFrame"
-        android:orientation="vertical">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <tech.minesoft.minetv.layout.TVTabLayout
-            android:id="@+id/mine_tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/tab_height"
-            android:layout_centerHorizontal="true" />
+    <tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout
+        android:id="@+id/btn_clear_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/btn_row_margin"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/selector_focus_bg_corner15_without_default_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:nextFocusDown="@+id/row_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.viewpager.widget.ViewPager
-            android:id="@+id/mine_view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/mine_tab_layout" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/icon_padding_star"
+            android:paddingTop="@dimen/icon_padding_top"
+            android:paddingEnd="@dimen/icon_padding_end"
+            android:paddingBottom="@dimen/icon_padding_top"
+            android:text="@string/clear_all"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/icon_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+        <ImageView
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginStart="@dimen/icon_margin"
+            android:src="@drawable/icon_all"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
+    </tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout>
+
+    <tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout
+        android:id="@+id/btn_clear_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/btn_space"
+        android:background="@drawable/selector_focus_bg_corner15_without_default_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:nextFocusDown="@+id/row_title"
+        app:layout_constraintLeft_toRightOf="@+id/btn_clear_all"
+        app:layout_constraintTop_toTopOf="@+id/btn_clear_all">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/icon_padding_star"
+            android:paddingTop="@dimen/icon_padding_top"
+            android:paddingEnd="@dimen/icon_padding_end"
+            android:paddingBottom="@dimen/icon_padding_top"
+            android:text="@string/clear_view"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/icon_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginStart="@dimen/icon_margin"
+            android:src="@drawable/icon_history"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+    </tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout>
+
+    <tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout
+        android:id="@+id/btn_clear_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/btn_space"
+        android:background="@drawable/selector_focus_bg_corner15_without_default_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:nextFocusDown="@+id/row_title"
+        app:layout_constraintLeft_toRightOf="@+id/btn_clear_view"
+        app:layout_constraintTop_toTopOf="@+id/btn_clear_view">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/icon_padding_star"
+            android:paddingTop="@dimen/icon_padding_top"
+            android:paddingEnd="@dimen/icon_padding_end"
+            android:paddingBottom="@dimen/icon_padding_top"
+            android:text="@string/clear_his"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/icon_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginStart="@dimen/icon_margin"
+            android:src="@drawable/icon_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+    </tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout>
+
+    <tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout
+        android:id="@+id/btn_clear_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/btn_space"
+        android:background="@drawable/selector_focus_bg_corner15_without_default_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:maxWidth="305dp"
+        android:nextFocusDown="@+id/row_title"
+        app:layout_constraintLeft_toRightOf="@+id/btn_clear_history"
+        app:layout_constraintTop_toTopOf="@+id/btn_clear_history">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="1"
+            android:maxWidth="280dp"
+            android:paddingStart="@dimen/icon_padding_star"
+            android:paddingTop="@dimen/icon_padding_top"
+            android:paddingEnd="@dimen/icon_padding_end"
+            android:paddingBottom="@dimen/icon_padding_top"
+            android:singleLine="true"
+            android:text="@string/clear_star"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/icon_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginStart="@dimen/icon_margin"
+            android:src="@drawable/icon_star"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+    </tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout>
+
+    <TextView
+        android:id="@+id/info_name"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="48dp"
+        android:gravity="start|center"
+        android:text="@string/app_name"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+            android:id="@+id/info_logo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="@dimen/btn_space"
+            android:src="@drawable/icon_logo"
+            app:layout_constraintBottom_toBottomOf="@+id/info_name"
+            app:layout_constraintRight_toLeftOf="@+id/info_name"
+            app:layout_constraintTop_toTopOf="@+id/info_name"
+            tools:ignore="ContentDescription" />
+
+    <View
+        android:id="@+id/info_split"
+        android:layout_width="1dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="@dimen/btn_space"
+        android:background="@color/split_line"
+        app:layout_constraintBottom_toBottomOf="@+id/info_name"
+        app:layout_constraintRight_toLeftOf="@+id/info_logo"
+        app:layout_constraintTop_toTopOf="@+id/info_name" />
+
+    <TextClock
+        android:id="@+id/info_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/btn_space"
+        android:format12Hour="HH:mm"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/icon_text_size"
+        android:theme="@style/MyTimePicker"
+        app:layout_constraintBottom_toBottomOf="@+id/info_name"
+        app:layout_constraintRight_toLeftOf="@+id/info_split"
+        app:layout_constraintTop_toTopOf="@+id/info_name" />
+
+    <ImageView
+        android:id="@+id/info_network"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="@dimen/btn_space"
+        android:src="@drawable/no_net"
+        app:layout_constraintBottom_toBottomOf="@+id/info_name"
+        app:layout_constraintRight_toLeftOf="@+id/info_time"
+        app:layout_constraintTop_toTopOf="@+id/info_name"
+        tools:ignore="ContentDescription" />
+
+    <tech.minesoft.minetv.v2.widgets.ScaleTextView
+        android:id="@+id/info_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/btn_space"
+        android:background="@drawable/selector_focus_bg_corner15_without_default_bg"
+        android:drawableStart="@drawable/icon_tips_15"
+        android:drawablePadding="@dimen/icon_text_space"
+        android:gravity="center|start"
+        android:nextFocusDown="@+id/row_title"
+        android:paddingStart="@dimen/icon_margin"
+        android:paddingTop="@dimen/icon_padding_top"
+        android:paddingEnd="@dimen/icon_padding_end"
+        android:paddingBottom="@dimen/icon_padding_top"
+        android:text="@string/app_name"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/icon_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/info_name"
+        app:layout_constraintRight_toLeftOf="@+id/info_network"
+        app:layout_constraintTop_toTopOf="@+id/info_name" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/id_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="info_tips,info_network,info_time,info_split,info_name,btn_clear_star,btn_clear_history,btn_clear_view,btn_clear_all,row_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

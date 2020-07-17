@@ -14,7 +14,7 @@ public class MineApplication extends Application {
         // Stetho.initializeWithDefaults(this);
 
         // DTInstaller.install(this)
-        //         .setBlockCanary(new AppBlockCanaryContext(this))
+        //         .setBlockCanary(new BlockCanaryContext(this))
         //         .setOkHttpClient(RequestHelper.client)
         //         // .setInjector("your.package.injector.ContentInjector")
         //         // .setPackageName("your.package")

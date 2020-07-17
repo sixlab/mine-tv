@@ -1,5 +1,7 @@
 package tech.minesoft.minetv.data;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -8,6 +10,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RequestHelper {
     private static final String BASE_URL = "https://api.okzy.tv/api.php/provide/vod/at/json/";
+
+    public static final List<String> PLAY_FROM = Arrays.asList(
+            "ckm3u8",
+            "zkm3u8",
+            "33uuck"
+    );
 
     public static RetrofitService service;
     public static OkHttpClient client;

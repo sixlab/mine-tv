@@ -7,5 +7,17 @@
     <color name="bl_purple">#AB5DC2</color>
     <color name="bl_blue">#53B3E6</color>
     <color name="bl_cyan">#B5E233</color>
+    <color name="bl_transparent">#00000000</color>
+
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorBg">#020307</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlue">#ff26b5ff</color>
+    <color name="white_8_percent">#14FFFFFF</color>
+
+    <color name="split_line">#5d5e60</color>
 
 </resources>
