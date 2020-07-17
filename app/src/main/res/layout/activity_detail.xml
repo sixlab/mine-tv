@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        tools:context=".DetailActivity">
+
+
+    <ImageView
+            android:id="@+id/iv_video_pic"
+            android:layout_width="420dp"
+            android:layout_height="237dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="74dp"
+            android:padding="2dp"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            android:focusable="false"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/tv_video_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="74dp"
+            android:gravity="center"
+            android:text="@string/placeholder"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/iv_video_pic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/tv_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/placeholder"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_video_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_video_name" />
+
+    <TextView
+            android:id="@+id/tv_director"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/placeholder"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_year"
+            app:layout_constraintTop_toBottomOf="@+id/tv_year" />
+
+    <TextView
+            android:id="@+id/tv_video_actors"
+            android:layout_width="419dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:singleLine="true"
+            android:text="@string/placeholder"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_video_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_director" />
+
+    <TextView
+            android:id="@+id/tv_video_introduction"
+            android:layout_width="419dp"
+            android:layout_height="86dp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:gravity="start"
+            android:text="@string/placeholder"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_video_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_video_actors" />
+
+    <TextView
+            android:id="@+id/tv_update"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/selector_focus_bg_corner15_with_default_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="@string/action_update"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_video_pic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_video_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_video_introduction" />
+
+    <TextView
+            android:id="@+id/tv_star"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/selector_focus_bg_corner15_with_default_bg"
+            android:clickable="true"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="@string/action_star"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toRightOf="@+id/tv_update"
+            app:layout_constraintTop_toTopOf="@+id/tv_update" />
+
+    <TextView
+            android:id="@+id/tv_clean"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/selector_focus_bg_corner15_with_default_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="@string/action_clear_view"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toRightOf="@+id/tv_star"
+            app:layout_constraintTop_toTopOf="@+id/tv_star" />
+
+    <TextView
+            android:id="@+id/tv_reverse"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/selector_focus_bg_corner15_with_default_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="@string/action_reverse"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintLeft_toRightOf="@+id/tv_clean"
+            app:layout_constraintTop_toTopOf="@+id/tv_clean" />
+
+    <TextView
+            android:id="@+id/tv_episode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="@string/text_episode"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_video_pic"
+            app:layout_constraintTop_toBottomOf="@+id/iv_video_pic" />
+
+    <androidx.leanback.widget.HorizontalGridView
+            android:id="@+id/hg_play_from"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="48dp"
+            app:focusOutEnd="true"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:focusOutFront="true"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_video_pic"
+            app:layout_constraintTop_toBottomOf="@+id/tv_episode" />
+
+    <tech.minesoft.minetv.v2.widgets.TabVerticalGridView
+            android:id="@+id/hg_episode_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp"
+            app:focusOutEnd="true"
+            app:focusOutFront="true"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_video_pic"
+            app:layout_constraintTop_toBottomOf="@+id/hg_play_from" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
