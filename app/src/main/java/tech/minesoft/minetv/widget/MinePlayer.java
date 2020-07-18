@@ -2,7 +2,6 @@ package tech.minesoft.minetv.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.View;
 
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
@@ -28,11 +27,6 @@ public class MinePlayer extends StandardGSYVideoPlayer {
 
     private void init() {
         getFullscreenButton().setVisibility(View.GONE);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return super.onKeyDown(keyCode, event);
     }
 
     public String getTimes(){
