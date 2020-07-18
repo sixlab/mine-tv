@@ -134,12 +134,6 @@ public class PlayerActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    videoPlayer.backward();
-                    break;
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    videoPlayer.forward();
-                    break;
                 case KeyEvent.KEYCODE_DPAD_UP:
                     videoPlayer.fastForward();
                     break;
