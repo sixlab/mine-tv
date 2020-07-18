@@ -6,10 +6,11 @@ import androidx.fragment.app.FragmentManager;
 
 import java.util.List;
 
-import tech.minesoft.minetv.v2.bean.Title;
-import tech.minesoft.minetv.v2.fragment.ContentFragment;
 import tech.minesoft.minetv.fragment.MineFragment;
 import tech.minesoft.minetv.fragment.SearchFragment;
+import tech.minesoft.minetv.utils.Const;
+import tech.minesoft.minetv.v2.bean.Title;
+import tech.minesoft.minetv.v2.fragment.ContentFragment;
 
 
 public class ContentViewPagerAdapter extends SmartFragmentStatePagerAdapter {
@@ -26,9 +27,9 @@ public class ContentViewPagerAdapter extends SmartFragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         String tabCode = dataBeans.get(position).getTabCode();
         switch (tabCode){
-            case "TabSearch":
+            case Const.TAB_SEARCH:
                 return SearchFragment.newInstance();
-            case "TabMine":
+            case Const.TAB_MINE:
                 return MineFragment.newInstance();
             default:
                 return ContentFragment.newInstance(position, tabCode);

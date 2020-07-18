@@ -3,6 +3,7 @@ package tech.minesoft.minetv;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -215,6 +216,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
 
     private void initEpisodes() {
         mVerticalGridView = findViewById(R.id.hg_episode_items);
+        mVerticalGridView.setBackReturn(false);
         // mVerticalGridView.setTabView(mActivity.getHorizontalGridView());
         // mVerticalGridView.setGroup(mActivity.getGroup());
         mVerticalGridView.setVerticalSpacing(SizeUtils.dp2px(this, 6));
@@ -289,11 +291,6 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
             }
         }
     };
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 
     @Override
     public void onClick(View v) {

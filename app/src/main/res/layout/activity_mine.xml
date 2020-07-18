@@ -52,7 +52,7 @@
             android:paddingBottom="@dimen/icon_padding_top"
             android:text="@string/clear_all"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/icon_text_size"
+            android:textSize="@dimen/text_size_s"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,7 +90,7 @@
             android:paddingBottom="@dimen/icon_padding_top"
             android:text="@string/clear_view"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/icon_text_size"
+            android:textSize="@dimen/text_size_s"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -128,7 +128,7 @@
             android:paddingBottom="@dimen/icon_padding_top"
             android:text="@string/clear_his"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/icon_text_size"
+            android:textSize="@dimen/text_size_s"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -171,7 +171,7 @@
             android:singleLine="true"
             android:text="@string/clear_star"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/icon_text_size"
+            android:textSize="@dimen/text_size_s"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -229,7 +229,7 @@
         android:layout_marginEnd="@dimen/btn_space"
         android:format12Hour="HH:mm"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/icon_text_size"
+        android:textSize="@dimen/text_size_s"
         android:theme="@style/MyTimePicker"
         app:layout_constraintBottom_toBottomOf="@+id/info_name"
         app:layout_constraintRight_toLeftOf="@+id/info_split"
@@ -262,7 +262,7 @@
         android:paddingBottom="@dimen/icon_padding_top"
         android:text="@string/tips_del"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/icon_text_size"
+        android:textSize="@dimen/text_size_s"
         app:layout_constraintBottom_toBottomOf="@+id/info_name"
         app:layout_constraintRight_toLeftOf="@+id/info_network"
         app:layout_constraintTop_toTopOf="@+id/info_name" />

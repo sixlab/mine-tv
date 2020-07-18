@@ -2,15 +2,20 @@ package tech.minesoft.minetv;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.cache.CacheFactory;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.v2.base.BaseActivity;
@@ -22,9 +27,29 @@ import tv.danmaku.ijk.media.exo2.ExoPlayerCacheManager;
 public class PlayerActivity extends BaseActivity {
     private static String TAG = "PlayerActivity";
 
-    MinePlayer videoPlayer;
+    private MinePlayer videoPlayer;
+    private TextView durationTv;
 
     OrientationUtils orientationUtils;
+    private Handler timeHandler = new MyHandler();
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            timeHandler.sendMessage(new Message());
+        }
+    };
+
+    private class MyHandler extends Handler {
+        @Override
+        public void handleMessage(@NotNull Message msg) {
+            String times = videoPlayer.getTimes();
+            durationTv.setText(times);
+
+            timeHandler.postDelayed(runnable, 1000);
+        }
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,9 +62,12 @@ public class PlayerActivity extends BaseActivity {
         setContentView(R.layout.activity_player);
         UrlInfo info = (UrlInfo) getIntent().getSerializableExtra(Const.SELECT_EPISODE);
         init(info);
+
+        timeHandler.sendMessage(new Message());
     }
 
     private void init(UrlInfo info) {
+        durationTv = findViewById(R.id.video_tips_duration);
         videoPlayer = findViewById(R.id.video_player);
 
         String title = info.getVodName() + ":" + info.getItemName();

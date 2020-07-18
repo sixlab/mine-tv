@@ -11,4 +11,35 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true" />
 
+    <ImageView
+            android:id="@+id/video_tips_logo"
+            android:layout_width="@dimen/logo_size_60"
+            android:layout_height="@dimen/logo_size_60"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/logo_margin_50"
+            android:layout_marginStart="@dimen/logo_margin_50"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/app_name" />
+
+    <TextClock
+            android:id="@+id/video_tips_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below='@id/video_tips_logo'
+            android:layout_marginStart="@dimen/logo_margin_50"
+            android:format12Hour="HH:mm"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_2xl"
+            android:theme="@style/MyTimePicker" />
+
+    <TextView
+            android:id="@+id/video_tips_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below='@id/video_tips_time'
+            android:layout_marginStart="@dimen/logo_margin_50"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_l" />
+
 </RelativeLayout>
