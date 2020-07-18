@@ -9,7 +9,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RequestHelper {
-    private static final String BASE_URL = "https://api.okzy.tv/api.php/provide/vod/at/json/";
+    public static final String[] BASE_URLs = {
+        "https://api.okzy.tv/api.php/provide/vod/at/json/",
+    };
+
+    public static int urlIndex = 0;
 
     public static final List<String> PLAY_FROM = Arrays.asList(
             "ckm3u8",
@@ -22,6 +26,7 @@ public class RequestHelper {
 
     static {
         client = new OkHttpClient.Builder()
+                .addInterceptor(new UrlInterceptor())
                 // .addNetworkInterceptor(new StethoInterceptor())
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
@@ -29,7 +34,7 @@ public class RequestHelper {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(BASE_URLs[urlIndex])
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
