@@ -25,13 +25,15 @@ public class ListRowPresenter extends BaseListRowPresenter {
         super.initializeRowViewHolder(holder);
         final ViewHolder rowViewHolder = (ViewHolder) holder;
 
-        rowViewHolder.getGridView().setHorizontalSpacing(SizeUtils.dp2px(rowViewHolder.getGridView().getContext(), 24));
+        rowViewHolder.getGridView().setHorizontalSpacing(SizeUtils.dp2px(rowViewHolder.getGridView().getContext(), 18));
         rowViewHolder.getGridView().setFocusScrollStrategy(HorizontalGridView.FOCUS_SCROLL_ITEM);
         RowHeaderPresenter.ViewHolder vh = rowViewHolder.getHeaderViewHolder();
+
         TextView textView = vh.view.findViewById(R.id.row_header);
-        textView.setTextSize(SizeUtils.dp2px(textView.getContext(), 15));
-        textView.setTextColor(textView.getContext().getResources().getColor(R.color.bl_blue));
+        textView.setTextSize(SizeUtils.dp2px(textView.getContext(), 6));
+        textView.setTextColor(textView.getContext().getResources().getColor(R.color.colorWhite));
         textView.setPadding(0, 0, 0, 20);
+
         setOnItemViewClickedListener((itemViewHolder, item, rowViewHolder1, row) -> {
             Context context = itemViewHolder.view.getContext();
 

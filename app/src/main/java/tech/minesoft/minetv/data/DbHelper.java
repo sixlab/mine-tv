@@ -96,6 +96,17 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public static void delInfo(Context context, Integer vodId)  {
+        DbHelper dbHelper = new DbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        db.delete(DbEntry.TABLE_INFO,
+                DbEntry.INFO_VOD_ID + " = ? ",
+                new String[]{vodId.toString()});
+
+        db.close();
+    }
+
     public static List<VodInfo> loadHis(Context context) {
         DbHelper dbHelper = new DbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
