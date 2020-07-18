@@ -3,7 +3,6 @@ package tech.minesoft.minetv;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,8 +15,6 @@ import androidx.leanback.widget.FocusHighlightHelper;
 import androidx.leanback.widget.HorizontalGridView;
 import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.leanback.widget.ListRow;
-import androidx.leanback.widget.OnChildViewHolderSelectedListener;
-import androidx.leanback.widget.Presenter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -50,32 +47,54 @@ import tech.minesoft.minetv.widget.EpisodeItemPresenter;
 public class DetailActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "VideoDetailActivity";
 
+    private TabVerticalGridView mVerticalGridView;
+    private ArrayObjectAdapter mEpisodesAdapter;
     private ArrayObjectAdapter mEpisodeGroupAdapter;
 
     private int mCurrentGroupPosition = 0;
+    private String currentGroup = "";
 
     private VodInfo currentInfo;
     private Map<String, List<UrlInfo>> vodMap = new HashMap<>();
     private boolean needReverse = false;
+
+    private TextView mTvUpdate;
+    private TextView mTvStar;
+    private TextView mTvClean;
+    private TextView mTvReverse;
+
     private TextView tvGroupName;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reload();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
 
         currentInfo = (VodInfo) getIntent().getSerializableExtra(Const.SELECT_MOVIE);
 
-        setContentView(R.layout.activity_detail);
         initView();
-        initData();
+        loadData();
         initListener();
     }
 
     private void reload() {
-        initView();
-        initData();
-        addEpisodes(vodMap.keySet().iterator().next());
-        initListener();
+        loadData();
     }
 
     private void initView() {
@@ -104,154 +123,20 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         textView = findViewById(R.id.tv_video_introduction);
         textView.setText(String.format("简介：%s", currentInfo.getVod_content()));
 
-        tvGroupName = findViewById(R.id.tv_episode);
 
-        initEpisodes();
-        initEpisodeGroup();
-        initOthers();
-    }
-
-    private TabVerticalGridView mVerticalGridView;
-    private ArrayObjectAdapter mAdapter;
-
-    private void initEpisodes() {
-        mVerticalGridView = findViewById(R.id.hg_episode_items);
-        // mVerticalGridView.setTabView(mActivity.getHorizontalGridView());
-        // mVerticalGridView.setGroup(mActivity.getGroup());
-        mVerticalGridView.setVerticalSpacing(SizeUtils.dp2px(this, 6));
-        MinePresenterSelector presenterSelector = new MinePresenterSelector();
-        mAdapter = new ArrayObjectAdapter(presenterSelector);
-        ItemBridgeAdapter itemBridgeAdapter = new ItemBridgeAdapter(mAdapter);
-        mVerticalGridView.setAdapter(itemBridgeAdapter);
-
-        mVerticalGridView.addOnScrollListener(onScrollListener);
-        mVerticalGridView.addOnChildViewHolderSelectedListener(onSelectedListener);
-
-        FocusHighlightHelper.setupBrowseItemFocusHighlight(itemBridgeAdapter, FocusHighlight.ZOOM_FACTOR_MEDIUM, false);
-    }
-
-    private final OnChildViewHolderSelectedListener onSelectedListener
-            = new OnChildViewHolderSelectedListener() {
-        @Override
-        public void onChildViewHolderSelected(RecyclerView parent,
-                                              RecyclerView.ViewHolder child,
-                                              int position, int subposition) {
-            super.onChildViewHolderSelected(parent, child, position, subposition);
-            Log.e(TAG, "onChildViewHolderSelected: " + position);
-
-            if (mVerticalGridView == null) {
-                return;
-            }
-            Log.e(TAG, "onChildViewHolderSelected: " + "　isPressUp:" + mVerticalGridView.isPressUp()
-                    + " isPressDown:" + mVerticalGridView.isPressDown());
-        }
-    };
-
-    private final RecyclerView.OnScrollListener onScrollListener
-            = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            switch (newState) {
-                //当屏幕滚动且用户使用的触碰或手指还在屏幕上，停止加载图片
-                case RecyclerView.SCROLL_STATE_DRAGGING:
-                    //由于用户的操作，屏幕产生惯性滑动，停止加载图片
-                case RecyclerView.SCROLL_STATE_SETTLING:
-                    Glide.with(DetailActivity.this).pauseRequests();
-                    break;
-                case RecyclerView.SCROLL_STATE_IDLE:
-                    Glide.with(DetailActivity.this).resumeRequests();
-            }
-        }
-    };
-
-    private void initEpisodeGroup() {
-        HorizontalGridView mHgEpisodeGroup = findViewById(R.id.hg_play_from);
-        mHgEpisodeGroup.setItemAnimator(null);
-        // mHgEpisodeGroup.setFocusScrollStrategy(HorizontalGridView.FOCUS_SCROLL_ITEM);
-        mHgEpisodeGroup.setHorizontalSpacing(SizeUtils.dp2px(this, 6));
-        mEpisodeGroupAdapter = new ArrayObjectAdapter(new EpisodeGroupPresenter());
-        ItemBridgeAdapter itemBridgeAdapter = new MyItemBridgeAdapter(mEpisodeGroupAdapter) {
-            @Override
-            public OnItemViewClickedListener getOnItemViewClickedListener() {
-                return (focusView, itemViewHolder, item) -> {
-
-                };
-            }
-
-            @Override
-            public OnItemFocusChangedListener getOnItemFocusChangedListener() {
-                return new OnItemFocusChangedListener() {
-                    @Override
-                    public void onItemFocusChanged(View focusView,
-                                                   Presenter.ViewHolder itemViewHolder,
-                                                   Object item,
-                                                   boolean hasFocus,
-                                                   int pos) {
-                        if (mCurrentGroupPosition != pos) {
-                            mCurrentGroupPosition = pos;
-                            if (item instanceof String) {
-                                addEpisodes(item.toString());
-                            }
-                        }
-                    }
-                };
-            }
-        };
-
-        mHgEpisodeGroup.setAdapter(itemBridgeAdapter);
-        FocusHighlightHelper.setupBrowseItemFocusHighlight(itemBridgeAdapter, FocusHighlight.ZOOM_FACTOR_LARGE, false);
-    }
-
-    private void addEpisodes(String groupName) {
-        mAdapter.clear();
-
-        tvGroupName.setText(getString(R.string.select_group, groupName));
-
-        List<UrlInfo> infoList = vodMap.get(groupName);
-
-        List<List> listList = ListUtils.splitList(infoList, 8);
-
-        for (List<UrlInfo> list : listList) {
-            ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new EpisodeItemPresenter());
-
-            arrayObjectAdapter.addAll(0, list);
-            ListRow listRow = new ListRow(arrayObjectAdapter);
-            addWithTryCatch(listRow);
-        }
-    }
-
-    private void addWithTryCatch(Object item) {
-        try {
-            if (!mVerticalGridView.isComputingLayout()) {
-                mAdapter.add(item);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private TextView mTvReverse;
-    private TextView mTvUpdate;
-    private TextView mTvStar;
-    private TextView mTvClean;
-
-    private void initOthers() {
         mTvUpdate = findViewById(R.id.tv_update);
         mTvStar = findViewById(R.id.tv_star);
         mTvClean = findViewById(R.id.tv_clean);
         mTvReverse = findViewById(R.id.tv_reverse);
 
-        String text;
-        if (DbHelper.isStar(this, currentInfo.getVod_id())) {
-            text = getString(R.string.action_star);
-        } else {
-            text = getString(R.string.action_unstar);
-        }
-        mTvStar.setText(text);
+        tvGroupName = findViewById(R.id.tv_episode);
+
+        initEpisodes();
+        initEpisodeGroup();
     }
 
-    private void initData() {
+    private void loadData() {
+
         String playFrom = currentInfo.getVod_play_from();
         String playUrl = currentInfo.getVod_play_url();
 
@@ -307,10 +192,18 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         mEpisodeGroupAdapter.clear();
         mEpisodeGroupAdapter.addAll(0, validateGroup);
 
-
-        if (validateGroup.size() > 0) {
-            addEpisodes(validateGroup.get(0));
+        if (validateGroup.size() > 0 && TextUtils.isEmpty(currentGroup)) {
+            currentGroup = validateGroup.get(0);
         }
+        addEpisodes();
+
+        String text;
+        if (DbHelper.isStar(this, currentInfo.getVod_id())) {
+            text = getString(R.string.action_star);
+        } else {
+            text = getString(R.string.action_unstar);
+        }
+        mTvStar.setText(text);
     }
 
     private void initListener() {
@@ -320,20 +213,82 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         mTvReverse.setOnClickListener(this);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+    private void initEpisodes() {
+        mVerticalGridView = findViewById(R.id.hg_episode_items);
+        // mVerticalGridView.setTabView(mActivity.getHorizontalGridView());
+        // mVerticalGridView.setGroup(mActivity.getGroup());
+        mVerticalGridView.setVerticalSpacing(SizeUtils.dp2px(this, 6));
+        MinePresenterSelector presenterSelector = new MinePresenterSelector();
+        mEpisodesAdapter = new ArrayObjectAdapter(presenterSelector);
+        ItemBridgeAdapter itemBridgeAdapter = new ItemBridgeAdapter(mEpisodesAdapter);
+        mVerticalGridView.setAdapter(itemBridgeAdapter);
+
+        mVerticalGridView.addOnScrollListener(onScrollListener);
+        // mVerticalGridView.addOnChildViewHolderSelectedListener(onSelectedListener);
+
+        FocusHighlightHelper.setupBrowseItemFocusHighlight(itemBridgeAdapter, FocusHighlight.ZOOM_FACTOR_MEDIUM, false);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void initEpisodeGroup() {
+        HorizontalGridView mHgEpisodeGroup = findViewById(R.id.hg_play_from);
+        mHgEpisodeGroup.setItemAnimator(null);
+        // mHgEpisodeGroup.setFocusScrollStrategy(HorizontalGridView.FOCUS_SCROLL_ITEM);
+        mHgEpisodeGroup.setHorizontalSpacing(SizeUtils.dp2px(this, 6));
+        mEpisodeGroupAdapter = new ArrayObjectAdapter(new EpisodeGroupPresenter());
+        ItemBridgeAdapter itemBridgeAdapter = new MyItemBridgeAdapter(mEpisodeGroupAdapter) {
+            @Override
+            public OnItemFocusChangedListener getOnItemFocusChangedListener() {
+                return (focusView, itemViewHolder, item, hasFocus, pos) -> {
+                    if (mCurrentGroupPosition != pos) {
+                        mCurrentGroupPosition = pos;
+                        if (item instanceof String) {
+                            currentGroup = item.toString();
+                            addEpisodes();
+                        }
+                    }
+                };
+            }
+        };
+
+        mHgEpisodeGroup.setAdapter(itemBridgeAdapter);
+        FocusHighlightHelper.setupBrowseItemFocusHighlight(itemBridgeAdapter, FocusHighlight.ZOOM_FACTOR_LARGE, false);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    private void addEpisodes() {
+        mEpisodesAdapter.clear();
+
+        tvGroupName.setText(getString(R.string.select_group, currentGroup));
+
+        List<UrlInfo> infoList = vodMap.get(currentGroup);
+
+        List<List> listList = ListUtils.splitList(infoList, 8);
+
+        for (List<UrlInfo> list : listList) {
+            ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new EpisodeItemPresenter());
+
+            arrayObjectAdapter.addAll(0, list);
+            ListRow listRow = new ListRow(arrayObjectAdapter);
+            addWithTryCatch(listRow);
+        }
     }
+
+    private final RecyclerView.OnScrollListener onScrollListener
+            = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            switch (newState) {
+                case RecyclerView.SCROLL_STATE_DRAGGING:
+                    //当屏幕滚动且用户使用的触碰或手指还在屏幕上，停止加载图片
+                case RecyclerView.SCROLL_STATE_SETTLING:
+                    //由于用户的操作，屏幕产生惯性滑动，停止加载图片
+                    Glide.with(DetailActivity.this).pauseRequests();
+                    break;
+                case RecyclerView.SCROLL_STATE_IDLE:
+                    Glide.with(DetailActivity.this).resumeRequests();
+            }
+        }
+    };
 
     @Override
     public void onBackPressed() {
@@ -364,6 +319,16 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                 break;
             default:
                 break;
+        }
+    }
+
+    private void addWithTryCatch(Object item) {
+        try {
+            if (!mVerticalGridView.isComputingLayout()) {
+                mEpisodesAdapter.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
