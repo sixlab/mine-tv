@@ -1,0 +1,20 @@
+
+    // HOME
+    // class HomeRecaiver extends BroadcastReceiver{ onReceive
+    // action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
+    // SYSTEM_DIALOG_REASON_HOME_KEY  equal intent.getStringExtra(SYSTEM_DIALOG_REASON_KEY)
+    //
+    // KeyEvent.KEYCODE_BACK; //4
+    // KeyEvent.KEYCODE_MENU; //82
+    // KeyEvent.KEYCODE_F5; //135 语音
+    //
+    //
+    // KeyEvent.KEYCODE_DPAD_UP; //19
+    // KeyEvent.KEYCODE_DPAD_DOWN; // 20
+    // KeyEvent.KEYCODE_DPAD_LEFT; // 21
+    // KeyEvent.KEYCODE_DPAD_RIGHT; // 22
+    //
+    // KeyEvent.KEYCODE_ENTER;        // 66 不确定
+    //
+    // KeyEvent.KEYCODE_VOLUME_UP; // 24
+    // KeyEvent.KEYCODE_VOLUME_DOWN; // 25
