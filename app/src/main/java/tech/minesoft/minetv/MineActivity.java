@@ -87,8 +87,6 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
 
     @Override
     public void onGlobalFocusChanged(View oldFocus, View newFocus) {
-        Log.e(TAG, "onGlobalFocusChanged newFocus: " + newFocus);
-        Log.e(TAG, "onGlobalFocusChanged oldFocus: " + oldFocus);
         if (newFocus == null || oldFocus == null) {
             return;
         }
@@ -377,14 +375,9 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
         public void onChildViewHolderSelected(RecyclerView parent, RecyclerView.ViewHolder child, int position, int subposition) {
             super.onChildViewHolderSelected(parent, child, position, subposition);
             if (child != null && position != mCurrentPageIndex) {
-                Log.e(TAG, "onChildViewHolderSelected: 000 isSkipTabFromViewPager" + isSkipTabFromViewPager);
                 TextView currentTitle = child.itemView.findViewById(R.id.tv_main_title);
                 if (isSkipTabFromViewPager) {
-                    Log.e(TAG, "onChildViewHolderSelected: 111");
-
                     if (mOldTitle != null) {
-                        Log.e(TAG, "onChildViewHolderSelected: 222");
-
                         mOldTitle.setTextColor(getColor(R.color.colorWhite));
                         Paint paint = mOldTitle.getPaint();
                         if (paint != null) {
@@ -405,8 +398,6 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
             }
 
             isSkipTabFromViewPager = false;
-            Log.e(TAG, "onChildViewHolderSelected mViewPager != null: " + (mViewPager != null)
-                    + " position:" + position);
             setCurrentItemPosition(position);
         }
     };

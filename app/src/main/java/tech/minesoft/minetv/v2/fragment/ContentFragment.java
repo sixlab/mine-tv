@@ -266,13 +266,10 @@ public class ContentFragment extends BaseLazyLoadFragment {
                                               RecyclerView.ViewHolder child,
                                               int position, int subposition) {
             super.onChildViewHolderSelected(parent, child, position, subposition);
-            Log.e(TAG, "onChildViewHolderSelected: " + position);
 
             if (mVerticalGridView == null) {
                 return;
             }
-            Log.e(TAG, "onChildViewHolderSelected: " + "　isPressUp:" + mVerticalGridView.isPressUp()
-                    + " isPressDown:" + mVerticalGridView.isPressDown());
 
             if (mVerticalGridView.isPressUp() && position == 0) {
                 mListener.onFragmentInteraction(Uri.parse(Const.URI_SHOW_TITLE));

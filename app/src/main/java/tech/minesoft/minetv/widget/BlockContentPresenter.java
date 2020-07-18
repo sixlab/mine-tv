@@ -53,7 +53,6 @@ public class BlockContentPresenter extends Presenter {
         if (item instanceof VodInfo) {
             VodInfo info = (VodInfo) item;
             ViewHolder vh = (ViewHolder) viewHolder;
-            Log.e(TAG, "onBindViewHolder: " + info.getVod_name());
             Glide.with(mContext)
                     .load(info.getVod_pic())
                     .apply(new RequestOptions()
