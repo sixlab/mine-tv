@@ -23,4 +23,6 @@
 
     <string name="tips_del">历史，收藏，按菜单键删除</string>
 
+    <string name="mine_action_change_url">切换链接</string>
+
 </resources>
