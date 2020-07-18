@@ -2,9 +2,6 @@ package tech.minesoft.minetv.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.DragEvent;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -31,53 +28,42 @@ public class MinePlayer extends StandardGSYVideoPlayer {
 
     private void init() {
         getFullscreenButton().setVisibility(View.GONE);
-
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "setOnClickListener");
-            }
-        });
-        setOnDragListener(new OnDragListener() {
-            @Override
-            public boolean onDrag(View v, DragEvent event) {
-                Log.i(TAG, "setOnDragListener");
-                return false;
-            }
-        });
-        setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                Log.i(TAG, "setOnKeyListener");
-                return false;
-            }
-        });
-        setOnContextClickListener(new OnContextClickListener() {
-            @Override
-            public boolean onContextClick(View v) {
-                Log.i(TAG, "setOnContextClickListener");
-                return false;
-            }
-        });
-        setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-            @Override
-            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-                Log.i(TAG, "setOnCreateContextMenuListener");
-            }
-        });
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.i(TAG, "keydown:"+keyCode);
         return super.onKeyDown(keyCode, event);
     }
 
-    public void onClickUi() {
-        if (mIfCurrentIsFullscreen && mLockCurScreen && mNeedLockFull) {
-            onClickUiToggle();
-            startDismissControlViewTimer();
+    public String getTimes(){
+        long currentPosition = getGSYVideoManager().getCurrentPosition();
+        long totalPosition = getGSYVideoManager().getDuration();
+
+        return timeParse(currentPosition) + " / " + timeParse(totalPosition);
+    }
+
+    private String timeParse(long duration) {
+        if (duration < 0) {
+            duration = 0;
         }
+        String time = "";
+
+        long minute = duration / 60000;
+        long seconds = duration % 60000;
+
+        long second = Math.round((float) seconds / 1000);
+
+        if (minute < 10) {
+            time += "0";
+        }
+        time += minute + ":";
+
+        if (second < 10) {
+            time += "0";
+        }
+        time += second;
+
+        return time;
     }
 
     public void backward() {

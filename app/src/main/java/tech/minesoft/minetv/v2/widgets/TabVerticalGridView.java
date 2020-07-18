@@ -27,6 +27,15 @@ public class TabVerticalGridView extends VerticalGridView {
     private Animation mShakeY;
     private boolean isPressUp = false;
     private boolean isPressDown = false;
+    private boolean isBackReturn = true;
+
+    public boolean isBackReturn() {
+        return isBackReturn;
+    }
+
+    public void setBackReturn(boolean backReturn) {
+        isBackReturn = backReturn;
+    }
 
     public TabVerticalGridView(Context context) {
         this(context, null);
@@ -76,7 +85,7 @@ public class TabVerticalGridView extends VerticalGridView {
                     break;
                 case KeyEvent.KEYCODE_BACK:
                     backToTop();
-                    return true;
+                    return isBackReturn;
                 default:
                     break;
             }
