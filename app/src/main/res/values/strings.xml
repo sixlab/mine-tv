@@ -21,4 +21,6 @@
 
     <string name="select_group"> %s 剧集列表</string>
 
+    <string name="tips_del">历史，收藏，按菜单键删除</string>
+
 </resources>

@@ -1,5 +1,6 @@
 package tech.minesoft.minetv.v2.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,6 +74,12 @@ public class ContentFragment extends BaseLazyLoadFragment {
                     + " must implement OnFragmentInteractionListener");
         }
         mActivity = (MineActivity) context;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchData();
     }
 
     @Override
@@ -145,29 +153,49 @@ public class ContentFragment extends BaseLazyLoadFragment {
     @Override
     public void fetchData() {
         if (mCurrentTabCode != null) {
-            mPbLoading.setVisibility(View.VISIBLE);
-            mVerticalGridView.setVisibility(View.INVISIBLE);
+            // mPbLoading.setVisibility(View.VISIBLE);
+            // mVerticalGridView.setVisibility(View.INVISIBLE);
 
             List<VodInfo> list = null;
             switch (mCurrentTabCode) {
-                case "TabStar":
+                case Const.TAB_STAR:
                     list = DbHelper.loadStar(getActivity());
                     break;
-                case "TabHistory":
+                case Const.TAB_HIS:
                     list = DbHelper.loadHis(getActivity());
                     break;
             }
 
-            if (null != list && list.size() > 0) {
-                List<List> listList = ListUtils.splitList(list, 6);
-                for (List<VodInfo> item : listList) {
-                    addItem(item);
-                }
+            addItem(list);
+        }
+    }
 
-                addFooter();
-                mPbLoading.setVisibility(View.GONE);
-                mVerticalGridView.setVisibility(View.VISIBLE);
-            }
+    @Override
+    public void delItem(VodInfo info) {
+        Context mContext = getContext();
+        switch (mCurrentTabCode) {
+            case Const.TAB_HIS:
+                new AlertDialog.Builder(mContext)
+                        .setMessage("是否删除记录《" + info.getVod_name() + "》？")
+                        .setNegativeButton("确定", (dialog, id) -> {
+                            DbHelper.delInfo(mContext, info.getVod_id());
+                            Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
+                            fetchData();
+                        })
+                        .setPositiveButton("取消", null)
+                        .show();
+                break;
+            case Const.TAB_STAR:
+                new AlertDialog.Builder(mContext)
+                        .setMessage("是否取消收藏《" + info.getVod_name() + "》？")
+                        .setNegativeButton("确定", (dialog, id) -> {
+                            DbHelper.changeStar(mContext, info.getVod_id());
+                            Toast.makeText(mContext, "取消成功", Toast.LENGTH_SHORT).show();
+                            fetchData();
+                        })
+                        .setPositiveButton("取消", null)
+                        .show();
+                break;
         }
     }
 
@@ -189,12 +217,24 @@ public class ContentFragment extends BaseLazyLoadFragment {
         }
     }
 
-    private void addItem(List<VodInfo> infoList) {
-        ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new BlockContentPresenter());
+    private void addItem(List<VodInfo> list) {
+        mAdapter.clear();
 
-        arrayObjectAdapter.addAll(0, infoList);
-        ListRow listRow = new ListRow(arrayObjectAdapter);
-        addWithTryCatch(listRow);
+        if (null != list && list.size() > 0) {
+            List<List> listList = ListUtils.splitList(list, 6);
+            for (List<VodInfo> item : listList) {
+                BlockContentPresenter presenter = new BlockContentPresenter(getContext(), this);
+                ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(presenter);
+
+                arrayObjectAdapter.addAll(0, item);
+                ListRow listRow = new ListRow(arrayObjectAdapter);
+                addWithTryCatch(listRow);
+            }
+
+            addFooter();
+            // mPbLoading.setVisibility(View.GONE);
+            // mVerticalGridView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void addFooter() {

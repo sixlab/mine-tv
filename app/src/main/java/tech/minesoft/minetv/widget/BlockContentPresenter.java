@@ -20,6 +20,7 @@ import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.data.DbHelper;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.SizeUtils;
+import tech.minesoft.minetv.v2.fragment.ContentFragment;
 import tech.minesoft.minetv.vo.VodInfo;
 
 
@@ -27,12 +28,22 @@ public class BlockContentPresenter extends Presenter {
     private static final String TAG = "BlockContentPresenter";
 
     private Context mContext;
+    private ContentFragment fragment;
+
+    public BlockContentPresenter(Context mContext) {
+        this.mContext = mContext;
+    }
+
+    public BlockContentPresenter(Context mContext, ContentFragment fragment) {
+        this.mContext = mContext;
+        this.fragment = fragment;
+    }
 
     @Override
     public Presenter.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        if (mContext == null) {
-            mContext = parent.getContext();
-        }
+        // if (mContext == null) {
+        //     mContext = parent.getContext();
+        // }
         View view = LayoutInflater.from(mContext).inflate(R.layout.widget_block, parent, false);
         return new ViewHolder(view);
     }
@@ -67,18 +78,23 @@ public class BlockContentPresenter extends Presenter {
                 }
             });
 
-            View.OnFocusChangeListener listener = vh.view.getOnFocusChangeListener();
             vh.view.setOnKeyListener((v, keyCode, event) -> {
-                if (event.getAction() == KeyEvent.ACTION_DOWN && KeyEvent.KEYCODE_ENTER == keyCode) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_ENTER:
+                            DbHelper.saveInfo(mContext, info);
 
-                    DbHelper.saveInfo(mContext, info);
+                            Intent intent = new Intent(mContext, DetailActivity.class);
+                            intent.putExtra(Const.SELECT_MOVIE, info);
 
-                    Intent intent = new Intent(mContext, DetailActivity.class);
-                    intent.putExtra(Const.SELECT_MOVIE, info);
-
-                    mContext.startActivity(intent);
-
-                    return true;
+                            mContext.startActivity(intent);
+                            return true;
+                        case KeyEvent.KEYCODE_MENU:
+                            if (fragment != null) {
+                                fragment.delItem(info);
+                                return true;
+                            }
+                    }
                 }
 
                 return false;

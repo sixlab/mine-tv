@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="125dp"
+        android:layout_width="130dp"
         android:layout_height="235dp"
         android:focusable="true">
 
@@ -20,12 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:paddingTop="3dp"
-            android:paddingStart="@dimen/text_start"
-            android:paddingEnd="@dimen/text_start"
             android:duplicateParentState="true"
             android:gravity="center|start"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:background="@drawable/selector_text_bg"
             app:layout_constraintTop_toBottomOf="@+id/iv_pic"
             app:layout_constraintBottom_toTopOf="@+id/tv_desc"

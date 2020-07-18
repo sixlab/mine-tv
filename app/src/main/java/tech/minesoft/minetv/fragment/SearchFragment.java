@@ -196,7 +196,7 @@ public class SearchFragment extends BaseLazyLoadFragment {
     }
 
     private void addItem(List<VodInfo> infoList, String title) {
-        ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new BlockContentPresenter());
+        ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new BlockContentPresenter(getContext()));
 
         arrayObjectAdapter.addAll(0, infoList);
         HeaderItem headerItem = null;

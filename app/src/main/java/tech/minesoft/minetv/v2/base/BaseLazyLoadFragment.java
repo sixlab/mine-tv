@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import tech.minesoft.minetv.vo.VodInfo;
+
 
 public abstract class BaseLazyLoadFragment extends Fragment {
     /**
@@ -67,6 +69,10 @@ public abstract class BaseLazyLoadFragment extends Fragment {
             fetchData();
             isDataInitiated = true;
         }
+    }
+
+    public void delItem(VodInfo info){
+
     }
 }
 
