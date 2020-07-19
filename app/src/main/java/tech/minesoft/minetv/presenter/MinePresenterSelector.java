@@ -3,13 +3,16 @@ package tech.minesoft.minetv.presenter;
 import androidx.leanback.widget.Presenter;
 import androidx.leanback.widget.PresenterSelector;
 
+import tech.minesoft.minetv.fragment.SearchFragment;
 import tech.minesoft.minetv.v2.bean.Footer;
 import tech.minesoft.minetv.widget.FooterPresenter;
 import tech.minesoft.minetv.widget.ListRowPresenter;
+import tech.minesoft.minetv.widget.SearchPresenter;
 
 public class MinePresenterSelector extends PresenterSelector {
     private final ListRowPresenter listRowPresenterOne = new ListRowPresenter();
     private final FooterPresenter footerPresenter = new FooterPresenter();
+    private final SearchPresenter searchPresenter = new SearchPresenter();
 
     public MinePresenterSelector() {
         listRowPresenterOne.setShadowEnabled(false);
@@ -21,6 +24,8 @@ public class MinePresenterSelector extends PresenterSelector {
     public Presenter getPresenter(Object item) {
         if(item instanceof Footer){
             return footerPresenter;
+        }else if (item instanceof SearchFragment) {
+            return searchPresenter;
         }
         return listRowPresenterOne;
     }
@@ -29,4 +34,5 @@ public class MinePresenterSelector extends PresenterSelector {
     public Presenter[] getPresenters() {
         return super.getPresenters();
     }
+
 }

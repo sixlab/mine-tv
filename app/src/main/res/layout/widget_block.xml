@@ -13,7 +13,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription"
-            tools:src="@drawable/movie" />
+            tools:src="@drawable/video_loading" />
 
     <TextView
             android:id="@+id/tv_title"

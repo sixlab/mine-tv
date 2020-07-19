@@ -9,6 +9,11 @@
             android:id="@+id/btn_change_url"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingStart="48dp"
+            android:paddingTop="111dp"
+            android:paddingEnd="48dp"
             android:text="@string/mine_action_change_url"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

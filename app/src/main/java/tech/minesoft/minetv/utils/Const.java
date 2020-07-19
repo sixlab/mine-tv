@@ -14,10 +14,8 @@ public class Const {
     public static final String TAB_MINE = "TabMine";
 
 
-
     public static final String URI_HIDE_TITLE = "uriHideTitle";
     public static final String URI_SHOW_TITLE = "uriShowTitle";
-
 
 
 }

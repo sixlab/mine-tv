@@ -12,9 +12,9 @@ import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.v2.widgets.TabVerticalGridView;
 
 public class FooterPresenter extends Presenter {
-    private Context mContext;
+    private static final String TAG = "FooterPresenter";
 
-    private static final String TAG = "TypeFooterPresenter";
+    private Context mContext;
 
     @Override
     public Presenter.ViewHolder onCreateViewHolder(ViewGroup parent) {
