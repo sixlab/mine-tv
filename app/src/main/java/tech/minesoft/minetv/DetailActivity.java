@@ -8,14 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.FocusHighlight;
 import androidx.leanback.widget.FocusHighlightHelper;
 import androidx.leanback.widget.HorizontalGridView;
 import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.leanback.widget.ListRow;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -47,7 +45,10 @@ import tech.minesoft.minetv.widget.EpisodeItemPresenter;
 public class DetailActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "VideoDetailActivity";
 
+    private ImageView mPic;
     private TabVerticalGridView mVerticalGridView;
+    private HorizontalGridView mHgEpisodeGroup;
+
     private ArrayObjectAdapter mEpisodesAdapter;
     private ArrayObjectAdapter mEpisodeGroupAdapter;
 
@@ -98,13 +99,15 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initView() {
+        mPic = findViewById(R.id.iv_video_pic);
+        
         Glide.with(this)
                 .load(currentInfo.getVod_pic())
                 .apply(new RequestOptions()
                         // .override(SizeUtils.dp2px(this, 125),
                         //         SizeUtils.dp2px(this, 185))
                         .placeholder(R.drawable.load))
-                .into((ImageView) findViewById(R.id.iv_video_pic));
+                .into(mPic);
 
         TextView textView;
 
@@ -219,14 +222,14 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         ItemBridgeAdapter itemBridgeAdapter = new ItemBridgeAdapter(mEpisodesAdapter);
         mVerticalGridView.setAdapter(itemBridgeAdapter);
 
-        mVerticalGridView.addOnScrollListener(onScrollListener);
+        // mVerticalGridView.addOnScrollListener(onScrollListener);
         // mVerticalGridView.addOnChildViewHolderSelectedListener(onSelectedListener);
 
         FocusHighlightHelper.setupBrowseItemFocusHighlight(itemBridgeAdapter, FocusHighlight.ZOOM_FACTOR_MEDIUM, false);
     }
 
     private void initEpisodeGroup() {
-        HorizontalGridView mHgEpisodeGroup = findViewById(R.id.hg_play_from);
+        mHgEpisodeGroup = findViewById(R.id.hg_play_from);
         mHgEpisodeGroup.setItemAnimator(null);
         // mHgEpisodeGroup.setFocusScrollStrategy(HorizontalGridView.FOCUS_SCROLL_ITEM);
         mHgEpisodeGroup.setHorizontalSpacing(SizeUtils.dp2px(this, 6));
@@ -267,24 +270,6 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
             addWithTryCatch(listRow);
         }
     }
-
-    private final RecyclerView.OnScrollListener onScrollListener
-            = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            switch (newState) {
-                case RecyclerView.SCROLL_STATE_DRAGGING:
-                    //当屏幕滚动且用户使用的触碰或手指还在屏幕上，停止加载图片
-                case RecyclerView.SCROLL_STATE_SETTLING:
-                    //由于用户的操作，屏幕产生惯性滑动，停止加载图片
-                    Glide.with(DetailActivity.this).pauseRequests();
-                    break;
-                case RecyclerView.SCROLL_STATE_IDLE:
-                    Glide.with(DetailActivity.this).resumeRequests();
-            }
-        }
-    };
 
     @Override
     public void onClick(View v) {
