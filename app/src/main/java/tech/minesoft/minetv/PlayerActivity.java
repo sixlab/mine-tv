@@ -33,12 +33,7 @@ public class PlayerActivity extends BaseActivity {
     OrientationUtils orientationUtils;
     private Handler timeHandler = new MyHandler();
 
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            timeHandler.sendMessage(new Message());
-        }
-    };
+    private Runnable runnable = () -> timeHandler.sendMessage(new Message());
 
     private class MyHandler extends Handler {
         @Override

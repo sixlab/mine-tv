@@ -3,7 +3,6 @@ package tech.minesoft.minetv;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -330,21 +329,24 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void updateInfo() {
-        RequestHelper.service.detail(currentInfo.getVod_id()).enqueue((MineCallback<VodListVo>) body -> {
-            List<VodInfo> list = body.getList();
-            if (null == list) {
-                showText("返回的list为null");
-            } else if (list.size() == 1) {
-                VodInfo info = list.get(0);
-                currentInfo = info;
+        RequestHelper.service.detail(currentInfo.getVod_id()).enqueue(new MineCallback<VodListVo>(this) {
+            @Override
+            public void success(VodListVo body) {
+                List<VodInfo> list = body.getList();
+                if (null == list) {
+                    showText("返回的list为null");
+                } else if (list.size() == 1) {
+                    VodInfo info = list.get(0);
+                    currentInfo = info;
 
-                DbHelper.updateInfo(this, info);
+                    DbHelper.updateInfo(DetailActivity.this, info);
 
-                showText("更新成功");
+                    showText("更新成功");
 
-                reload();
-            } else {
-                showText("返回的list长度为：" + list.size());
+                    reload();
+                } else {
+                    showText("返回的list长度为：" + list.size());
+                }
             }
         });
     }

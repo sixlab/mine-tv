@@ -126,22 +126,25 @@ public class SearchFragment extends BaseLazyLoadFragment {
 
                 mPbLoading.setVisibility(View.VISIBLE);
 
-                RequestHelper.service.detail(query, 1).enqueue((MineCallback<VodListVo>) body -> {
-                    mPbLoading.setVisibility(View.GONE);
+                RequestHelper.service.detail(query, 1).enqueue(new MineCallback<VodListVo>(getContext()) {
+                    @Override
+                    public void success(VodListVo body) {
+                        mPbLoading.setVisibility(View.GONE);
 
-                    List<VodInfo> list = body.getList();
-                    if (null != list && list.size() > 0) {
-                        mAdapter.clear();
+                        List<VodInfo> list = body.getList();
+                        if (null != list && list.size() > 0) {
+                            mAdapter.clear();
 
-                        String title = getString(R.string.search_results, query, list.size() + "");
-                        List<List> listList = ListUtils.splitList(list, 6);
-                        for (List<VodInfo> item : listList) {
-                            addItem(item, title);
-                            title = null;
+                            String title = getString(R.string.search_results, query, list.size() + "");
+                            List<List> listList = ListUtils.splitList(list, 6);
+                            for (List<VodInfo> item : listList) {
+                                addItem(item, title);
+                                title = null;
+                            }
+                            addFooter();
+                        } else {
+                            addItem(new ArrayList<>(), getString(R.string.search_results_none, query));
                         }
-                        addFooter();
-                    } else {
-                        addItem(new ArrayList<>(), getString(R.string.search_results_none, query));
                     }
                 });
                 return true;
