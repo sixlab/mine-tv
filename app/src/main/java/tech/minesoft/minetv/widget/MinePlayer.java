@@ -1,11 +1,16 @@
 package tech.minesoft.minetv.widget;
 
 import android.content.Context;
+import android.os.SystemClock;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
+
+import tech.minesoft.minetv.R;
 
 public class MinePlayer extends StandardGSYVideoPlayer {
     private static String TAG = "MinePlayer";
@@ -66,6 +71,36 @@ public class MinePlayer extends StandardGSYVideoPlayer {
 
     public void forward() {
         seekDuration(10);
+    }
+
+    private void move(int fix) {
+        Toast.makeText(mContext, ">"+fix, Toast.LENGTH_LONG).show();
+
+        View view = new View(mContext);
+        // view.setId(R.id.fullscreen);
+        // view.setId(R.id.progress);
+        view.setId(R.id.surface_container);
+        // seekDuration(10);
+
+        MotionEvent event;
+
+        event = newEvent(MotionEvent.ACTION_DOWN, 500, 100);
+        onTouch(view, event);
+
+        event = newEvent(MotionEvent.ACTION_MOVE, 500 + fix, 100);
+        onTouch(view, event);
+
+        event = newEvent(MotionEvent.ACTION_UP, 500 + fix, 100);
+        onTouch(view, event);
+    }
+
+    private MotionEvent newEvent(int action, int x, int y){
+        // MotionEvent parameters
+        long downTime = SystemClock.uptimeMillis();
+        long eventTime = SystemClock.uptimeMillis();
+        int metaState = 0;
+
+        return MotionEvent.obtain(downTime, eventTime, action, x, y, metaState);
     }
 
     public void fastBackward() {
