@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:paddingTop="3dp"
+            android:maxLines="1"
             android:duplicateParentState="true"
             android:gravity="center|start"
             android:textColor="#FFFFFF"
