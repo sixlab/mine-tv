@@ -2,7 +2,6 @@ package tech.minesoft.minetv.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,9 +40,6 @@ public class BlockContentPresenter extends Presenter {
 
     @Override
     public Presenter.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        // if (mContext == null) {
-        //     mContext = parent.getContext();
-        // }
         View view = LayoutInflater.from(mContext).inflate(R.layout.widget_block, parent, false);
         return new ViewHolder(view);
     }
@@ -64,17 +60,17 @@ public class BlockContentPresenter extends Presenter {
             vh.mTvTitle.setText(info.getVod_name());
             vh.mTvDesc.setText(String.format("%s:%s", info.getVod_year(), info.getVod_director()));
 
-            vh.view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    int color;
-                    if (hasFocus) {
-                        color = mContext.getColor(R.color.bl_blue);
-                    } else {
-                        color = mContext.getColor(R.color.bl_transparent);
+            vh.view.setOnFocusChangeListener((v, hasFocus) -> {
+                int color;
+                if (hasFocus) {
+                    color = mContext.getColor(R.color.bl_blue);
+                    if (fragment != null) {
+                        fragment.showText(info.getVod_name());
                     }
-                    v.setBackgroundColor(color);
+                } else {
+                    color = mContext.getColor(R.color.bl_transparent);
                 }
+                v.setBackgroundColor(color);
             });
 
             vh.view.setOnKeyListener((v, keyCode, event) -> {
@@ -119,5 +115,4 @@ public class BlockContentPresenter extends Presenter {
             mTvDesc = view.findViewById(R.id.tv_desc);
         }
     }
-
 }

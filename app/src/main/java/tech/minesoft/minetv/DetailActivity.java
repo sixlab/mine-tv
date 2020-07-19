@@ -111,18 +111,13 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         textView = findViewById(R.id.tv_video_name);
         textView.setText(currentInfo.getVod_name());
 
-        textView = findViewById(R.id.tv_year);
-        textView.setText(String.format("%s：%s", currentInfo.getVod_year(), currentInfo.getType_name()));
+        textView = findViewById(R.id.tv_video_info);
+        textView.setText(String.format("%s\n%s：%s\n导演：%s\n主演：%s", currentInfo.getVod_remarks(),
+                currentInfo.getVod_year(), currentInfo.getType_name(), currentInfo.getVod_director(),
+                currentInfo.getVod_actor()));
 
-        textView = findViewById(R.id.tv_director);
-        textView.setText(String.format("导演：%s", currentInfo.getVod_director()));
-
-        textView = findViewById(R.id.tv_video_actors);
-        textView.setText(String.format("主演：%s", currentInfo.getVod_actor()));
-
-        textView = findViewById(R.id.tv_video_introduction);
+        textView = findViewById(R.id.tv_video_intro);
         textView.setText(String.format("简介：%s", currentInfo.getVod_content()));
-
 
         mTvUpdate = findViewById(R.id.tv_update);
         mTvStar = findViewById(R.id.tv_star);

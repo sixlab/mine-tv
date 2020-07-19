@@ -1,5 +1,6 @@
 package tech.minesoft.minetv.v2.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.net.Uri;
@@ -289,4 +290,15 @@ public class ContentFragment extends BaseLazyLoadFragment {
         }
     }
 
+    private Toast toast = null;
+    @SuppressLint("ShowToast")
+    public void showText(CharSequence text) {
+        try {
+            toast.getView().isShown();
+            toast.setText(text);
+        } catch (Exception e) {
+            toast = Toast.makeText(getContext(), text, Toast.LENGTH_LONG);
+        }
+        toast.show();
+    }
 }

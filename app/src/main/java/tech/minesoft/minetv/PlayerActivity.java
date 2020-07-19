@@ -135,6 +135,9 @@ public class PlayerActivity extends BaseActivity {
                 case KeyEvent.KEYCODE_DPAD_DOWN:
                     videoPlayer.fastBackward();
                     break;
+                case KeyEvent.KEYCODE_MENU:
+                    videoPlayer.seekDuration(120);
+                    break;
                 case KeyEvent.KEYCODE_DPAD_CENTER:
                 case KeyEvent.KEYCODE_ENTER:
                 case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:

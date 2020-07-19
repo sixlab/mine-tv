@@ -69,14 +69,14 @@ public class MinePlayer extends StandardGSYVideoPlayer {
     }
 
     public void fastBackward() {
-        seekDuration(-60);
+        seekDuration(-30);
     }
 
     public void fastForward() {
-        seekDuration(60);
+        seekDuration(30);
     }
 
-    private void seekDuration(int duration){
+    public void seekDuration(int duration){
         long playPosition = getGSYVideoManager().getCurrentPosition() + duration * 1000;
         int total = getDuration();
         if (playPosition < 0) {
