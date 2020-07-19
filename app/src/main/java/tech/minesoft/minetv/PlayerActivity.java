@@ -126,15 +126,26 @@ public class PlayerActivity extends BaseActivity {
     }
 
     @Override
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+        return super.onKeyLongPress(keyCode, event);
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    videoPlayer.forward();
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    videoPlayer.backward();
+                    return true;
                 case KeyEvent.KEYCODE_DPAD_UP:
                     videoPlayer.fastForward();
-                    break;
+                    return true;
                 case KeyEvent.KEYCODE_DPAD_DOWN:
                     videoPlayer.fastBackward();
-                    break;
+                    return true;
                 case KeyEvent.KEYCODE_MENU:
                     videoPlayer.seekDuration(120);
                     break;
