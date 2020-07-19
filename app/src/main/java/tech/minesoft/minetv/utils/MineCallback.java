@@ -16,24 +16,34 @@ public abstract class MineCallback<T> implements Callback<T> {
         this.mContext = mContext;
     }
 
-    public abstract void success(T body);
+    public abstract void finish(boolean success, T body, String message);
 
-    public void onResponse(Call<T> call, Response<T> response){
-        if(null!=response){
+    private void success(T body) {
+        finish(true, body, "");
+    }
+
+    private void fail(String message) {
+        Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
+
+        finish(false, null, message);
+    }
+
+    public void onResponse(Call<T> call, Response<T> response) {
+        if (null != response) {
             T body = response.body();
-            if(null!= body){
+            if (null != body) {
                 success(body);
-            }else{
-                Toast.makeText(mContext, "resp body null", Toast.LENGTH_LONG).show();
+            } else {
+                fail("resp body null");
             }
-        }else{
-            Toast.makeText(mContext, "resp null", Toast.LENGTH_LONG).show();;
+        } else {
+            fail("resp null");
         }
     }
 
-    public void onFailure(Call<T> call, Throwable t){
+    public void onFailure(Call<T> call, Throwable t) {
         String msg = "请求失败：" + t.getMessage();
-        Log.e("HTTP", msg,t);
-        Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show();;
+        Log.e("HTTP", msg, t);
+        fail(msg);
     }
 }

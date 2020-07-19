@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.HeaderItem;
 import androidx.leanback.widget.ItemBridgeAdapter;
@@ -50,7 +49,6 @@ public class SearchFragment extends BaseLazyLoadFragment {
     private View mRootView;
 
     private ProgressBar mPbLoading;
-    private SearchView mSearch;
     private ArrayObjectAdapter mAdapter;
 
     private OnFragmentInteractionListener mListener;
@@ -102,7 +100,6 @@ public class SearchFragment extends BaseLazyLoadFragment {
 
     private void initView() {
         mPbLoading = mRootView.findViewById(R.id.pb_loading);
-        mSearch = mRootView.findViewById(R.id.search_input);
         mVerticalGridView = mRootView.findViewById(R.id.hg_content);
 
         mVerticalGridView.setTabView(mActivity.getHorizontalGridView());
@@ -113,48 +110,13 @@ public class SearchFragment extends BaseLazyLoadFragment {
         mAdapter = new ArrayObjectAdapter(presenterSelector);
         ItemBridgeAdapter itemBridgeAdapter = new ItemBridgeAdapter(mAdapter);
         mVerticalGridView.setAdapter(itemBridgeAdapter);
+
+        addWithTryCatch(this);
     }
 
     private void initListener() {
         mVerticalGridView.addOnScrollListener(onScrollListener);
         mVerticalGridView.addOnChildViewHolderSelectedListener(onSelectedListener);
-
-        mSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                mSearch.setIconified(true);
-
-                mPbLoading.setVisibility(View.VISIBLE);
-
-                RequestHelper.service.detail(query, 1).enqueue(new MineCallback<VodListVo>(getContext()) {
-                    @Override
-                    public void success(VodListVo body) {
-                        mPbLoading.setVisibility(View.GONE);
-
-                        List<VodInfo> list = body.getList();
-                        if (null != list && list.size() > 0) {
-                            mAdapter.clear();
-
-                            String title = getString(R.string.search_results, query, list.size() + "");
-                            List<List> listList = ListUtils.splitList(list, 6);
-                            for (List<VodInfo> item : listList) {
-                                addItem(item, title);
-                                title = null;
-                            }
-                            addFooter();
-                        } else {
-                            addItem(new ArrayList<>(), getString(R.string.search_results_none, query));
-                        }
-                    }
-                });
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
     }
 
     @Override
@@ -261,4 +223,32 @@ public class SearchFragment extends BaseLazyLoadFragment {
         }
     }
 
+    public void search(String query) {
+        mPbLoading.setVisibility(View.VISIBLE);
+        SearchFragment sf = this;
+        RequestHelper.service.detail(query, 1).enqueue(new MineCallback<VodListVo>(getContext()) {
+            @Override
+            public void finish(boolean success, VodListVo body, String message) {
+                mPbLoading.setVisibility(View.GONE);
+
+                if(success){
+                    List<VodInfo> list = body.getList();
+                    if (null != list && list.size() > 0) {
+                        mAdapter.clear();
+                        addWithTryCatch(sf);
+
+                        String title = getString(R.string.search_results, query, list.size() + "");
+                        List<List> listList = ListUtils.splitList(list, 6);
+                        for (List<VodInfo> item : listList) {
+                            addItem(item, title);
+                            title = null;
+                        }
+                        addFooter();
+                    } else {
+                        addItem(new ArrayList<>(), getString(R.string.search_results_none, query));
+                    }
+                }
+            }
+        });
+    }
 }
