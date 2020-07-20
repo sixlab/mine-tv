@@ -2,6 +2,7 @@ package tech.minesoft.minetv;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -120,7 +121,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                 currentInfo.getVod_actor()));
 
         textView = findViewById(R.id.tv_video_intro);
-        textView.setText(String.format("简介：%s", currentInfo.getVod_content()));
+        textView.setText(Html.fromHtml(currentInfo.getVod_content()));
 
         mTvUpdate = findViewById(R.id.tv_update);
         mTvStar = findViewById(R.id.tv_star);
