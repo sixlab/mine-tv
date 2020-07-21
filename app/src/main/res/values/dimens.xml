@@ -22,6 +22,7 @@
     <dimen name="text_size_3xl">25sp</dimen>
 
     <dimen name="logo_margin_50">50dp</dimen>
+    <dimen name="text_margin_65">65dp</dimen>
     <dimen name="logo_size_60">60dp</dimen>
 
     <dimen name="text_start">5dp</dimen>

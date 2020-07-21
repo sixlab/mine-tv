@@ -27,10 +27,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below='@id/video_tips_logo'
-            android:layout_marginStart="@dimen/logo_margin_50"
+            android:layout_marginStart="@dimen/text_margin_65"
             android:format12Hour="HH:mm"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/text_size_xl"
+            android:textSize="@dimen/text_size_m"
             android:theme="@style/MyTimePicker" />
 
     <TextView
@@ -40,6 +40,6 @@
             android:layout_below='@id/video_tips_time'
             android:layout_marginStart="@dimen/logo_margin_50"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/text_size_m" />
+            android:textSize="@dimen/text_size_s" />
 
 </RelativeLayout>
