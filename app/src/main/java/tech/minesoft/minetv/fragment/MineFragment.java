@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,8 @@ import tech.minesoft.minetv.data.RequestHelper;
 
 
 public class MineFragment extends Fragment {
+
+    private TextView tvUrl;
 
     public static Fragment newInstance() {
         return new MineFragment();
@@ -33,12 +36,18 @@ public class MineFragment extends Fragment {
             if (RequestHelper.urlIndex >= RequestHelper.BASE_URLs.length) {
                 RequestHelper.urlIndex = 0;
             }
-
-            showText("链接：" + RequestHelper.BASE_URLs[RequestHelper.urlIndex] + "\n索引：" + RequestHelper.urlIndex);
-
+            changeUrl();
         });
 
+        TextView tvUrl = view.findViewById(R.id.tv_url);
+        tvUrl.setText("链接：" + RequestHelper.BASE_URLs[RequestHelper.urlIndex] + "\n索引：" + RequestHelper.urlIndex);
+
         return view;
+    }
+
+    private void changeUrl() {
+        String text = "链接：" + RequestHelper.BASE_URLs[RequestHelper.urlIndex] + "\n索引：" + RequestHelper.urlIndex;
+        tvUrl.setText(text);
     }
 
     private Toast toast = null;
