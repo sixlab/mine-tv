@@ -198,9 +198,9 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
 
         String text;
         if (DbHelper.isStar(this, currentInfo.getVod_id())) {
-            text = getString(R.string.action_star);
-        } else {
             text = getString(R.string.action_unstar);
+        } else {
+            text = getString(R.string.action_star);
         }
         mTvStar.setText(text);
     }
