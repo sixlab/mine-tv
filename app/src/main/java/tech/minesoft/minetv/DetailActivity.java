@@ -93,6 +93,8 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         initView();
         loadData();
         initListener();
+
+        updateInfo();
     }
 
     private void reload() {
