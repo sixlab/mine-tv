@@ -3,15 +3,15 @@
   "totalCount": 4,
   "data": [
     {
-      "id": 1114,
-      "tabCode": "TabStar",
-      "name": "收藏",
-      "icon": ""
-    },
-    {
       "id": 1113,
       "tabCode": "TabHistory",
       "name": "历史",
+      "icon": ""
+    },
+    {
+      "id": 1114,
+      "tabCode": "TabStar",
+      "name": "收藏",
       "icon": ""
     },
     {
