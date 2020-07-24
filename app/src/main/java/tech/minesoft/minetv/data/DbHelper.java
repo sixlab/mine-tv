@@ -136,7 +136,8 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         Cursor cursor = db.query(DbEntry.TABLE_INFO, new String[]{DbEntry.INFO_VOD_INFO},
-                DbEntry.INFO_STAR + " = 1 ", null, null, null, DbEntry.INFO_STAR_TIME + " DESC ");
+                DbEntry.INFO_STAR + " = 1 ", null, null, null,
+                DbEntry.INFO_LAST_OPEN + " DESC ");
 
         List<VodInfo> vodInfoList = new ArrayList<>();
         while (cursor.moveToNext()) {
