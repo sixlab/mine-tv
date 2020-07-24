@@ -39,7 +39,7 @@ public class MineFragment extends Fragment {
             changeUrl();
         });
 
-        TextView tvUrl = view.findViewById(R.id.tv_url);
+        tvUrl = view.findViewById(R.id.tv_url);
         tvUrl.setText("链接：" + RequestHelper.BASE_URLs[RequestHelper.urlIndex] + "\n索引：" + RequestHelper.urlIndex);
 
         return view;
