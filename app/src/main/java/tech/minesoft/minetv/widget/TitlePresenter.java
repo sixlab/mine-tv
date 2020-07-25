@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.leanback.widget.Presenter;
 
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.v2.bean.Title;
+import tech.minesoft.minetv.bean.Title;
 
 public class TitlePresenter extends Presenter {
     private static final String TAG = "TitlePresenter";

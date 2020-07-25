@@ -19,8 +19,8 @@ import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.data.DbHelper;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.SizeUtils;
-import tech.minesoft.minetv.v2.fragment.ContentFragment;
-import tech.minesoft.minetv.vo.VodInfo;
+import tech.minesoft.minetv.fragment.ContentFragment;
+import tech.minesoft.minetv.bean.VodInfo;
 
 
 public class BlockContentPresenter extends Presenter {

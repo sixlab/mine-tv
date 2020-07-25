@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.v2.adapter;
+package tech.minesoft.minetv.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -9,8 +9,8 @@ import java.util.List;
 import tech.minesoft.minetv.fragment.MineFragment;
 import tech.minesoft.minetv.fragment.SearchFragment;
 import tech.minesoft.minetv.utils.Const;
-import tech.minesoft.minetv.v2.bean.Title;
-import tech.minesoft.minetv.v2.fragment.ContentFragment;
+import tech.minesoft.minetv.bean.Title;
+import tech.minesoft.minetv.fragment.ContentFragment;
 
 
 public class ContentViewPagerAdapter extends SmartFragmentStatePagerAdapter {

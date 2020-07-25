@@ -1,10 +1,10 @@
-package tech.minesoft.minetv.v2.base;
+package tech.minesoft.minetv.base;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import tech.minesoft.minetv.vo.VodInfo;
+import tech.minesoft.minetv.bean.VodInfo;
 
 
 public abstract class BaseLazyLoadFragment extends Fragment {

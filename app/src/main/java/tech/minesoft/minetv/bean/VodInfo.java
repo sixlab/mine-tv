@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.vo;
+package tech.minesoft.minetv.bean;
 
 import java.io.Serializable;
 

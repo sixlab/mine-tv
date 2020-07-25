@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.v2.fragment;
+package tech.minesoft.minetv.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -31,10 +31,10 @@ import tech.minesoft.minetv.presenter.MinePresenterSelector;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.ListUtils;
 import tech.minesoft.minetv.utils.SizeUtils;
-import tech.minesoft.minetv.v2.base.BaseLazyLoadFragment;
-import tech.minesoft.minetv.v2.bean.Footer;
+import tech.minesoft.minetv.base.BaseLazyLoadFragment;
+import tech.minesoft.minetv.bean.Footer;
 import tech.minesoft.minetv.v2.widgets.TabVerticalGridView;
-import tech.minesoft.minetv.vo.VodInfo;
+import tech.minesoft.minetv.bean.VodInfo;
 import tech.minesoft.minetv.widget.BlockContentPresenter;
 
 

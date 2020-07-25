@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.v2.adapter;
+package tech.minesoft.minetv.adapter;
 
 import android.util.Log;
 import android.util.SparseArray;

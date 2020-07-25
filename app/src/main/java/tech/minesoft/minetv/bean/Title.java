@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.v2.bean;
+package tech.minesoft.minetv.bean;
 
 import java.util.List;
 
