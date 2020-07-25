@@ -21,7 +21,7 @@ import tech.minesoft.minetv.bean.UrlInfo;
 import tech.minesoft.minetv.bean.VodInfo;
 
 public class DbHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
 
     public DbHelper(Context context) {
         super(context, DbEntry.DATABASE_NAME, null, DATABASE_VERSION);
@@ -29,6 +29,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(DbEntry.SQL_CREATE_META);
         db.execSQL(DbEntry.SQL_CREATE_INFO);
         db.execSQL(DbEntry.SQL_CREATE_VIEW);
     }
@@ -36,8 +37,10 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         switch (oldVersion){
-            case 1:
-                Log.i(Const.LOG_TAG,"oldVersion 1");
+            case 3:
+                db.execSQL(DbEntry.SQL_CREATE_META);
+                db.execSQL(DbEntry.SQL_UPDATE_3_TO_4);
+                Log.i(Const.LOG_TAG,"oldVersion 3");
                 break;
             case 2:
                 Log.i(Const.LOG_TAG, "oldVersion 2");

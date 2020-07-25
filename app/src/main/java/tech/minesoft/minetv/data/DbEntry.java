@@ -3,11 +3,18 @@ package tech.minesoft.minetv.data;
 public class DbEntry {
     public static final String DATABASE_NAME = "MineTv.db";
 
+    public static final String TABLE_META = "mine_meta";
     public static final String TABLE_INFO = "movie_info";
     public static final String TABLE_VIEW = "movie_view";
 
+    public static final String META_ID = "id";
+    public static final String META_INFO_ID = "info_id";
+    public static final String META_KEY = "meta_key";
+    public static final String META_VAL = "meta_val";
+
     public static final String INFO_ID = "id";
     public static final String INFO_STAR = "star_flag";
+    public static final String INFO_API_URL = "api_url";
     public static final String INFO_VOD_ID = "vod_id";
     public static final String INFO_VOD_INFO = "vod_info";
     public static final String INFO_VOD_REVERSE = "vod_reverse";
@@ -21,10 +28,18 @@ public class DbEntry {
     public static final String VIEW_TIME = "view_time";
     public static final String VIEW_POSITION = "view_position";
 
+    public static final String SQL_CREATE_META =
+            " CREATE TABLE IF NOT EXISTS " + TABLE_META + " ( " +
+                    META_ID + " INTEGER " + "constraint " + TABLE_META + "_pk PRIMARY KEY autoincrement, " +
+                    META_INFO_ID + " INTEGER, " +
+                    META_KEY + " TEXT, " +
+                    META_VAL + " TEXT) ";
+
     public static final String SQL_CREATE_INFO =
             " CREATE TABLE IF NOT EXISTS " + TABLE_INFO + " ( " +
                     INFO_ID + " INTEGER " + "constraint " + TABLE_INFO + "_pk PRIMARY KEY autoincrement, " +
                     INFO_STAR + " INTEGER, " +
+                    INFO_API_URL + " TEXT, " +
                     INFO_VOD_ID + " INTEGER, " +
                     INFO_VOD_INFO + " TEXT, " +
                     INFO_VOD_REVERSE + " INTEGER, " +
@@ -40,4 +55,5 @@ public class DbEntry {
                     VIEW_TIME + " INTEGER, " +
                     VIEW_POSITION + " INTEGER) ";
 
+    public static final String SQL_UPDATE_3_TO_4 = " alter table movie_info add api_url text ";
 }
