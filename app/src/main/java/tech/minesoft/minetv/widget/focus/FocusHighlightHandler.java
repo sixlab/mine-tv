@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.v2.widgets.focus;
+package tech.minesoft.minetv.widget.focus;
 
 import android.view.View;
 

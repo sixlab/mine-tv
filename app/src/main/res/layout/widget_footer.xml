@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="146dp">
 
-    <tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout
+    <tech.minesoft.minetv.widget.ScaleConstraintLayout
         android:id="@+id/cl_back_to_top"
         android:layout_width="131dp"
         android:layout_height="30dp"
@@ -39,6 +39,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-    </tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout>
+    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

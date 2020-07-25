@@ -1,8 +1,7 @@
-package tech.minesoft.minetv.v2.widgets;
+package tech.minesoft.minetv.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.FocusFinder;
 import android.view.KeyEvent;
 import android.view.View;
@@ -12,80 +11,62 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.Group;
-import androidx.leanback.widget.VerticalGridView;
+import androidx.leanback.widget.HorizontalGridView;
 
 import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.utils.Const;
 
 
-public class TabVerticalGridView extends VerticalGridView {
+public class TabHorizontalGridView extends HorizontalGridView {
 
-    private static final String TAG = "TabVerticalGridView";
-
-    private View mTabView;
-    private Group mGroup;
-    private Animation mShakeY;
-    private boolean isPressUp = false;
-    private boolean isPressDown = false;
-    private boolean isBackReturn = true;
-
-    public boolean isBackReturn() {
-        return isBackReturn;
-    }
-
-    public void setBackReturn(boolean backReturn) {
-        isBackReturn = backReturn;
-    }
-
-    public TabVerticalGridView(Context context) {
+    public TabHorizontalGridView(Context context) {
         this(context, null);
     }
 
-    public TabVerticalGridView(Context context, AttributeSet attrs) {
+    public TabHorizontalGridView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public TabVerticalGridView(Context context, AttributeSet attrs, int defStyle) {
+    public TabHorizontalGridView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
+    private Animation shakeX;
 
-
-    public void setTabView(View tabView) {
-        this.mTabView = tabView;
-    }
-
-    public void setGroup(Group mGroup) {
-        this.mGroup = mGroup;
-    }
-
-    public boolean isPressUp() {
-        return isPressUp;
-    }
-
-    public boolean isPressDown() {
-        return isPressDown;
+    @Override
+    public View focusSearch(View focused, int direction) {
+        if (focused != null) {
+            final FocusFinder ff = FocusFinder.getInstance();
+            final View found = ff.findNextFocus(this, focused, direction);
+            if (direction == View.FOCUS_LEFT || direction == View.FOCUS_RIGHT) {
+                if ((found == null || found.getId() != R.id.tv_main_title)
+                        && getScrollState() == SCROLL_STATE_IDLE) {
+                    if (shakeX == null) {
+                        shakeX = AnimationUtils.loadAnimation(getContext(), R.anim.host_shake);
+                    }
+                    focused.clearAnimation();
+                    focused.startAnimation(shakeX);
+                    return null;
+                }
+            }
+        }
+        return super.focusSearch(focused, direction);
     }
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            isPressDown = false;
-            isPressUp = false;
             switch (event.getKeyCode()) {
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                    isPressDown = true;
-                    break;
-                case KeyEvent.KEYCODE_DPAD_UP:
-                    isPressUp = true;
-                    if (getSelectedPosition() == 0 && mTabView != null) {
-                        mTabView.requestFocus();
+                case KeyEvent.KEYCODE_BACK:
+                    if (getSelectedPosition() != Const.TAB_DEFAULT_POSITION) {
+                        if (getVisibility() != View.VISIBLE) {
+                            setVisibility(View.VISIBLE);
+                        }
+                        setSelectedPositionSmooth(Const.TAB_DEFAULT_POSITION);
                         return true;
                     }
+                case KeyEvent.KEYCODE_DPAD_DOWN:
                     break;
-                case KeyEvent.KEYCODE_BACK:
-                    backToTop();
-                    return isBackReturn;
                 default:
                     break;
             }
@@ -97,8 +78,11 @@ public class TabVerticalGridView extends VerticalGridView {
         boolean handled = false;
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (event.getKeyCode()) {
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                    handled = arrowScroll(FOCUS_DOWN);
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    handled = arrowScroll(FOCUS_LEFT);
+                    break;
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    handled = arrowScroll(FOCUS_RIGHT);
                     break;
             }
         }
@@ -106,7 +90,6 @@ public class TabVerticalGridView extends VerticalGridView {
     }
 
     public boolean arrowScroll(int direction) {
-        Log.e(TAG, "arrowScroll direction: "+direction );
 
         View currentFocused = findFocus();
         if (currentFocused == this) {
@@ -137,28 +120,24 @@ public class TabVerticalGridView extends VerticalGridView {
         View nextFocused = FocusFinder.getInstance().findNextFocus(this, currentFocused,
                 direction);
         if (nextFocused == null || nextFocused == currentFocused) {
-            if (direction == FOCUS_DOWN) {
-                if (currentFocused != null && getScrollState() == SCROLL_STATE_IDLE) {
-                    if (mShakeY == null) {
-                        mShakeY = AnimationUtils.loadAnimation(getContext(), R.anim.host_shake_y);
-                    }
-                    currentFocused.clearAnimation();
-                    currentFocused.startAnimation(mShakeY);
-
-                }
+            if (direction == FOCUS_LEFT || direction == FOCUS_RIGHT) {
+                shakeX(currentFocused);
                 handled = true;
             }
         }
         return handled;
     }
 
-    public void backToTop() {
-        if (mTabView != null) {
-            if (mGroup != null && mGroup.getVisibility() != View.VISIBLE) {
-                mGroup.setVisibility(View.VISIBLE);
+    private Animation mShakeX;
+
+
+    private void shakeX(View currentFocused) {
+        if (currentFocused != null && getScrollState() == SCROLL_STATE_IDLE) {
+            if (mShakeX == null) {
+                mShakeX = AnimationUtils.loadAnimation(getContext(), R.anim.host_shake);
             }
-            mTabView.requestFocus();
+            currentFocused.clearAnimation();
+            currentFocused.startAnimation(mShakeX);
         }
-        scrollToPosition(0);
     }
 }

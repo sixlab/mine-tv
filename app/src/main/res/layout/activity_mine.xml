@@ -8,7 +8,7 @@
     android:clipToPadding="false"
     tools:context=".MineActivity">
 
-    <tech.minesoft.minetv.v2.widgets.TabHorizontalGridView
+    <tech.minesoft.minetv.widget.TabHorizontalGridView
         android:id="@+id/row_title"
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -22,14 +22,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <tech.minesoft.minetv.v2.widgets.TabViewPager
+    <tech.minesoft.minetv.widget.TabViewPager
         android:id="@+id/tvp_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout
+    <tech.minesoft.minetv.widget.ScaleConstraintLayout
         android:id="@+id/btn_clear_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,9 +66,9 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
-    </tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout>
+    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
 
-    <tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout
+    <tech.minesoft.minetv.widget.ScaleConstraintLayout
         android:id="@+id/btn_clear_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -104,9 +104,9 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
-    </tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout>
+    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
 
-    <tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout
+    <tech.minesoft.minetv.widget.ScaleConstraintLayout
         android:id="@+id/btn_clear_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -142,9 +142,9 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
-    </tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout>
+    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
 
-    <tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout
+    <tech.minesoft.minetv.widget.ScaleConstraintLayout
         android:id="@+id/btn_clear_star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -185,7 +185,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
-    </tech.minesoft.minetv.v2.widgets.ScaleConstraintLayout>
+    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
 
     <TextView
         android:id="@+id/info_name"
@@ -246,7 +246,7 @@
         app:layout_constraintTop_toTopOf="@+id/info_name"
         tools:ignore="ContentDescription" />
 
-    <tech.minesoft.minetv.v2.widgets.ScaleTextView
+    <tech.minesoft.minetv.widget.ScaleTextView
         android:id="@+id/info_tips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -5,9 +5,6 @@ import androidx.leanback.widget.PresenterSelector;
 
 import tech.minesoft.minetv.fragment.SearchFragment;
 import tech.minesoft.minetv.bean.Footer;
-import tech.minesoft.minetv.widget.FooterPresenter;
-import tech.minesoft.minetv.widget.ListRowPresenter;
-import tech.minesoft.minetv.widget.SearchPresenter;
 
 public class MinePresenterSelector extends PresenterSelector {
     private final ListRowPresenter listRowPresenterOne = new ListRowPresenter();

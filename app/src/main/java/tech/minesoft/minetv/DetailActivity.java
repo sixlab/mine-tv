@@ -35,13 +35,13 @@ import tech.minesoft.minetv.utils.ListUtils;
 import tech.minesoft.minetv.utils.MineCallback;
 import tech.minesoft.minetv.utils.SizeUtils;
 import tech.minesoft.minetv.base.BaseActivity;
-import tech.minesoft.minetv.v2.widgets.TabVerticalGridView;
-import tech.minesoft.minetv.v2.widgets.focus.MyItemBridgeAdapter;
+import tech.minesoft.minetv.widget.TabVerticalGridView;
+import tech.minesoft.minetv.widget.focus.MyItemBridgeAdapter;
 import tech.minesoft.minetv.bean.UrlInfo;
 import tech.minesoft.minetv.bean.VodInfo;
 import tech.minesoft.minetv.bean.VodListVo;
-import tech.minesoft.minetv.widget.EpisodeGroupPresenter;
-import tech.minesoft.minetv.widget.EpisodeItemPresenter;
+import tech.minesoft.minetv.presenter.EpisodeGroupPresenter;
+import tech.minesoft.minetv.presenter.EpisodeItemPresenter;
 
 public class DetailActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "VideoDetailActivity";

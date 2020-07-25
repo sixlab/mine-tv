@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.widget;
+package tech.minesoft.minetv.presenter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.leanback.widget.Presenter;
 
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.v2.widgets.TabVerticalGridView;
+import tech.minesoft.minetv.widget.TabVerticalGridView;
 
 public class FooterPresenter extends Presenter {
     private static final String TAG = "FooterPresenter";

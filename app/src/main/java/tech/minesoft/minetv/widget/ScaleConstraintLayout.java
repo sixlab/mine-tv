@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.v2.widgets;
+package tech.minesoft.minetv.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.v2.widgets.focus.MyFocusHighlightHelper;
+import tech.minesoft.minetv.widget.focus.MyFocusHighlightHelper;
 
 
 public class ScaleConstraintLayout extends ConstraintLayout implements View.OnFocusChangeListener {

@@ -157,7 +157,7 @@
             app:layout_constraintLeft_toLeftOf="@+id/iv_video_pic"
             app:layout_constraintTop_toBottomOf="@+id/tv_episode" />
 
-    <tech.minesoft.minetv.v2.widgets.TabVerticalGridView
+    <tech.minesoft.minetv.widget.TabVerticalGridView
             android:id="@+id/hg_episode_items"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

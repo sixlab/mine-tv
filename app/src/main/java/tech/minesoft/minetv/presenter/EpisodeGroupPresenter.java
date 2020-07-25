@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.widget;
+package tech.minesoft.minetv.presenter;
 
 import android.view.LayoutInflater;
 import android.view.View;

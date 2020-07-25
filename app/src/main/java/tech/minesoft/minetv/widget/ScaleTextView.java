@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.v2.widgets;
+package tech.minesoft.minetv.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
-import tech.minesoft.minetv.v2.widgets.focus.MyFocusHighlightHelper;
+import tech.minesoft.minetv.widget.focus.MyFocusHighlightHelper;
 
 public class ScaleTextView extends AppCompatTextView implements View.OnFocusChangeListener {
     private MyFocusHighlightHelper.BrowseItemFocusHighlight mBrowseItemFocusHighlight;

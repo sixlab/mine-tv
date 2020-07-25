@@ -41,12 +41,12 @@ import tech.minesoft.minetv.adapter.ContentViewPagerAdapter;
 import tech.minesoft.minetv.base.BaseActivity;
 import tech.minesoft.minetv.bean.Title;
 import tech.minesoft.minetv.fragment.OnFragmentInteractionListener;
-import tech.minesoft.minetv.widget.TitlePresenter;
+import tech.minesoft.minetv.presenter.TitlePresenter;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.IOUtils;
 import tech.minesoft.minetv.utils.JsonUtils;
 import tech.minesoft.minetv.utils.SizeUtils;
-import tech.minesoft.minetv.v2.widgets.ScaleTextView;
+import tech.minesoft.minetv.widget.ScaleTextView;
 
 public class MineActivity extends BaseActivity implements OnFragmentInteractionListener,
         ViewTreeObserver.OnGlobalFocusChangeListener, View.OnKeyListener, View.OnClickListener {
