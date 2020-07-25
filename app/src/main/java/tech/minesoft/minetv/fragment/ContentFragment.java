@@ -33,9 +33,9 @@ import tech.minesoft.minetv.utils.ListUtils;
 import tech.minesoft.minetv.utils.SizeUtils;
 import tech.minesoft.minetv.base.BaseLazyLoadFragment;
 import tech.minesoft.minetv.bean.Footer;
-import tech.minesoft.minetv.v2.widgets.TabVerticalGridView;
+import tech.minesoft.minetv.widget.TabVerticalGridView;
 import tech.minesoft.minetv.bean.VodInfo;
-import tech.minesoft.minetv.widget.BlockContentPresenter;
+import tech.minesoft.minetv.presenter.BlockContentPresenter;
 
 
 public class ContentFragment extends BaseLazyLoadFragment {

@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.v2.widgets;
+package tech.minesoft.minetv.widget;
 
 import android.content.Context;
 import android.graphics.Rect;
