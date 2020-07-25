@@ -18,8 +18,8 @@ import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import org.jetbrains.annotations.NotNull;
 
 import tech.minesoft.minetv.utils.Const;
-import tech.minesoft.minetv.v2.base.BaseActivity;
-import tech.minesoft.minetv.vo.UrlInfo;
+import tech.minesoft.minetv.base.BaseActivity;
+import tech.minesoft.minetv.bean.UrlInfo;
 import tech.minesoft.minetv.widget.MinePlayer;
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 import tv.danmaku.ijk.media.exo2.ExoPlayerCacheManager;

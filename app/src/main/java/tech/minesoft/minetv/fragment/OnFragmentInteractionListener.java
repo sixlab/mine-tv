@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.v2.fragment;
+package tech.minesoft.minetv.fragment;
 
 import android.net.Uri;
 

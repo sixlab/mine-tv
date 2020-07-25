@@ -14,8 +14,8 @@ import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.data.DbHelper;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.SizeUtils;
-import tech.minesoft.minetv.v2.base.BaseListRowPresenter;
-import tech.minesoft.minetv.vo.UrlInfo;
+import tech.minesoft.minetv.base.BaseListRowPresenter;
+import tech.minesoft.minetv.bean.UrlInfo;
 
 
 public class ListRowPresenter extends BaseListRowPresenter {

@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 import tech.minesoft.minetv.utils.Const;
-import tech.minesoft.minetv.vo.UrlInfo;
-import tech.minesoft.minetv.vo.VodInfo;
+import tech.minesoft.minetv.bean.UrlInfo;
+import tech.minesoft.minetv.bean.VodInfo;
 
 public class DbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 3;

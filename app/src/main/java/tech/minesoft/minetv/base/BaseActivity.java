@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.v2.base;
+package tech.minesoft.minetv.base;
 
 
 import android.os.Bundle;

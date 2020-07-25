@@ -37,10 +37,10 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import tech.minesoft.minetv.data.DbHelper;
-import tech.minesoft.minetv.v2.adapter.ContentViewPagerAdapter;
-import tech.minesoft.minetv.v2.base.BaseActivity;
-import tech.minesoft.minetv.v2.bean.Title;
-import tech.minesoft.minetv.v2.fragment.OnFragmentInteractionListener;
+import tech.minesoft.minetv.adapter.ContentViewPagerAdapter;
+import tech.minesoft.minetv.base.BaseActivity;
+import tech.minesoft.minetv.bean.Title;
+import tech.minesoft.minetv.fragment.OnFragmentInteractionListener;
 import tech.minesoft.minetv.widget.TitlePresenter;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.IOUtils;

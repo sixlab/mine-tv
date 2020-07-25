@@ -4,7 +4,7 @@ import androidx.leanback.widget.Presenter;
 import androidx.leanback.widget.PresenterSelector;
 
 import tech.minesoft.minetv.fragment.SearchFragment;
-import tech.minesoft.minetv.v2.bean.Footer;
+import tech.minesoft.minetv.bean.Footer;
 import tech.minesoft.minetv.widget.FooterPresenter;
 import tech.minesoft.minetv.widget.ListRowPresenter;
 import tech.minesoft.minetv.widget.SearchPresenter;

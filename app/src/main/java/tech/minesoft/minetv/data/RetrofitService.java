@@ -1,6 +1,6 @@
 package tech.minesoft.minetv.data;
 
-import tech.minesoft.minetv.vo.VodListVo;
+import tech.minesoft.minetv.bean.VodListVo;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
