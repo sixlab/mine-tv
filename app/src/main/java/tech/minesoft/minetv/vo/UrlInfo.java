@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.bean;
+package tech.minesoft.minetv.vo;
 
 import java.io.Serializable;
 
@@ -6,6 +6,7 @@ public class UrlInfo implements Serializable {
     static final long serialVersionUID = 727566175075960653L;
 
     private Integer vodId;
+    private Long infoId;
     private String vodName;
     private String groupName;
     private String itemName;
@@ -18,6 +19,14 @@ public class UrlInfo implements Serializable {
 
     public void setVodId(Integer vodId) {
         this.vodId = vodId;
+    }
+
+    public Long getInfoId() {
+        return infoId;
+    }
+
+    public void setInfoId(Long infoId) {
+        this.infoId = infoId;
     }
 
     public String getVodName() {

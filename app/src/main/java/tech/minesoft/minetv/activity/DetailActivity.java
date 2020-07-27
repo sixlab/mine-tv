@@ -1,4 +1,4 @@
-package tech.minesoft.minetv;
+package tech.minesoft.minetv.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -27,28 +27,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tech.minesoft.minetv.data.DbHelper;
-import tech.minesoft.minetv.data.RequestHelper;
+import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.base.BaseActivity;
+import tech.minesoft.minetv.bean.MineMovieInfo;
+import tech.minesoft.minetv.utils.RetrofitService;
+import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.presenter.EpisodeGroupPresenter;
+import tech.minesoft.minetv.presenter.EpisodeItemPresenter;
 import tech.minesoft.minetv.presenter.MinePresenterSelector;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.ListUtils;
 import tech.minesoft.minetv.utils.MineCallback;
+import tech.minesoft.minetv.utils.RetrofitHelper;
 import tech.minesoft.minetv.utils.SizeUtils;
-import tech.minesoft.minetv.base.BaseActivity;
+import tech.minesoft.minetv.vo.UrlInfo;
+import tech.minesoft.minetv.vo.MovieListVo;
 import tech.minesoft.minetv.widget.TabVerticalGridView;
 import tech.minesoft.minetv.widget.focus.MyItemBridgeAdapter;
-import tech.minesoft.minetv.bean.UrlInfo;
-import tech.minesoft.minetv.bean.VodInfo;
-import tech.minesoft.minetv.bean.VodListVo;
-import tech.minesoft.minetv.presenter.EpisodeGroupPresenter;
-import tech.minesoft.minetv.presenter.EpisodeItemPresenter;
 
 public class DetailActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "VideoDetailActivity";
 
-    private ImageView mPic;
     private TabVerticalGridView mVerticalGridView;
-    private HorizontalGridView mHgEpisodeGroup;
 
     private ArrayObjectAdapter mEpisodesAdapter;
     private ArrayObjectAdapter mEpisodeGroupAdapter;
@@ -56,9 +56,8 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
     private int mCurrentGroupPosition = 0;
     private String currentGroup = "";
 
-    private VodInfo currentInfo;
+    private MineMovieInfo currentInfo;
     private Map<String, List<UrlInfo>> vodMap = new HashMap<>();
-    private boolean needReverse = false;
 
     private TextView mTvUpdate;
     private TextView mTvStar;
@@ -88,7 +87,9 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        currentInfo = (VodInfo) getIntent().getSerializableExtra(Const.SELECT_MOVIE);
+        long id = (long) getIntent().getSerializableExtra(Const.SELECT_MOVIE_ID);
+
+        currentInfo = DaoHelper.getInfo(id);
 
         initView();
         loadData();
@@ -102,13 +103,22 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initView() {
-        mPic = findViewById(R.id.iv_video_pic);
+        ImageView mPic = findViewById(R.id.iv_video_pic);
         
         Glide.with(this)
                 .load(currentInfo.getVod_pic())
                 .apply(new RequestOptions()
-                        // .override(SizeUtils.dp2px(this, 125),
-                        //         SizeUtils.dp2px(this, 185))
+                        .override(SizeUtils.dp2px(this, 150),
+                                SizeUtils.dp2px(this, 240))
+                        .placeholder(R.drawable.load))
+                .into(mPic);
+
+        mPic = findViewById(R.id.iv_logo_pic);
+        Glide.with(this)
+                .load(getDrawable(R.drawable.icon_logo))
+                .apply(new RequestOptions()
+                        .override(SizeUtils.dp2px(this, 150),
+                                SizeUtils.dp2px(this, 240))
                         .placeholder(R.drawable.load))
                 .into(mPic);
 
@@ -137,26 +147,24 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void loadData() {
-
         String playFrom = currentInfo.getVod_play_from();
         String playUrl = currentInfo.getVod_play_url();
 
         String[] groups = TextUtils.split(playFrom, "\\$\\$\\$");
         String[] groupsUrls = TextUtils.split(playUrl, "\\$\\$\\$");
 
-        Map<String, Integer> map = DbHelper.selectView(this, currentInfo.getVod_id());
-        needReverse = DbHelper.needReverse(this, currentInfo.getVod_id());
+        Map<String, Integer> map = DaoHelper.selectView(currentInfo.getId());
 
         List<String> validateGroup = new ArrayList<>();
         for (int i = 0; i < groups.length; i++) {
             String group = groups[i];
             String groupUrls = groupsUrls[i];
-            if (RequestHelper.PLAY_FROM.contains(group)) {
+            if (RetrofitHelper.PLAY_FROM.contains(group)) {
                 validateGroup.add(group);
 
                 String[] urls = TextUtils.split(groupUrls, "#");
 
-                if (needReverse) {
+                if (currentInfo.getVod_reverse() == 1) {
                     List<String> list = Arrays.asList(urls);
                     Collections.reverse(list);
                     urls = list.toArray(new String[0]);
@@ -168,6 +176,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
 
                     UrlInfo info = new UrlInfo();
                     info.setVodId(currentInfo.getVod_id());
+                    info.setInfoId(currentInfo.getId());
 
                     if (urlInfos.length == 2) {
                         info.setVodName(currentInfo.getVod_name());
@@ -199,7 +208,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         addEpisodes();
 
         String text;
-        if (DbHelper.isStar(this, currentInfo.getVod_id())) {
+        if (1 == currentInfo.getStar_flag()) {
             text = getString(R.string.action_unstar);
         } else {
             text = getString(R.string.action_star);
@@ -232,7 +241,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initEpisodeGroup() {
-        mHgEpisodeGroup = findViewById(R.id.hg_play_from);
+        HorizontalGridView mHgEpisodeGroup = findViewById(R.id.hg_play_from);
         mHgEpisodeGroup.setItemAnimator(null);
         // mHgEpisodeGroup.setFocusScrollStrategy(HorizontalGridView.FOCUS_SCROLL_ITEM);
         mHgEpisodeGroup.setHorizontalSpacing(SizeUtils.dp2px(this, 6));
@@ -282,17 +291,17 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                 reload();
                 break;
             case R.id.tv_star:
-                DbHelper.changeStar(this, currentInfo.getVod_id());
+                currentInfo = DaoHelper.changeStar(currentInfo.getId());
                 showText("操作成功");
                 reload();
                 break;
             case R.id.tv_clean:
-                DbHelper.delViews(this, currentInfo.getVod_id());
+                DaoHelper.delViews(currentInfo.getId());
                 showText("操作成功");
                 reload();
                 break;
             case R.id.tv_reverse:
-                DbHelper.updateReverse(this, currentInfo.getVod_id(), !needReverse);
+                currentInfo = DaoHelper.changeReverse(currentInfo.getId());
                 showText("操作成功");
                 reload();
                 break;
@@ -312,28 +321,30 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void updateInfo() {
-        RequestHelper.service.detail(currentInfo.getVod_id()).enqueue(new MineCallback<VodListVo>(this) {
-            @Override
-            public void finish(boolean success, VodListVo body, String message) {
-                if (success) {
-                    List<VodInfo> list = body.getList();
-                    if (null == list) {
-                        showText("返回的list为null");
-                    } else if (list.size() == 1) {
-                        VodInfo info = list.get(0);
-                        currentInfo = info;
+        RetrofitService service = RetrofitHelper.get(currentInfo.getApi_code());
+        if (service != null) {
+            service.detail(currentInfo.getVod_id()).enqueue(new MineCallback<MovieListVo>(this) {
+                @Override
+                public void finish(boolean success, MovieListVo body, String message) {
+                    if (success) {
+                        List<MineMovieInfo> list = body.getList();
+                        if (null == list) {
+                            showText("返回的list为null");
+                        } else if (list.size() == 1) {
+                            MineMovieInfo info = list.get(0);
 
-                        DbHelper.updateInfo(DetailActivity.this, info);
+                            currentInfo = DaoHelper.updateInfo(currentInfo.getId(), info);
 
-                        showText("更新成功");
+                            showText("更新成功");
 
-                        reload();
-                    } else {
-                        showText("返回的list长度为：" + list.size());
+                            reload();
+                        } else {
+                            showText("返回的list长度为：" + list.size());
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     private Toast toast = null;

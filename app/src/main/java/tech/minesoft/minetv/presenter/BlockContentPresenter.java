@@ -14,13 +14,13 @@ import androidx.leanback.widget.Presenter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import tech.minesoft.minetv.DetailActivity;
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.data.DbHelper;
+import tech.minesoft.minetv.activity.DetailActivity;
+import tech.minesoft.minetv.bean.MineMovieInfo;
+import tech.minesoft.minetv.fragment.ContentFragment;
+import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.SizeUtils;
-import tech.minesoft.minetv.fragment.ContentFragment;
-import tech.minesoft.minetv.bean.VodInfo;
 
 
 public class BlockContentPresenter extends Presenter {
@@ -46,8 +46,8 @@ public class BlockContentPresenter extends Presenter {
 
     @Override
     public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object item) {
-        if (item instanceof VodInfo) {
-            VodInfo info = (VodInfo) item;
+        if (item instanceof MineMovieInfo) {
+            MineMovieInfo info = (MineMovieInfo) item;
             ViewHolder vh = (ViewHolder) viewHolder;
             Glide.with(mContext)
                     .load(info.getVod_pic())
@@ -77,10 +77,10 @@ public class BlockContentPresenter extends Presenter {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     switch (keyCode) {
                         case KeyEvent.KEYCODE_ENTER:
-                            DbHelper.saveInfo(mContext, info);
+                            long infoId = DaoHelper.saveInfo(info);
 
                             Intent intent = new Intent(mContext, DetailActivity.class);
-                            intent.putExtra(Const.SELECT_MOVIE, info);
+                            intent.putExtra(Const.SELECT_MOVIE_ID, infoId);
 
                             mContext.startActivity(intent);
                             return true;

@@ -1,8 +1,10 @@
-package tech.minesoft.minetv.bean;
+package tech.minesoft.minetv.vo;
 
 import java.util.List;
 
-public class VodListVo {
+import tech.minesoft.minetv.bean.MineMovieInfo;
+
+public class MovieListVo {
 
     private Integer code;
     private String msg;
@@ -11,7 +13,7 @@ public class VodListVo {
     private String limit;
     private Integer total;
 
-    private List<VodInfo> list;
+    private List<MineMovieInfo> list;
 
     public Integer getCode() {
         return code;
@@ -61,11 +63,11 @@ public class VodListVo {
         this.total = total;
     }
 
-    public List<VodInfo> getList() {
+    public List<MineMovieInfo> getList() {
         return list;
     }
 
-    public void setList(List<VodInfo> list) {
+    public void setList(List<MineMovieInfo> list) {
         this.list = list;
     }
 }

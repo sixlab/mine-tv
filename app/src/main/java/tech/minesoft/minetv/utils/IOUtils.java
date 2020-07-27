@@ -16,7 +16,7 @@ public class IOUtils {
      * @param fileName 文件名
      * @return 内容
      */
-    public static String readJson(Context context, String fileName) {
+    public static String readAssets(Context context, String fileName) {
         StringBuilder stringBuilder = new StringBuilder();
         //
         AssetManager assetManager = context.getAssets();

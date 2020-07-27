@@ -1,4 +1,4 @@
-package tech.minesoft.minetv.bean;
+package tech.minesoft.minetv.vo;
 
 import java.util.List;
 

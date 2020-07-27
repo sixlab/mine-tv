@@ -1,10 +1,11 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "tech.minesoft.minetv.minev2"
+        applicationId "tech.minesoft.minetv.v3"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
@@ -26,8 +27,25 @@ android {
     }
 }
 
+greendao {
+    schemaVersion 1
+    // 设置DaoMaster、DaoSession、Dao 包名
+    daoPackage 'tech.minesoft.minetv.greendao'
+    // 设置DaoMaster、DaoSession、Dao目录,请注意，这里路径用/不要用.
+    targetGenDir 'src/main/java'
+    // 设置为true以自动生成单元测试。
+    generateTests false
+    // 应存储生成的单元测试的基本目录。默认为 src / androidTest / java。
+    targetGenDirTests 'src/androidTest/java'
+}
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation 'org.greenrobot:greendao:3.3.0' // add library
+
+    implementation 'org.apache.commons:commons-lang3:3.11'
+    implementation 'org.apache.commons:commons-collections4:4.4'
 
     implementation 'androidx.leanback:leanback:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

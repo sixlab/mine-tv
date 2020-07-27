@@ -9,7 +9,7 @@ import java.util.List;
 import tech.minesoft.minetv.fragment.MineFragment;
 import tech.minesoft.minetv.fragment.SearchFragment;
 import tech.minesoft.minetv.utils.Const;
-import tech.minesoft.minetv.bean.Title;
+import tech.minesoft.minetv.vo.Title;
 import tech.minesoft.minetv.fragment.ContentFragment;
 
 
