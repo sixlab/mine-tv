@@ -3,8 +3,13 @@ package tech.minesoft.minetv.utils;
 
 public class Const {
     public static final String LOG_TAG = "mine";
+
+    public static final String URL_GITHUB = "https://raw.githubusercontent.com/minesoft/mine-data/master/mine-tv/";
+
+    public static final String DATABASE_NAME = "MineTv.db";
+
     public static final int TAB_DEFAULT_POSITION = 1;
-    public static final String SELECT_MOVIE = "movie-VodInfo";
+    public static final String SELECT_MOVIE_ID = "MineMovieInfo-id";
     public static final String SELECT_EPISODE = "movie-UrlInfo";
     public static final int MSG_MINE_TITLE = 100;
 

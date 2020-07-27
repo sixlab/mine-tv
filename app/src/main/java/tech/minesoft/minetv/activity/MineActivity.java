@@ -1,4 +1,4 @@
-package tech.minesoft.minetv;
+package tech.minesoft.minetv.activity;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -36,10 +36,11 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import tech.minesoft.minetv.data.DbHelper;
+import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.adapter.ContentViewPagerAdapter;
 import tech.minesoft.minetv.base.BaseActivity;
-import tech.minesoft.minetv.bean.Title;
+import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.vo.Title;
 import tech.minesoft.minetv.fragment.OnFragmentInteractionListener;
 import tech.minesoft.minetv.presenter.TitlePresenter;
 import tech.minesoft.minetv.utils.Const;
@@ -133,18 +134,18 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
         Log.i(Const.LOG_TAG, v.toString());
         switch (v.getId()) {
             case R.id.btn_clear_all:
-                DbHelper.clearViews(this);
-                DbHelper.clearHis(this);
-                DbHelper.clearStar(this);
+                DaoHelper.clearViews();
+                DaoHelper.clearHis();
+                DaoHelper.clearStar();
                 break;
             case R.id.btn_clear_view:
-                DbHelper.clearViews(this);
+                DaoHelper.clearViews();
                 break;
             case R.id.btn_clear_history:
-                DbHelper.clearHis(this);
+                DaoHelper.clearHis();
                 break;
             case R.id.btn_clear_star:
-                DbHelper.clearStar(this);
+                DaoHelper.clearStar();
                 break;
             case R.id.info_tips:
                 showText(mTipsTv.getText());
@@ -259,7 +260,7 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
     private ScaleTextView mTipsTv;
 
     private Thread mThread = new Thread(() -> {
-        String titleJson = IOUtils.readJson(MineActivity.this, "MyTitle.json");
+        String titleJson = IOUtils.readAssets(MineActivity.this, "MyTitle.json");
         //转换为对象
         Title title = JsonUtils.toBean(titleJson, Title.class);
         List<Title.DataBean> dataBeans = title.getData();

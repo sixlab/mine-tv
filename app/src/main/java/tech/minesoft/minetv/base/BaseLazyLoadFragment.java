@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import tech.minesoft.minetv.bean.VodInfo;
+import tech.minesoft.minetv.bean.MineMovieInfo;
 
 
 public abstract class BaseLazyLoadFragment extends Fragment {
@@ -71,7 +71,7 @@ public abstract class BaseLazyLoadFragment extends Fragment {
         }
     }
 
-    public void delItem(VodInfo info){
+    public void delItem(MineMovieInfo info){
 
     }
 }

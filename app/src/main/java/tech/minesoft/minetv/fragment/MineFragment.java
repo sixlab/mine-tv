@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.data.RequestHelper;
 
 
 public class MineFragment extends Fragment {
@@ -32,22 +31,22 @@ public class MineFragment extends Fragment {
 
         Button btn = view.findViewById(R.id.btn_change_url);
         btn.setOnClickListener(v -> {
-            RequestHelper.urlIndex++;
-            if (RequestHelper.urlIndex >= RequestHelper.BASE_URLs.length) {
-                RequestHelper.urlIndex = 0;
-            }
+            // RequestHelper.urlIndex++;
+            // if (RequestHelper.urlIndex >= RequestHelper.BASE_URLs.length) {
+            //     RequestHelper.urlIndex = 0;
+            // }
             changeUrl();
         });
 
         tvUrl = view.findViewById(R.id.tv_url);
-        tvUrl.setText("链接：" + RequestHelper.BASE_URLs[RequestHelper.urlIndex] + "\n索引：" + RequestHelper.urlIndex);
+        // tvUrl.setText("链接：" + RequestHelper.BASE_URLs[RequestHelper.urlIndex] + "\n索引：" + RequestHelper.urlIndex);
 
         return view;
     }
 
     private void changeUrl() {
-        String text = "链接：" + RequestHelper.BASE_URLs[RequestHelper.urlIndex] + "\n索引：" + RequestHelper.urlIndex;
-        tvUrl.setText(text);
+        // String text = "链接：" + RequestHelper.BASE_URLs[RequestHelper.urlIndex] + "\n索引：" + RequestHelper.urlIndex;
+        // tvUrl.setText(text);
     }
 
     private Toast toast = null;

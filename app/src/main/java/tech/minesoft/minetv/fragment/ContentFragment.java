@@ -24,18 +24,18 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import tech.minesoft.minetv.MineActivity;
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.data.DbHelper;
+import tech.minesoft.minetv.activity.MineActivity;
+import tech.minesoft.minetv.base.BaseLazyLoadFragment;
+import tech.minesoft.minetv.bean.MineMovieInfo;
+import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.presenter.BlockContentPresenter;
 import tech.minesoft.minetv.presenter.MinePresenterSelector;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.ListUtils;
 import tech.minesoft.minetv.utils.SizeUtils;
-import tech.minesoft.minetv.base.BaseLazyLoadFragment;
-import tech.minesoft.minetv.bean.Footer;
+import tech.minesoft.minetv.vo.Footer;
 import tech.minesoft.minetv.widget.TabVerticalGridView;
-import tech.minesoft.minetv.bean.VodInfo;
-import tech.minesoft.minetv.presenter.BlockContentPresenter;
 
 
 public class ContentFragment extends BaseLazyLoadFragment {
@@ -157,13 +157,13 @@ public class ContentFragment extends BaseLazyLoadFragment {
             // mPbLoading.setVisibility(View.VISIBLE);
             // mVerticalGridView.setVisibility(View.INVISIBLE);
 
-            List<VodInfo> list = null;
+            List<MineMovieInfo> list = null;
             switch (mCurrentTabCode) {
-                case Const.TAB_STAR:
-                    list = DbHelper.loadStar(getActivity());
-                    break;
                 case Const.TAB_HIS:
-                    list = DbHelper.loadHis(getActivity());
+                    list = DaoHelper.loadHis();
+                    break;
+                case Const.TAB_STAR:
+                    list = DaoHelper.loadStar();
                     break;
             }
 
@@ -172,14 +172,14 @@ public class ContentFragment extends BaseLazyLoadFragment {
     }
 
     @Override
-    public void delItem(VodInfo info) {
+    public void delItem(MineMovieInfo info) {
         Context mContext = getContext();
         switch (mCurrentTabCode) {
             case Const.TAB_HIS:
                 new AlertDialog.Builder(mContext)
                         .setMessage("是否删除记录《" + info.getVod_name() + "》？")
                         .setNegativeButton("确定", (dialog, id) -> {
-                            DbHelper.delInfo(mContext, info.getVod_id());
+                            DaoHelper.delInfo(info.getId());
                             Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
                             fetchData();
                         })
@@ -190,7 +190,7 @@ public class ContentFragment extends BaseLazyLoadFragment {
                 new AlertDialog.Builder(mContext)
                         .setMessage("是否取消收藏《" + info.getVod_name() + "》？")
                         .setNegativeButton("确定", (dialog, id) -> {
-                            DbHelper.changeStar(mContext, info.getVod_id());
+                            DaoHelper.changeStar(info.getId());
                             Toast.makeText(mContext, "取消成功", Toast.LENGTH_SHORT).show();
                             fetchData();
                         })
@@ -218,12 +218,12 @@ public class ContentFragment extends BaseLazyLoadFragment {
         }
     }
 
-    private void addItem(List<VodInfo> list) {
+    private void addItem(List<MineMovieInfo> list) {
         mAdapter.clear();
 
         if (null != list && list.size() > 0) {
             List<List> listList = ListUtils.splitList(list, 6);
-            for (List<VodInfo> item : listList) {
+            for (List<MineMovieInfo> item : listList) {
                 BlockContentPresenter presenter = new BlockContentPresenter(getContext(), this);
                 ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(presenter);
 

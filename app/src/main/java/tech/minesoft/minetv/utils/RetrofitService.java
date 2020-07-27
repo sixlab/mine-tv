@@ -1,12 +1,21 @@
-package tech.minesoft.minetv.data;
+package tech.minesoft.minetv.utils;
 
-import tech.minesoft.minetv.bean.VodListVo;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
+import tech.minesoft.minetv.vo.MovieListVo;
 
 public interface RetrofitService {
+
+    @GET("version.json")
+    Call<Map> version();
+
+    @GET("{version}.json")
+    Call<Map> api(@Path("version") int version);
+
 
     /**
      *
@@ -18,8 +27,7 @@ public interface RetrofitService {
      * @return
      */
     @GET("?ac=list")
-    Call<VodListVo> list(@Query("wd")String wd, @Query("pg")Integer pg);
-
+    Call<MovieListVo> list(@Query("wd")String wd, @Query("pg")Integer pg);
 
     /**
      * ac=detail&pg=1&t=1&pg=1&h=1&ids=1
@@ -30,7 +38,7 @@ public interface RetrofitService {
      * @return
      */
     @GET("?ac=detail")
-    Call<VodListVo> detail(@Query("wd")String wd, @Query("pg")Integer pg);
+    Call<MovieListVo> detail(@Query("wd")String wd, @Query("pg")Integer pg);
 
 
     /**
@@ -41,6 +49,5 @@ public interface RetrofitService {
      * @return
      */
     @GET("?ac=detail")
-    Call<VodListVo> detail(@Query("ids")Integer ids);
-
+    Call<MovieListVo> detail(@Query("ids") Integer ids);
 }

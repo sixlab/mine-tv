@@ -9,13 +9,13 @@ import androidx.leanback.widget.HorizontalGridView;
 import androidx.leanback.widget.RowHeaderPresenter;
 import androidx.leanback.widget.RowPresenter;
 
-import tech.minesoft.minetv.PlayerActivity;
+import tech.minesoft.minetv.activity.PlayerActivity;
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.data.DbHelper;
+import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.SizeUtils;
 import tech.minesoft.minetv.base.BaseListRowPresenter;
-import tech.minesoft.minetv.bean.UrlInfo;
+import tech.minesoft.minetv.vo.UrlInfo;
 
 
 public class ListRowPresenter extends BaseListRowPresenter {
@@ -40,7 +40,7 @@ public class ListRowPresenter extends BaseListRowPresenter {
             if (item instanceof UrlInfo) {
                 UrlInfo urlInfo = (UrlInfo) item;
 
-                DbHelper.addView(context, urlInfo);
+                DaoHelper.addView(urlInfo);
 
                 Intent intent = new Intent(context, PlayerActivity.class);
                 intent.putExtra(Const.SELECT_EPISODE, urlInfo);

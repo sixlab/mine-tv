@@ -27,7 +27,7 @@
             android:allowBackup="true">
 
         <activity
-                android:name=".MineActivity"
+                android:name=".activity.MineActivity"
                 android:banner="@drawable/app_icon_your_company"
                 android:icon="@drawable/app_icon_your_company"
                 android:label="@string/app_name"
@@ -40,9 +40,9 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="tech.minesoft.minetv.DetailActivity" />
+        <activity android:name="tech.minesoft.minetv.activity.DetailActivity" />
         <activity
-                android:name="tech.minesoft.minetv.PlayerActivity"
+                android:name="tech.minesoft.minetv.activity.PlayerActivity"
                 android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode" />
 
         <meta-data

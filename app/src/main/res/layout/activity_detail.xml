@@ -6,11 +6,11 @@
         android:layout_height="match_parent"
         android:clipChildren="false"
         android:clipToPadding="false"
-        tools:context=".DetailActivity">
+        tools:context=".activity.DetailActivity">
 
     <ImageView
             android:id="@+id/iv_video_pic"
-            android:layout_width="420dp"
+            android:layout_width="150dp"
             android:layout_height="240dp"
             android:layout_marginStart="48dp"
             android:layout_marginTop="60dp"
@@ -21,6 +21,22 @@
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+            android:id="@+id/iv_logo_pic"
+            android:layout_width="150dp"
+            android:layout_height="240dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginTop="60dp"
+            android:padding="2dp"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            android:focusable="false"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription"
+            android:src="@drawable/icon_logo"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -52,15 +68,16 @@
 
     <TextView
             android:id="@+id/tv_video_intro"
-            android:layout_width="419dp"
+            android:layout_width="match_parent"
             android:layout_height="86dp"
             android:layout_marginTop="5dp"
+            android:layout_marginStart="220dp"
+            android:layout_marginEnd="220dp"
             android:ellipsize="end"
-            android:maxLines="5"
             android:gravity="start"
+            android:maxLines="10"
             android:text="@string/placeholder"
             android:textColor="@color/colorWhite"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_video_name"
             app:layout_constraintTop_toBottomOf="@+id/tv_video_info" />
 
     <TextView

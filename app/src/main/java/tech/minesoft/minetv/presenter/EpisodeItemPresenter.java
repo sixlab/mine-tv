@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.leanback.widget.Presenter;
 
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.bean.UrlInfo;
+import tech.minesoft.minetv.vo.UrlInfo;
 
 public class EpisodeItemPresenter extends Presenter {
     private Context mContext;
