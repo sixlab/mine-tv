@@ -41,29 +41,30 @@
 
     <TextView
             android:id="@+id/tv_video_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="60dp"
-            android:gravity="center"
+            android:layout_marginStart="215dp"
+            android:layout_marginEnd="215dp"
+            android:gravity="left"
             android:text="@string/placeholder"
             android:textColor="@color/colorWhite"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@+id/iv_video_pic"
             app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
             android:id="@+id/tv_video_info"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginStart="215dp"
+            android:layout_marginEnd="215dp"
             android:ellipsize="end"
             android:gravity="start"
             android:singleLine="false"
             android:text="@string/placeholder"
             android:textColor="@color/colorWhite"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_video_name"
             app:layout_constraintTop_toBottomOf="@+id/tv_video_name" />
 
     <TextView
@@ -71,8 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="86dp"
             android:layout_marginTop="5dp"
-            android:layout_marginStart="220dp"
-            android:layout_marginEnd="220dp"
+            android:layout_marginStart="215dp"
+            android:layout_marginEnd="215dp"
             android:ellipsize="end"
             android:gravity="start"
             android:maxLines="10"

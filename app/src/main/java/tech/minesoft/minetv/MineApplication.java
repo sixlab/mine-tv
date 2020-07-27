@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import tech.minesoft.minetv.greendao.DaoMaster;
+import tech.minesoft.minetv.greendao.DaoOpenHelper;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.Holder;
 
@@ -37,7 +38,7 @@ public class MineApplication extends Application {
      */
     private void setupDatabase() {
         //创建数据库
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, Const.DATABASE_NAME);
+        DaoOpenHelper helper = new DaoOpenHelper(this, Const.DATABASE_NAME);
 
         //获取可写数据库
         SQLiteDatabase db = helper.getWritableDatabase();

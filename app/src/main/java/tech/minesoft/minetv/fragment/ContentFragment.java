@@ -297,7 +297,7 @@ public class ContentFragment extends BaseLazyLoadFragment {
             toast.getView().isShown();
             toast.setText(text);
         } catch (Exception e) {
-            toast = Toast.makeText(getContext(), text, Toast.LENGTH_LONG);
+            toast = Toast.makeText(getContext(), text, Toast.LENGTH_SHORT);
         }
         toast.show();
     }
