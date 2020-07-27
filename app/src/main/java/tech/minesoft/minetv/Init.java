@@ -1,9 +1,6 @@
 package tech.minesoft.minetv;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 
 import java.util.List;
 
@@ -52,30 +49,30 @@ public class Init {
                         DaoHelper.updatePrimary(body.getPrimary());
                     }
                 } else {
-                    new AlertDialog.Builder(context)
-                            .setMessage("初始化失败，重试或退出？")
-                            .setNegativeButton("重试", (dialog, id) -> {
-                                init(context);
-                            })
-                            .setPositiveButton("退出", (dialog, which) -> {
-                                System.exit(0);
-                            })
-                            .show();
+                    // new AlertDialog.Builder(context)
+                    //         .setMessage("初始化失败，重试或退出？")
+                    //         .setNegativeButton("重试", (dialog, id) -> {
+                    //             init(context);
+                    //         })
+                    //         .setPositiveButton("退出", (dialog, which) -> {
+                    //             System.exit(0);
+                    //         })
+                    //         .show();
                 }
             }
         });
     }
 
     private static void update(Context context, String updateUrl) {
-        new AlertDialog.Builder(context)
-                .setMessage("已有新版本，是否前往升级？")
-                .setNegativeButton("确定", (dialog, id) -> {
-                    Intent it = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
-                    it.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
-                    context.startActivity(it);
-                })
-                .setPositiveButton("取消", null)
-                .show();
+        // new AlertDialog.Builder(context)
+        //         .setMessage("已有新版本，是否前往升级？")
+        //         .setNegativeButton("确定", (dialog, id) -> {
+        //             Intent it = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
+        //             it.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
+        //             context.startActivity(it);
+        //         })
+        //         .setPositiveButton("取消", null)
+        //         .show();
     }
 
     // private static void initApi(Context context, int version) {

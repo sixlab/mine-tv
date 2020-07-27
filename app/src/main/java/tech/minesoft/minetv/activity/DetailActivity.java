@@ -355,7 +355,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
             toast.getView().isShown();
             toast.setText(text);
         } catch (Exception e) {
-            toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
+            toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         }
         toast.show();
     }

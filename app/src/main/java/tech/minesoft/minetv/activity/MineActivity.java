@@ -35,18 +35,19 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.Random;
 
 import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.adapter.ContentViewPagerAdapter;
 import tech.minesoft.minetv.base.BaseActivity;
-import tech.minesoft.minetv.greendao.DaoHelper;
-import tech.minesoft.minetv.vo.Title;
 import tech.minesoft.minetv.fragment.OnFragmentInteractionListener;
+import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.presenter.TitlePresenter;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.IOUtils;
 import tech.minesoft.minetv.utils.JsonUtils;
 import tech.minesoft.minetv.utils.SizeUtils;
+import tech.minesoft.minetv.vo.Title;
 import tech.minesoft.minetv.widget.ScaleTextView;
 
 public class MineActivity extends BaseActivity implements OnFragmentInteractionListener,
@@ -113,7 +114,6 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
             switch (v.getId()) {
                 case R.id.btn_clear_all:
                 case R.id.btn_clear_view:
-                case R.id.btn_clear_history:
                 case R.id.btn_clear_star:
                 case R.id.info_tips:
                     if (mHorizontalGridView != null) {
@@ -136,19 +136,17 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
             case R.id.btn_clear_all:
                 DaoHelper.clearViews();
                 DaoHelper.clearHis();
-                DaoHelper.clearStar();
                 break;
             case R.id.btn_clear_view:
                 DaoHelper.clearViews();
-                break;
-            case R.id.btn_clear_history:
-                DaoHelper.clearHis();
                 break;
             case R.id.btn_clear_star:
                 DaoHelper.clearStar();
                 break;
             case R.id.info_tips:
-                showText(mTipsTv.getText());
+                String[] tips = getResources().getStringArray(R.array.tips);
+                int index = new Random().nextInt(tips.length);
+                showText(tips[index]);
                 break;
             default:
                 break;
@@ -255,7 +253,6 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
 
     private ConstraintLayout mBtnClearAll;
     private ConstraintLayout mBtnClearView;
-    private ConstraintLayout mBtnClearHistory;
     private ConstraintLayout mBtnClearStar;
     private ScaleTextView mTipsTv;
 
@@ -280,7 +277,6 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
 
         mBtnClearAll = findViewById(R.id.btn_clear_all);
         mBtnClearView = findViewById(R.id.btn_clear_view);
-        mBtnClearHistory = findViewById(R.id.btn_clear_history);
         mBtnClearStar = findViewById(R.id.btn_clear_star);
         mTipsTv = findViewById(R.id.info_tips);
 
@@ -305,13 +301,11 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
         mHorizontalGridView.addOnChildViewHolderSelectedListener(onChildViewHolderSelectedListener);
         mBtnClearAll.setOnClickListener(this);
         mBtnClearView.setOnClickListener(this);
-        mBtnClearHistory.setOnClickListener(this);
         mBtnClearStar.setOnClickListener(this);
         mTipsTv.setOnClickListener(this);
 
         mBtnClearAll.setOnKeyListener(this);
         mBtnClearView.setOnKeyListener(this);
-        mBtnClearHistory.setOnKeyListener(this);
         mBtnClearStar.setOnKeyListener(this);
         mTipsTv.setOnKeyListener(this);
     }
@@ -441,7 +435,7 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
             toast.getView().isShown();
             toast.setText(text);
         } catch (Exception e) {
-            toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
+            toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         }
         toast.show();
     }
