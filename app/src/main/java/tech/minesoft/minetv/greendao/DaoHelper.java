@@ -1,6 +1,5 @@
 package tech.minesoft.minetv.greendao;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.greenrobot.greendao.database.Database;
 
 import java.text.MessageFormat;
@@ -36,7 +35,7 @@ public class DaoHelper {
 
     public static String meta(String meta) {
         List<MineMeta> metas = Holder.daoSession.queryRaw(MineMeta.class, " where meta = ? ", meta);
-        if (CollectionUtils.isNotEmpty(metas)) {
+        if (null != meta && metas.size() > 0) {
             return metas.get(0).getVal();
         }
 
@@ -214,5 +213,55 @@ public class DaoHelper {
         viewInfo.setView_position(0);
 
         Holder.daoSession.insert(viewInfo);
+    }
+
+    public static void disableAllSite() {
+        MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
+        List<MineSiteInfo> list = siteInfoDao.queryBuilder().where(
+                MineSiteInfoDao.Properties.Status.eq("1")
+        ).list();
+
+        for (MineSiteInfo siteInfo : list) {
+            siteInfo.setStatus(0);
+        }
+
+        siteInfoDao.updateInTx(list);
+    }
+
+    public static void updateSite(MineSiteInfo info) {
+        MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
+
+        MineSiteInfo siteInfo = siteInfoDao.queryBuilder().where(
+                MineSiteInfoDao.Properties.Code.eq(info.getCode())
+        ).limit(1).unique();
+
+        if (null == siteInfo) {
+            info.setStatus(1);
+            siteInfoDao.insert(info);
+        } else {
+            siteInfo.setStatus(1);
+            siteInfo.setName(info.getName());
+            siteInfo.setUrl(info.getUrl());
+            siteInfoDao.update(siteInfo);
+        }
+    }
+
+    public static void updatePrimary(String primary) {
+        MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
+        List<MineSiteInfo> list = siteInfoDao.queryBuilder().where(
+                MineSiteInfoDao.Properties.Primary.eq("1"),
+                MineSiteInfoDao.Properties.Status.eq("1")
+        ).list();
+
+        if (list.size() == 0) {
+            MineSiteInfo siteInfo = siteInfoDao.queryBuilder().where(
+                    MineSiteInfoDao.Properties.Code.eq(primary)
+            ).limit(1).unique();
+
+            if (null != siteInfo) {
+                siteInfo.setPrimary(1);
+                siteInfoDao.update(siteInfo);
+            }
+        }
     }
 }

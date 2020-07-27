@@ -4,41 +4,63 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-
-import org.apache.commons.collections4.MapUtils;
 
 import java.util.List;
-import java.util.Map;
 
 import tech.minesoft.minetv.bean.MineSiteInfo;
+import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.greendao.DaoMaster;
 import tech.minesoft.minetv.utils.Const;
-import tech.minesoft.minetv.utils.Holder;
+import tech.minesoft.minetv.utils.IOUtils;
+import tech.minesoft.minetv.utils.JsonUtils;
 import tech.minesoft.minetv.utils.MineCallback;
 import tech.minesoft.minetv.utils.RetrofitHelper;
+import tech.minesoft.minetv.vo.InitVo;
 
 public class Init {
 
     public static void init(Context context) {
         RetrofitHelper.add("github", Const.URL_GITHUB);
 
-        RetrofitHelper.get("github").version().enqueue(new MineCallback<Map>(context) {
+        String defaultJson = IOUtils.readAssets(context, "Api.json");
+        MineSiteInfo siteInfo = JsonUtils.toBean(defaultJson, MineSiteInfo.class);
+        siteInfo.setStatus(1);
+        DaoHelper.updateSite(siteInfo);
+
+        RetrofitHelper.get("github").init().enqueue(new MineCallback<InitVo>(context) {
             @Override
-            public void finish(boolean success, Map body, String message) {
+            public void finish(boolean success, InitVo body, String message) {
                 if (success) {
-                    int newVersion = MapUtils.getIntValue(body, "version");
+                    int newVersion = body.getVersion();
                     int appVersion = DaoMaster.SCHEMA_VERSION;
 
                     if (appVersion < newVersion) {
                         // 旧版本，提醒升级
-                        update(context, MapUtils.getString(body, "update-url"));
+                        update(context, body.getUpdateUrl());
                     }
 
-                    // 更新url
-                    initApi(context, appVersion);
+                    List<MineSiteInfo> sites = body.getSites();
+                    if (null != sites && sites.size() > 0) {
+                        // 更新所有旧链接
+                        for (MineSiteInfo info : sites) {
+                            info.setPrimary(0);
+                            DaoHelper.updateSite(info);
+
+                            RetrofitHelper.add(info.getCode(), info.getUrl());
+                        }
+
+                        DaoHelper.updatePrimary(body.getPrimary());
+                    }
+                } else {
+                    new AlertDialog.Builder(context)
+                            .setMessage("初始化失败，重试或退出？")
+                            .setNegativeButton("重试", (dialog, id) -> {
+                                init(context);
+                            })
+                            .setPositiveButton("退出", (dialog, which) -> {
+                                System.exit(0);
+                            })
+                            .show();
                 }
             }
         });
@@ -56,40 +78,15 @@ public class Init {
                 .show();
     }
 
-    private static void initApi(Context context, int version) {
-        RetrofitHelper.get("github").api(version).enqueue(new MineCallback<Map>(context) {
-            @Override
-            public void finish(boolean success, Map body, String message) {
-                if (success) {
-                    Object urlsObj = body.get("urls");
-                    if (urlsObj instanceof List) {
-                        List urls = (List) urlsObj;
-                        if (urls.size() > 0) {
-                            // 删除所有旧链接
-                            Holder.daoSession.getMineSiteInfoDao().queryBuilder().buildDelete()
-                                    .executeDeleteWithoutDetachingEntities();
-
-                            int primary = 1;
-                            for (Object urlInfo : urls) {
-
-                                String json = new Gson().toJson(urlInfo);
-                                MineSiteInfo info = new Gson().fromJson(json, MineSiteInfo.class);
-                                info.setStatus(1);
-                                info.setPrimary(primary);
-                                Holder.daoSession.insert(info);
-
-                                RetrofitHelper.add(info.getCode(), info.getUrl());
-
-                                primary = 0;
-                            }
-
-                            return;
-                        }
-                    }
-                }
-
-                Toast.makeText(context, "接口初始化失败", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
+    // private static void initApi(Context context, int version) {
+    //     RetrofitHelper.get("github").api(version).enqueue(new MineCallback<Map>(context) {
+    //         @Override
+    //         public void finish(boolean success, Map body, String message) {
+    //             if (success) {
+    //             }
+    //
+    //             Toast.makeText(context, "接口初始化失败", Toast.LENGTH_LONG).show();
+    //         }
+    //     });
+    // }
 }
