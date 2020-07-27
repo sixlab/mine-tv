@@ -6,12 +6,13 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import tech.minesoft.minetv.vo.InitVo;
 import tech.minesoft.minetv.vo.MovieListVo;
 
 public interface RetrofitService {
 
-    @GET("version.json")
-    Call<Map> version();
+    @GET("init.json")
+    Call<InitVo> init();
 
     @GET("{version}.json")
     Call<Map> api(@Path("version") int version);
