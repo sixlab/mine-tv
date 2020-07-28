@@ -15,7 +15,7 @@
 
     <string name="text_episode">剧集列表</string>
 
-    <string name="search_results">《%s》搜索结果 %s 个</string>
+    <string name="search_results">《%s》搜索结果 %d 个，当前页 %d / %d</string>
     <string name="search_results_none">未搜索到《%s》的结果</string>
 
     <string name="select_group"> %s 剧集列表</string>
@@ -23,6 +23,9 @@
     <string name="tips_del">本 App 资源来自网络公开接口</string>
 
     <string name="mine_action_change_url">切换链接</string>
+    <string name="back_top">回到顶部</string>
+    <string name="next_page">下一页</string>
+    <string name="prev_page">上一页</string>
 
     <string-array name="tips">
         <item>按菜单键删除记录</item>

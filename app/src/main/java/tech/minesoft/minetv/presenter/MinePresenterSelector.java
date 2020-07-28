@@ -3,28 +3,39 @@ package tech.minesoft.minetv.presenter;
 import androidx.leanback.widget.Presenter;
 import androidx.leanback.widget.PresenterSelector;
 
-import tech.minesoft.minetv.fragment.SearchFragment;
-import tech.minesoft.minetv.vo.Footer;
+import tech.minesoft.minetv.utils.Const;
 
 public class MinePresenterSelector extends PresenterSelector {
-    private final ListRowPresenter listRowPresenterOne = new ListRowPresenter();
+    private final ListRowPresenter listRowPresenter = new ListRowPresenter();
     private final FooterPresenter footerPresenter = new FooterPresenter();
+    private final NextPresenter nextPresenter = new NextPresenter();
     private final SearchPresenter searchPresenter = new SearchPresenter();
 
     public MinePresenterSelector() {
-        listRowPresenterOne.setShadowEnabled(false);
-        listRowPresenterOne.setSelectEffectEnabled(false);
-        listRowPresenterOne.setKeepChildForeground(false);
+        listRowPresenter.setShadowEnabled(false);
+        listRowPresenter.setSelectEffectEnabled(false);
+        listRowPresenter.setKeepChildForeground(false);
     }
 
     @Override
     public Presenter getPresenter(Object item) {
-        if(item instanceof Footer){
-            return footerPresenter;
-        }else if (item instanceof SearchFragment) {
-            return searchPresenter;
+        if (item instanceof Selector) {
+            Selector selector = (Selector) item;
+
+            switch (selector.type) {
+                case Const.PRESENTER_SEARCH:
+                    return searchPresenter;
+                case Const.PRESENTER_NEXT:
+                    return nextPresenter;
+                case Const.PRESENTER_FOOTER:
+                    return footerPresenter;
+
+                default:
+                    return listRowPresenter;
+            }
+        } else {
+            return listRowPresenter;
         }
-        return listRowPresenterOne;
     }
 
     @Override
@@ -32,4 +43,21 @@ public class MinePresenterSelector extends PresenterSelector {
         return super.getPresenters();
     }
 
+    public static class Selector {
+        private String type;
+        private Object item;
+
+        public Selector(String type, Object item) {
+            this.type = type;
+            this.item = item;
+        }
+
+        public static Selector newInstance(String type, Object item) {
+            return new Selector(type, item);
+        }
+
+        public Object getItem() {
+            return item;
+        }
+    }
 }

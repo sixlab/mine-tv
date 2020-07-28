@@ -21,7 +21,7 @@ public class FooterPresenter extends Presenter {
         if (mContext == null) {
             mContext = parent.getContext();
         }
-        View view = LayoutInflater.from(mContext).inflate(R.layout.widget_footer, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.presenter_footer, parent, false);
         view.findViewById(R.id.cl_back_to_top)
                 .setOnClickListener(v -> {
                     if (v.getParent().getParent() instanceof TabVerticalGridView) {

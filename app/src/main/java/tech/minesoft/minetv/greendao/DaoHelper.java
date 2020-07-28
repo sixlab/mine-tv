@@ -182,7 +182,15 @@ public class DaoHelper {
         ).orderDesc(MineMovieInfoDao.Properties.Last_open).list();
     }
 
-    public static MineSiteInfo getActiveSite() {
+    public static List<MineSiteInfo> getActiveSites() {
+        MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
+
+        return siteInfoDao.queryBuilder().where(
+                MineSiteInfoDao.Properties.Status.eq(1)
+        ).list();
+    }
+
+    public static MineSiteInfo getPrimarySite() {
         MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
 
         MineSiteInfo siteInfo = siteInfoDao.queryBuilder().where(

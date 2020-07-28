@@ -34,7 +34,6 @@ import tech.minesoft.minetv.presenter.MinePresenterSelector;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.ListUtils;
 import tech.minesoft.minetv.utils.SizeUtils;
-import tech.minesoft.minetv.vo.Footer;
 import tech.minesoft.minetv.widget.TabVerticalGridView;
 
 
@@ -171,7 +170,6 @@ public class ContentFragment extends BaseLazyLoadFragment {
         }
     }
 
-    @Override
     public void delItem(MineMovieInfo info) {
         Context mContext = getContext();
         switch (mCurrentTabCode) {
@@ -222,7 +220,7 @@ public class ContentFragment extends BaseLazyLoadFragment {
         mAdapter.clear();
 
         if (null != list && list.size() > 0) {
-            List<List> listList = ListUtils.splitList(list, 6);
+            List<List> listList = ListUtils.splitList(list, 5);
             for (List<MineMovieInfo> item : listList) {
                 BlockContentPresenter presenter = new BlockContentPresenter(getContext(), this);
                 ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(presenter);
@@ -239,7 +237,7 @@ public class ContentFragment extends BaseLazyLoadFragment {
     }
 
     private void addFooter() {
-        addWithTryCatch(new Footer());
+        addWithTryCatch(MinePresenterSelector.Selector.newInstance(Const.PRESENTER_FOOTER, this));
     }
 
     private final RecyclerView.OnScrollListener onScrollListener

@@ -25,7 +25,7 @@ public class ListRowPresenter extends BaseListRowPresenter {
         super.initializeRowViewHolder(holder);
         final ViewHolder rowViewHolder = (ViewHolder) holder;
 
-        rowViewHolder.getGridView().setHorizontalSpacing(SizeUtils.dp2px(rowViewHolder.getGridView().getContext(), 18));
+        rowViewHolder.getGridView().setHorizontalSpacing(SizeUtils.dp2px(rowViewHolder.getGridView().getContext(), 25));
         rowViewHolder.getGridView().setFocusScrollStrategy(HorizontalGridView.FOCUS_SCROLL_ITEM);
         RowHeaderPresenter.ViewHolder vh = rowViewHolder.getHeaderViewHolder();
 
