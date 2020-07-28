@@ -4,7 +4,7 @@ package tech.minesoft.minetv.utils;
 public class Const {
     public static final String LOG_TAG = "mine";
 
-    public static final String URL_GITHUB = "https://raw.githubusercontent.com/minesoft/mine-data/master/mine-tv/";
+    public static final String URL_INIT = "https://gitee.com/minesoft/mine-data/raw/master/mine-tv/";
 
     public static final String DATABASE_NAME = "MineTv.db";
 
@@ -22,5 +22,7 @@ public class Const {
     public static final String URI_HIDE_TITLE = "uriHideTitle";
     public static final String URI_SHOW_TITLE = "uriShowTitle";
 
-
+    public static final String PRESENTER_FOOTER = "footer";
+    public static final String PRESENTER_NEXT = "next";
+    public static final String PRESENTER_SEARCH = "search";
 }

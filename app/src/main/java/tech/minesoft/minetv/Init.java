@@ -17,7 +17,7 @@ import tech.minesoft.minetv.vo.InitVo;
 public class Init {
 
     public static void init(Context context) {
-        RetrofitHelper.add("github", Const.URL_GITHUB);
+        RetrofitHelper.add("github", Const.URL_INIT);
 
         String defaultJson = IOUtils.readAssets(context, "Api.json");
         MineSiteInfo siteInfo = JsonUtils.toBean(defaultJson, MineSiteInfo.class);

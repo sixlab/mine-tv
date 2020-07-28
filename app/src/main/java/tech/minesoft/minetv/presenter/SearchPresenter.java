@@ -34,11 +34,9 @@ public class SearchPresenter extends Presenter {
                 public boolean onQueryTextSubmit(String query) {
                     vh.mSearch.setIconified(true);
 
-                    if (item instanceof SearchFragment) {
-                        SearchFragment sf = (SearchFragment) item;
-                        sf.search(query);
-                    }
-
+                    MinePresenterSelector.Selector ms = (MinePresenterSelector.Selector) item;
+                    SearchFragment sf = (SearchFragment) ms.getItem();
+                    sf.search(query);
 
                     return true;
                 }

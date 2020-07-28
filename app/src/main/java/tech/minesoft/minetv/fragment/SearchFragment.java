@@ -29,7 +29,6 @@ import tech.minesoft.minetv.activity.MineActivity;
 import tech.minesoft.minetv.base.BaseLazyLoadFragment;
 import tech.minesoft.minetv.bean.MineMovieInfo;
 import tech.minesoft.minetv.bean.MineSiteInfo;
-import tech.minesoft.minetv.utils.RetrofitService;
 import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.presenter.BlockContentPresenter;
 import tech.minesoft.minetv.presenter.MinePresenterSelector;
@@ -37,8 +36,8 @@ import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.ListUtils;
 import tech.minesoft.minetv.utils.MineCallback;
 import tech.minesoft.minetv.utils.RetrofitHelper;
+import tech.minesoft.minetv.utils.RetrofitService;
 import tech.minesoft.minetv.utils.SizeUtils;
-import tech.minesoft.minetv.vo.Footer;
 import tech.minesoft.minetv.vo.MovieListVo;
 import tech.minesoft.minetv.widget.TabVerticalGridView;
 
@@ -54,6 +53,10 @@ public class SearchFragment extends BaseLazyLoadFragment {
     private ArrayObjectAdapter mAdapter;
 
     private OnFragmentInteractionListener mListener;
+
+    private String keyword;
+    private Integer page = 0;
+    private Integer totalPage = 0;
 
     public static SearchFragment newInstance() {
         Log.e(TAG, "new Instance status:  search ");
@@ -113,7 +116,7 @@ public class SearchFragment extends BaseLazyLoadFragment {
         ItemBridgeAdapter itemBridgeAdapter = new ItemBridgeAdapter(mAdapter);
         mVerticalGridView.setAdapter(itemBridgeAdapter);
 
-        addWithTryCatch(this);
+        addWithTryCatch(MinePresenterSelector.Selector.newInstance(Const.PRESENTER_SEARCH, this));
     }
 
     private void initListener() {
@@ -144,14 +147,6 @@ public class SearchFragment extends BaseLazyLoadFragment {
 
     }
 
-    //    public boolean onKeyEvent(KeyEvent keyEvent) {
-    //        if (keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-    //
-    //
-    //        }
-    //        return false;
-    //    }
-
     private void scrollToTop() {
         if (mVerticalGridView != null) {
             mVerticalGridView.scrollToPosition(0);
@@ -174,8 +169,9 @@ public class SearchFragment extends BaseLazyLoadFragment {
         addWithTryCatch(listRow);
     }
 
-    private void addFooter() {
-        addWithTryCatch(new Footer());
+    private void addFooter(Integer page, Integer totalPage) {
+        String type = (page < totalPage) ? Const.PRESENTER_NEXT : Const.PRESENTER_FOOTER;
+        addWithTryCatch(MinePresenterSelector.Selector.newInstance(type, this));
     }
 
     private final RecyclerView.OnScrollListener onScrollListener
@@ -225,47 +221,84 @@ public class SearchFragment extends BaseLazyLoadFragment {
         }
     }
 
-    public void search(String query) {
-        mPbLoading.setVisibility(View.VISIBLE);
-        SearchFragment sf = this;
+    public boolean hasPrev() {
+        return page > 1;
+    }
 
-        MineSiteInfo activeSite = DaoHelper.getActiveSite();
+    public boolean hasNext() {
+        return page < totalPage;
+    }
+
+    public void search(String query) {
+        keyword = query;
+
+        page = 0;
+        totalPage = 0;
+
+        searchNext();
+    }
+
+    public void searchPrev() {
+        Log.e(TAG, " search next :" + page);
+
+        searchPage(-1);
+    }
+
+    public void searchNext() {
+        Log.e(TAG, " search next :" + page);
+
+        searchPage(1);
+    }
+
+    private void searchPage(int step) {
+        MineSiteInfo activeSite = DaoHelper.getPrimarySite();
 
         if (null != activeSite) {
             RetrofitService service = RetrofitHelper.get(activeSite.getCode());
+
             if (null != service) {
-                service.detail(query, 1).enqueue(new MineCallback<MovieListVo>(getContext()) {
+                mPbLoading.setVisibility(View.VISIBLE);
+
+                service.detail(keyword, page + step).enqueue(new MineCallback<MovieListVo>(getContext()) {
                     @Override
                     public void finish(boolean success, MovieListVo body, String message) {
                         mPbLoading.setVisibility(View.GONE);
                         if (success) {
                             List<MineMovieInfo> list = body.getList();
                             if (null != list && list.size() > 0) {
+                                totalPage = body.getPagecount();
+                                page = Integer.valueOf(body.getPage());
+
                                 for (MineMovieInfo item : list) {
                                     item.setApi_code(activeSite.getCode());
                                     item.setApi_name(activeSite.getName());
                                     item.setApi_url(activeSite.getUrl());
                                 }
 
-                                mAdapter.clear();
-                                addWithTryCatch(sf);
-
-                                String title = getString(R.string.search_results, query, list.size() + "");
-                                List<List> listList = ListUtils.splitList(list, 6);
-                                for (List<MineMovieInfo> item : listList) {
-                                    addItem(item, title);
-                                    title = null;
-                                }
-                                addFooter();
+                                addResult(body.getTotal(), list);
                             } else {
-                                addItem(new ArrayList<>(), getString(R.string.search_results_none, query));
+                                mAdapter.clear();
+                                addWithTryCatch(MinePresenterSelector.Selector.newInstance(Const.PRESENTER_SEARCH, SearchFragment.this));
+                                addItem(new ArrayList<>(), getString(R.string.search_results_none, keyword));
                             }
                         }
                     }
                 });
             }
         }
+    }
 
+    private void addResult(Integer total, List<MineMovieInfo> list){
+        mAdapter.clear();
+        addWithTryCatch(MinePresenterSelector.Selector.newInstance(Const.PRESENTER_SEARCH, SearchFragment.this));
 
+        String title = getString(R.string.search_results, keyword, total, page, totalPage);
+        List<List> listList = ListUtils.splitList(list, 5);
+        for (List<MineMovieInfo> item : listList) {
+            addItem(item, title);
+            title = null;
+        }
+
+        addFooter(page, totalPage);
     }
 }
