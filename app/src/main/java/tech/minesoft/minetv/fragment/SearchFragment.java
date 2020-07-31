@@ -169,9 +169,8 @@ public class SearchFragment extends BaseLazyLoadFragment {
         addWithTryCatch(listRow);
     }
 
-    private void addFooter(Integer page, Integer totalPage) {
-        String type = (page < totalPage) ? Const.PRESENTER_NEXT : Const.PRESENTER_FOOTER;
-        addWithTryCatch(MinePresenterSelector.Selector.newInstance(type, this));
+    private void addFooter() {
+        addWithTryCatch(MinePresenterSelector.Selector.newInstance(Const.PRESENTER_PAGER, this));
     }
 
     private final RecyclerView.OnScrollListener onScrollListener
@@ -299,6 +298,6 @@ public class SearchFragment extends BaseLazyLoadFragment {
             title = null;
         }
 
-        addFooter(page, totalPage);
+        addFooter();
     }
 }

@@ -152,14 +152,15 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
 
         String[] groups = TextUtils.split(playFrom, "\\$\\$\\$");
         String[] groupsUrls = TextUtils.split(playUrl, "\\$\\$\\$");
+        Map<String, String> links = ListUtils.split2Map(groups, groupsUrls);
 
         Map<String, Integer> map = DaoHelper.selectView(currentInfo.getId());
 
         List<String> validateGroup = new ArrayList<>();
-        for (int i = 0; i < groups.length; i++) {
-            String group = groups[i];
-            String groupUrls = groupsUrls[i];
-            if (RetrofitHelper.PLAY_FROM.contains(group)) {
+
+        for (String group : RetrofitHelper.PLAY_FROM) {
+            String groupUrls = links.get(group);
+            if (!TextUtils.isEmpty(groupUrls)) {
                 validateGroup.add(group);
 
                 String[] urls = TextUtils.split(groupUrls, "#");
@@ -199,6 +200,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                 vodMap.put(group, infoList);
             }
         }
+
         mEpisodeGroupAdapter.clear();
         mEpisodeGroupAdapter.addAll(0, validateGroup);
 

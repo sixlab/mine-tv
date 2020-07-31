@@ -8,7 +8,7 @@ import tech.minesoft.minetv.utils.Const;
 public class MinePresenterSelector extends PresenterSelector {
     private final ListRowPresenter listRowPresenter = new ListRowPresenter();
     private final FooterPresenter footerPresenter = new FooterPresenter();
-    private final NextPresenter nextPresenter = new NextPresenter();
+    private final PagePresenter pagePresenter = new PagePresenter();
     private final SearchPresenter searchPresenter = new SearchPresenter();
 
     public MinePresenterSelector() {
@@ -25,8 +25,8 @@ public class MinePresenterSelector extends PresenterSelector {
             switch (selector.type) {
                 case Const.PRESENTER_SEARCH:
                     return searchPresenter;
-                case Const.PRESENTER_NEXT:
-                    return nextPresenter;
+                case Const.PRESENTER_PAGER:
+                    return pagePresenter;
                 case Const.PRESENTER_FOOTER:
                     return footerPresenter;
 

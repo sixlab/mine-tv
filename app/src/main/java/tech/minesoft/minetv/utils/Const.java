@@ -23,6 +23,7 @@ public class Const {
     public static final String URI_SHOW_TITLE = "uriShowTitle";
 
     public static final String PRESENTER_FOOTER = "footer";
-    public static final String PRESENTER_NEXT = "next";
+
     public static final String PRESENTER_SEARCH = "search";
+    public static final String PRESENTER_PAGER = "pager";
 }
