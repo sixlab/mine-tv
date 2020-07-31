@@ -1,9 +1,12 @@
 package tech.minesoft.minetv.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ListUtils {
+
     public static List<List> splitList(List list, int groupSize) {
         int length = list.size();
 
@@ -20,4 +23,13 @@ public class ListUtils {
         }
         return newList;
     }
+
+    public static Map<String, String> split2Map(String[] keys, String[] vals) {
+        Map<String, String> map = new HashMap<>();
+        for (int i = 0; i < keys.length; i++) {
+            map.put(keys[i], vals[i]);
+        }
+        return map;
+    }
+
 }

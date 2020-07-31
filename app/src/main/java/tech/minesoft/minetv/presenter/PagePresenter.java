@@ -11,7 +11,7 @@ import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.fragment.SearchFragment;
 import tech.minesoft.minetv.widget.ScaleConstraintLayout;
 
-public class NextPresenter extends Presenter {
+public class PagePresenter extends Presenter {
     private static final String TAG = "FooterPresenter";
 
     private Context mContext;
@@ -27,8 +27,8 @@ public class NextPresenter extends Presenter {
 
     @Override
     public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object item) {
-        if (viewHolder instanceof NextPresenter.ViewHolder) {
-            NextPresenter.ViewHolder vh = (NextPresenter.ViewHolder) viewHolder;
+        if (viewHolder instanceof PagePresenter.ViewHolder) {
+            PagePresenter.ViewHolder vh = (PagePresenter.ViewHolder) viewHolder;
 
             MinePresenterSelector.Selector ms = (MinePresenterSelector.Selector) item;
             SearchFragment sf = (SearchFragment) ms.getItem();
