@@ -23,13 +23,16 @@
 
     <string name="tips_del">本 App 资源来自网络公开接口</string>
 
-    <string name="mine_action_change_url">切换链接</string>
+    <string name="mine_action_change_url">切换搜索源</string>
+    
     <string name="back_top">回到顶部</string>
     <string name="next_page">下一页</string>
     <string name="prev_page">上一页</string>
 
     <string-array name="tips">
-        <item>按菜单键删除记录</item>
+        <item>按菜单键删除记录或者单集记录</item>
+        <item>本 App 不提供任务视频资源，所有资源来自网络公开接口</item>
+        <item>视频内的广告，不是本 App 提供，请不要轻易相信</item>
         <item>作者: nianqinianyi</item>
         <item>Github: &#064;minesoft</item>
         <item>@string/app_name</item>

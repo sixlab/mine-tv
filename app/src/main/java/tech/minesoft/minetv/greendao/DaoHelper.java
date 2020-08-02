@@ -282,6 +282,23 @@ public class DaoHelper {
         }
     }
 
+    public static void updatePrimary(Integer id) {
+        MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
+        List<MineSiteInfo> list = siteInfoDao.queryBuilder().where(
+                MineSiteInfoDao.Properties.Status.eq("1")
+        ).list();
+
+        for (MineSiteInfo siteInfo : list) {
+            if (siteInfo.getId() == id.intValue()) {
+                siteInfo.setPrimary(1);
+                siteInfoDao.update(siteInfo);
+            } else if (siteInfo.getPrimary() == 1) {
+                siteInfo.setPrimary(0);
+                siteInfoDao.update(siteInfo);
+            }
+        }
+    }
+
     public static void clearViews(Long infoId, String groupName, String itemName) {
         MineViewInfoDao viewDao = Holder.daoSession.getMineViewInfoDao();
         viewDao.queryBuilder().where(
