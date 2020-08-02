@@ -16,7 +16,8 @@ public class Const {
     public static final String TAB_STAR = "TabStar";
     public static final String TAB_HIS = "TabHistory";
     public static final String TAB_SEARCH = "TabSearch";
-    public static final String TAB_MINE = "TabMine";
+    public static final String TAB_SETTING = "TabSetting";
+    public static final String TAB_ABOUT = "TabAbout";
 
 
     public static final String URI_HIDE_TITLE = "uriHideTitle";

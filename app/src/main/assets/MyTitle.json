@@ -20,8 +20,14 @@
     },
     {
       "id": 1095,
-      "tabCode": "TabMine",
-      "name": "我的",
+      "tabCode": "TabSetting",
+      "name": "设置",
+      "icon": ""
+    },
+    {
+      "id": 1095,
+      "tabCode": "TabAbout",
+      "name": "关于",
       "icon": ""
     }
   ]
