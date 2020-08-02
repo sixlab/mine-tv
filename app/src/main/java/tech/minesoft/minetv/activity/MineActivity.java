@@ -113,6 +113,7 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
             //            isPressBack = true;
             switch (v.getId()) {
                 case R.id.btn_clear_all:
+                case R.id.btn_clear_unstar:
                 case R.id.btn_clear_view:
                 case R.id.btn_clear_star:
                 case R.id.info_tips:
@@ -136,6 +137,9 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
             case R.id.btn_clear_all:
                 DaoHelper.clearViews();
                 DaoHelper.clearHis();
+                break;
+            case R.id.btn_clear_unstar:
+                DaoHelper.clearUnStar();
                 break;
             case R.id.btn_clear_view:
                 DaoHelper.clearViews();
@@ -252,6 +256,7 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
     }
 
     private ConstraintLayout mBtnClearAll;
+    private ConstraintLayout mBtnClearUnStar;
     private ConstraintLayout mBtnClearView;
     private ConstraintLayout mBtnClearStar;
     private ScaleTextView mTipsTv;
@@ -276,6 +281,7 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
         mIvNetwork = findViewById(R.id.info_network);
 
         mBtnClearAll = findViewById(R.id.btn_clear_all);
+        mBtnClearUnStar = findViewById(R.id.btn_clear_unstar);
         mBtnClearView = findViewById(R.id.btn_clear_view);
         mBtnClearStar = findViewById(R.id.btn_clear_star);
         mTipsTv = findViewById(R.id.info_tips);
@@ -300,11 +306,13 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
         getWindow().getDecorView().getViewTreeObserver().addOnGlobalFocusChangeListener(this);
         mHorizontalGridView.addOnChildViewHolderSelectedListener(onChildViewHolderSelectedListener);
         mBtnClearAll.setOnClickListener(this);
+        mBtnClearUnStar.setOnClickListener(this);
         mBtnClearView.setOnClickListener(this);
         mBtnClearStar.setOnClickListener(this);
         mTipsTv.setOnClickListener(this);
 
         mBtnClearAll.setOnKeyListener(this);
+        mBtnClearUnStar.setOnKeyListener(this);
         mBtnClearView.setOnKeyListener(this);
         mBtnClearStar.setOnKeyListener(this);
         mTipsTv.setOnKeyListener(this);
