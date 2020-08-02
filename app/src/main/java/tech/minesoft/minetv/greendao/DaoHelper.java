@@ -272,4 +272,13 @@ public class DaoHelper {
             }
         }
     }
+
+    public static void clearViews(Long infoId, String groupName, String itemName) {
+        MineViewInfoDao viewDao = Holder.daoSession.getMineViewInfoDao();
+        viewDao.queryBuilder().where(
+                MineViewInfoDao.Properties.Info_id.eq(infoId),
+                MineViewInfoDao.Properties.Vod_from.eq(infoId),
+                MineViewInfoDao.Properties.Vod_item_name.eq(infoId)
+        ).buildDelete().executeDeleteWithoutDetachingEntities();
+    }
 }

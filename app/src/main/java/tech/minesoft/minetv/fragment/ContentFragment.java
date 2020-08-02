@@ -1,6 +1,5 @@
 package tech.minesoft.minetv.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.net.Uri;
@@ -10,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -170,6 +168,7 @@ public class ContentFragment extends BaseLazyLoadFragment {
         }
     }
 
+    @Override
     public void delItem(MineMovieInfo info) {
         Context mContext = getContext();
         switch (mCurrentTabCode) {
@@ -178,7 +177,7 @@ public class ContentFragment extends BaseLazyLoadFragment {
                         .setMessage("是否删除记录《" + info.getVod_name() + "》？")
                         .setNegativeButton("确定", (dialog, id) -> {
                             DaoHelper.delInfo(info.getId());
-                            Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
+                            showText("删除成功");
                             fetchData();
                         })
                         .setPositiveButton("取消", null)
@@ -189,7 +188,7 @@ public class ContentFragment extends BaseLazyLoadFragment {
                         .setMessage("是否取消收藏《" + info.getVod_name() + "》？")
                         .setNegativeButton("确定", (dialog, id) -> {
                             DaoHelper.changeStar(info.getId());
-                            Toast.makeText(mContext, "取消成功", Toast.LENGTH_SHORT).show();
+                            showText("取消成功");
                             fetchData();
                         })
                         .setPositiveButton("取消", null)
@@ -286,17 +285,5 @@ public class ContentFragment extends BaseLazyLoadFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private Toast toast = null;
-    @SuppressLint("ShowToast")
-    public void showText(CharSequence text) {
-        try {
-            toast.getView().isShown();
-            toast.setText(text);
-        } catch (Exception e) {
-            toast = Toast.makeText(getContext(), text, Toast.LENGTH_SHORT);
-        }
-        toast.show();
     }
 }

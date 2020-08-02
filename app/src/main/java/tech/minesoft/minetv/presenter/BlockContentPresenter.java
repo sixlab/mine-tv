@@ -16,8 +16,8 @@ import com.bumptech.glide.request.RequestOptions;
 
 import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.activity.DetailActivity;
+import tech.minesoft.minetv.base.BaseLazyLoadFragment;
 import tech.minesoft.minetv.bean.MineMovieInfo;
-import tech.minesoft.minetv.fragment.ContentFragment;
 import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.SizeUtils;
@@ -27,13 +27,9 @@ public class BlockContentPresenter extends Presenter {
     private static final String TAG = "BlockContentPresenter";
 
     private Context mContext;
-    private ContentFragment fragment;
+    private BaseLazyLoadFragment fragment;
 
-    public BlockContentPresenter(Context mContext) {
-        this.mContext = mContext;
-    }
-
-    public BlockContentPresenter(Context mContext, ContentFragment fragment) {
+    public BlockContentPresenter(Context mContext, BaseLazyLoadFragment fragment) {
         this.mContext = mContext;
         this.fragment = fragment;
     }

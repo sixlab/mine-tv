@@ -1,8 +1,11 @@
 package tech.minesoft.minetv.base;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import tech.minesoft.minetv.bean.MineMovieInfo;
 
 
 public abstract class BaseLazyLoadFragment extends Fragment {
@@ -67,6 +70,21 @@ public abstract class BaseLazyLoadFragment extends Fragment {
             fetchData();
             isDataInitiated = true;
         }
+    }
+
+    public void delItem(MineMovieInfo info){
+
+    }
+
+    private Toast toast = null;
+    public void showText(CharSequence text) {
+        try {
+            toast.getView().isShown();
+            toast.setText(text);
+        } catch (Exception e) {
+            toast = Toast.makeText(getContext(), text, Toast.LENGTH_SHORT);
+        }
+        toast.show();
     }
 }
 
