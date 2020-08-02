@@ -155,6 +155,8 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
             default:
                 break;
         }
+
+    // todo   刷新数据
     }
 
     private static class MyHandler extends Handler {
