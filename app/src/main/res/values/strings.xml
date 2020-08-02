@@ -3,8 +3,9 @@
     <string name="placeholder">Mine TV Placeholder</string>
 
     <string name="clear_all">一键全清</string>
-    <string name="clear_star">清空收藏</string>
+    <string name="clear_unstar">清空未收藏</string>
     <string name="clear_view">清空观影记录</string>
+    <string name="clear_star">清空收藏</string>
 
     <string name="action_update">更新</string>
     <string name="action_star">收藏</string>

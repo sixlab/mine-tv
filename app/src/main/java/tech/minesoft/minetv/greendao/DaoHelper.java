@@ -46,6 +46,15 @@ public class DaoHelper {
         Holder.daoSession.getMineMovieInfoDao().queryBuilder().buildDelete().executeDeleteWithoutDetachingEntities();
     }
 
+    public static void clearUnStar(){
+        //获取对象DAO
+        MineMovieInfoDao infoDao = Holder.daoSession.getMineMovieInfoDao();
+
+        infoDao.queryBuilder().where(
+                MineMovieInfoDao.Properties.Star_flag.eq("0")
+        ).buildDelete().executeDeleteWithoutDetachingEntities();
+    }
+
     public static void clearStar() {
         //获取对象DAO
         MineMovieInfoDao infoDao = Holder.daoSession.getMineMovieInfoDao();
@@ -277,8 +286,8 @@ public class DaoHelper {
         MineViewInfoDao viewDao = Holder.daoSession.getMineViewInfoDao();
         viewDao.queryBuilder().where(
                 MineViewInfoDao.Properties.Info_id.eq(infoId),
-                MineViewInfoDao.Properties.Vod_from.eq(infoId),
-                MineViewInfoDao.Properties.Vod_item_name.eq(infoId)
+                MineViewInfoDao.Properties.Vod_from.eq(groupName),
+                MineViewInfoDao.Properties.Vod_item_name.eq(itemName)
         ).buildDelete().executeDeleteWithoutDetachingEntities();
     }
 }
