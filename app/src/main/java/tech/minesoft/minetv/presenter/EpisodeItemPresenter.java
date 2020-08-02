@@ -39,7 +39,7 @@ public class EpisodeItemPresenter extends Presenter {
             int color = urlInfo.isViewed() ? R.color.bl_purple : R.color.colorWhite;
             vh.mTvEpisodeName.setTextColor(mContext.getColor(color));
 
-            vh.mTvEpisodeName.setOnKeyListener((v, keyCode, event) -> {
+            vh.view.setOnKeyListener((v, keyCode, event) -> {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     switch (keyCode) {
                         case KeyEvent.KEYCODE_ENTER:
