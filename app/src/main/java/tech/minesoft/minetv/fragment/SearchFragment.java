@@ -158,7 +158,7 @@ public class SearchFragment extends BaseLazyLoadFragment {
     }
 
     private void addItem(List<MineMovieInfo> infoList, String title) {
-        ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new BlockContentPresenter(getContext()));
+        ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new BlockContentPresenter(getContext(), this));
 
         arrayObjectAdapter.addAll(0, infoList);
         HeaderItem headerItem = null;

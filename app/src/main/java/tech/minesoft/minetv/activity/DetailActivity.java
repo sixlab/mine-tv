@@ -277,7 +277,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         List<List> listList = ListUtils.splitList(infoList, 8);
 
         for (List<UrlInfo> list : listList) {
-            ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new EpisodeItemPresenter());
+            ArrayObjectAdapter arrayObjectAdapter = new ArrayObjectAdapter(new EpisodeItemPresenter(this));
 
             arrayObjectAdapter.addAll(0, list);
             ListRow listRow = new ListRow(arrayObjectAdapter);
@@ -360,5 +360,10 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
             toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         }
         toast.show();
+    }
+
+    public void clean(UrlInfo urlInfo) {
+        DaoHelper.clearViews(urlInfo.getInfoId(), urlInfo.getGroupName(), urlInfo.getItemName());
+        reload();
     }
 }
