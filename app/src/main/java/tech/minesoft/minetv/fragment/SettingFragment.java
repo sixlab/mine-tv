@@ -21,18 +21,18 @@ import tech.minesoft.minetv.bean.MineSiteInfo;
 import tech.minesoft.minetv.greendao.DaoHelper;
 
 
-public class MineFragment extends Fragment {
+public class SettingFragment extends Fragment {
 
     private RadioGroup rg;
 
     public static Fragment newInstance() {
-        return new MineFragment();
+        return new SettingFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
         TextView tvApp = view.findViewById(R.id.tv_app);
         tvApp.setText(getActivity().getApplicationInfo().processName);

@@ -6,7 +6,8 @@ import androidx.fragment.app.FragmentManager;
 
 import java.util.List;
 
-import tech.minesoft.minetv.fragment.MineFragment;
+import tech.minesoft.minetv.fragment.AboutFragment;
+import tech.minesoft.minetv.fragment.SettingFragment;
 import tech.minesoft.minetv.fragment.SearchFragment;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.vo.Title;
@@ -29,8 +30,10 @@ public class ContentViewPagerAdapter extends SmartFragmentStatePagerAdapter {
         switch (tabCode){
             case Const.TAB_SEARCH:
                 return SearchFragment.newInstance();
-            case Const.TAB_MINE:
-                return MineFragment.newInstance();
+            case Const.TAB_SETTING:
+                return SettingFragment.newInstance();
+            case Const.TAB_ABOUT:
+                return AboutFragment.newInstance();
             default:
                 return ContentFragment.newInstance(position, tabCode);
         }
