@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -24,7 +23,6 @@ import tech.minesoft.minetv.greendao.DaoHelper;
 
 public class MineFragment extends Fragment {
 
-    private TextView tvUrl;
     private RadioGroup rg;
 
     public static Fragment newInstance() {
@@ -36,32 +34,23 @@ public class MineFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
 
-        Button btn = view.findViewById(R.id.btn_change_url);
-        btn.setOnClickListener(v -> {
-            // RequestHelper.urlIndex++;
-            // if (RequestHelper.urlIndex >= RequestHelper.BASE_URLs.length) {
-            //     RequestHelper.urlIndex = 0;
-            // }
-            changeUrl();
-        });
-
-        tvUrl = view.findViewById(R.id.tv_app);
-
-        tvUrl.setText(getActivity().getApplicationInfo().processName);
-
-        tvUrl = view.findViewById(R.id.tv_url);
-        MineSiteInfo activeSite = DaoHelper.getPrimarySite();
-        tvUrl.setText(String.format("链接：%s\n编号：%s|%s", activeSite.getUrl(), activeSite.getCode(), activeSite.getName()));
+        TextView tvApp = view.findViewById(R.id.tv_app);
+        tvApp.setText(getActivity().getApplicationInfo().processName);
 
         rg = (RadioGroup) view.findViewById(R.id.rg_urls);
         loadRadios();
+
+        rg.setOnCheckedChangeListener((group, checkedId) -> {
+            changeUrl(checkedId);
+        });
 
         return view;
     }
 
     private void loadRadios() {
+        rg.removeAllViews();
+
         List<MineSiteInfo> activeSites = DaoHelper.getActiveSites();
-        boolean first = true;
         for (MineSiteInfo site : activeSites) {
             RadioButton radioButton = new RadioButton(getContext());
             int dimension = (int) (getResources().getDimension(R.dimen.btn_space) + 0.5f);//会自动转化为像素值
@@ -79,19 +68,15 @@ public class MineFragment extends Fragment {
             //layoutParams 设置margin值
             RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            if (first) {
-                layoutParams.setMargins(0, 0, 0, 0);
-                first = false;
-            } else {
-                int i1 = (int) (getResources().getDimension(R.dimen.btn_row_margin) + 0.5f);
-                layoutParams.setMargins(i1, 0, 0, 0);
-            }
+            int i1 = (int) (getResources().getDimension(R.dimen.btn_row_margin) + 0.5f);
+            layoutParams.setMargins(i1, 0, 0, 0);
+
+            rg.addView(radioButton, layoutParams);
         }
     }
 
-    private void changeUrl() {
-        // String text = "链接：" + RequestHelper.BASE_URLs[RequestHelper.urlIndex] + "\n索引：" + RequestHelper.urlIndex;
-        // tvUrl.setText(text);
+    private void changeUrl(int checkedId) {
+        DaoHelper.updatePrimary(checkedId);
     }
 
     private Toast toast = null;
