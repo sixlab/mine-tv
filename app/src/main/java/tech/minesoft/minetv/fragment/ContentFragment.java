@@ -158,7 +158,7 @@ public class ContentFragment extends BaseLazyLoadFragment {
             List<MineMovieInfo> list = null;
             switch (mCurrentTabCode) {
                 case Const.TAB_HIS:
-                    list = DaoHelper.loadHis();
+                    list = DaoHelper.loadUnStar();
                     break;
                 case Const.TAB_STAR:
                     list = DaoHelper.loadStar();
