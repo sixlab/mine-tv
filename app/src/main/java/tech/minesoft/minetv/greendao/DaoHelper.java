@@ -177,10 +177,12 @@ public class DaoHelper {
         ).buildDelete().executeDeleteWithoutDetachingEntities();
     }
 
-    public static List<MineMovieInfo> loadHis() {
+    public static List<MineMovieInfo> loadUnStar() {
         MineMovieInfoDao infoDao = Holder.daoSession.getMineMovieInfoDao();
 
-        return infoDao.queryBuilder().orderDesc(MineMovieInfoDao.Properties.Last_open).list();
+        return infoDao.queryBuilder().where(
+                MineMovieInfoDao.Properties.Star_flag.eq("0")
+        ).orderDesc(MineMovieInfoDao.Properties.Last_open).list();
     }
 
     public static List<MineMovieInfo> loadStar() {
