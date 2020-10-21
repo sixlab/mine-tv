@@ -26,7 +26,7 @@
     },
     {
       "id": 1095,
-      "tabCode": "TAB_SOURCE",
+      "tabCode": "TabSource",
       "name": "播放源",
       "icon": ""
     },
