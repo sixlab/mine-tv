@@ -2,7 +2,7 @@
   "data": [
     {
       "id": 1113,
-      "tabCode": "TabHistory",
+      "tabCode": "TabOther",
       "name": "未收藏",
       "icon": ""
     },
@@ -13,6 +13,12 @@
       "icon": ""
     },
     {
+      "id": 1112,
+      "tabCode": "TabRecord",
+      "name": "记录",
+      "icon": ""
+    },
+    {
       "id": 1138,
       "tabCode": "TabSearch",
       "name": "搜索",
@@ -20,8 +26,8 @@
     },
     {
       "id": 1095,
-      "tabCode": "TabSetting",
-      "name": "设置",
+      "tabCode": "TAB_SOURCE",
+      "name": "播放源",
       "icon": ""
     },
     {

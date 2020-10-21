@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <tech.minesoft.minetv.widget.ScaleConstraintLayout
-        android:id="@+id/btn_clear_all"
+        android:id="@+id/btn_clear_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/btn_row_margin"
@@ -50,7 +50,7 @@
             android:paddingTop="@dimen/icon_padding_top"
             android:paddingEnd="@dimen/icon_padding_end"
             android:paddingBottom="@dimen/icon_padding_top"
-            android:text="@string/clear_all"
+            android:text="@string/clear_record"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/text_size_s"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -60,7 +60,7 @@
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_marginStart="@dimen/icon_margin"
-            android:src="@drawable/icon_all"
+            android:src="@drawable/icon_history"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -78,8 +78,8 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:nextFocusDown="@+id/row_title"
-        app:layout_constraintLeft_toRightOf="@+id/btn_clear_all"
-        app:layout_constraintTop_toTopOf="@+id/btn_clear_all">
+        app:layout_constraintLeft_toRightOf="@+id/btn_clear_record"
+        app:layout_constraintTop_toTopOf="@+id/btn_clear_record">
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,45 +98,7 @@
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_marginStart="@dimen/icon_margin"
-            android:src="@drawable/icon_view"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
-
-    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
-
-    <tech.minesoft.minetv.widget.ScaleConstraintLayout
-        android:id="@+id/btn_clear_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/btn_space"
-        android:background="@drawable/selector_focus_bg_corner15_without_default_bg"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:nextFocusDown="@+id/row_title"
-        app:layout_constraintLeft_toRightOf="@+id/btn_clear_unstar"
-        app:layout_constraintTop_toTopOf="@+id/btn_clear_unstar">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/icon_padding_star"
-            android:paddingTop="@dimen/icon_padding_top"
-            android:paddingEnd="@dimen/icon_padding_end"
-            android:paddingBottom="@dimen/icon_padding_top"
-            android:text="@string/clear_view"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/text_size_s"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
-            android:layout_marginStart="@dimen/icon_margin"
-            android:src="@drawable/icon_view"
+            android:src="@drawable/icon_unstar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -155,8 +117,8 @@
         android:focusableInTouchMode="true"
         android:maxWidth="305dp"
         android:nextFocusDown="@+id/row_title"
-        app:layout_constraintLeft_toRightOf="@+id/btn_clear_view"
-        app:layout_constraintTop_toTopOf="@+id/btn_clear_view">
+        app:layout_constraintLeft_toRightOf="@+id/btn_clear_unstar"
+        app:layout_constraintTop_toTopOf="@+id/btn_clear_unstar">
 
         <TextView
             android:layout_width="wrap_content"
@@ -184,6 +146,44 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
+
+    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
+
+    <tech.minesoft.minetv.widget.ScaleConstraintLayout
+            android:id="@+id/btn_clear_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/btn_space"
+            android:background="@drawable/selector_focus_bg_corner15_without_default_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusDown="@+id/row_title"
+            app:layout_constraintLeft_toRightOf="@+id/btn_clear_star"
+            app:layout_constraintTop_toTopOf="@+id/btn_clear_star">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/icon_padding_star"
+                android:paddingTop="@dimen/icon_padding_top"
+                android:paddingEnd="@dimen/icon_padding_end"
+                android:paddingBottom="@dimen/icon_padding_top"
+                android:text="@string/clear_view"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_size_s"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+                android:layout_width="@dimen/icon_size"
+                android:layout_height="@dimen/icon_size"
+                android:layout_marginStart="@dimen/icon_margin"
+                android:src="@drawable/icon_view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
     </tech.minesoft.minetv.widget.ScaleConstraintLayout>
 
@@ -271,6 +271,6 @@
         android:id="@+id/id_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="info_tips,info_network,info_time,info_split,info_name,btn_clear_star,btn_clear_view,btn_clear_all,row_title" />
+        app:constraint_referenced_ids="info_tips,info_network,info_time,info_split,info_name,btn_clear_star,btn_clear_view,btn_clear_record,row_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
