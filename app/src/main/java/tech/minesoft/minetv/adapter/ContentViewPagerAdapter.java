@@ -30,7 +30,7 @@ public class ContentViewPagerAdapter extends SmartFragmentStatePagerAdapter {
         switch (tabCode){
             case Const.TAB_SEARCH:
                 return SearchFragment.newInstance();
-            case Const.TAB_SETTING:
+            case Const.TAB_SOURCE:
                 return SettingFragment.newInstance();
             case Const.TAB_ABOUT:
                 return AboutFragment.newInstance();

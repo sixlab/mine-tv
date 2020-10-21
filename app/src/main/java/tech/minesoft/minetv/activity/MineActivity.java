@@ -112,7 +112,7 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
         if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
             //            isPressBack = true;
             switch (v.getId()) {
-                case R.id.btn_clear_all:
+                case R.id.btn_clear_record:
                 case R.id.btn_clear_unstar:
                 case R.id.btn_clear_view:
                 case R.id.btn_clear_star:
@@ -134,18 +134,17 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
     public void onClick(View v) {
         Log.i(Const.LOG_TAG, v.toString());
         switch (v.getId()) {
-            case R.id.btn_clear_all:
-                DaoHelper.clearViews();
+            case R.id.btn_clear_record:
                 DaoHelper.clearHis();
+                break;
+            case R.id.btn_clear_star:
+                DaoHelper.clearStar();
                 break;
             case R.id.btn_clear_unstar:
                 DaoHelper.clearUnStar();
                 break;
             case R.id.btn_clear_view:
                 DaoHelper.clearViews();
-                break;
-            case R.id.btn_clear_star:
-                DaoHelper.clearStar();
                 break;
             case R.id.info_tips:
                 String[] tips = getResources().getStringArray(R.array.tips);
@@ -282,7 +281,7 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
         mGroup = findViewById(R.id.id_group);
         mIvNetwork = findViewById(R.id.info_network);
 
-        mBtnClearAll = findViewById(R.id.btn_clear_all);
+        mBtnClearAll = findViewById(R.id.btn_clear_record);
         mBtnClearUnStar = findViewById(R.id.btn_clear_unstar);
         mBtnClearView = findViewById(R.id.btn_clear_view);
         mBtnClearStar = findViewById(R.id.btn_clear_star);

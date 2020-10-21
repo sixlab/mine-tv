@@ -157,11 +157,14 @@ public class ContentFragment extends BaseLazyLoadFragment {
 
             List<MineMovieInfo> list = null;
             switch (mCurrentTabCode) {
-                case Const.TAB_HIS:
-                    list = DaoHelper.loadUnStar();
+                case Const.TAB_RECORD:
+                    list = DaoHelper.loadAll();
                     break;
                 case Const.TAB_STAR:
                     list = DaoHelper.loadStar();
+                    break;
+                case Const.TAB_OTHER:
+                    list = DaoHelper.loadUnStar();
                     break;
             }
 
@@ -173,23 +176,24 @@ public class ContentFragment extends BaseLazyLoadFragment {
     public void delItem(MineMovieInfo info) {
         Context mContext = getContext();
         switch (mCurrentTabCode) {
-            case Const.TAB_HIS:
-                new AlertDialog.Builder(mContext)
-                        .setMessage("是否删除记录《" + info.getVod_name() + "》？")
-                        .setNegativeButton("确定", (dialog, id) -> {
-                            DaoHelper.delInfo(info.getId());
-                            showText("删除成功");
-                            fetchData();
-                        })
-                        .setPositiveButton("取消", null)
-                        .show();
-                break;
             case Const.TAB_STAR:
                 new AlertDialog.Builder(mContext)
                         .setMessage("是否取消收藏《" + info.getVod_name() + "》？")
                         .setNegativeButton("确定", (dialog, id) -> {
                             DaoHelper.changeStar(info.getId());
                             showText("取消成功");
+                            fetchData();
+                        })
+                        .setPositiveButton("取消", null)
+                        .show();
+                break;
+            case Const.TAB_RECORD:
+            case Const.TAB_OTHER:
+                new AlertDialog.Builder(mContext)
+                        .setMessage("是否删除记录《" + info.getVod_name() + "》？")
+                        .setNegativeButton("确定", (dialog, id) -> {
+                            DaoHelper.delInfo(info.getId());
+                            showText("删除成功");
                             fetchData();
                         })
                         .setPositiveButton("取消", null)

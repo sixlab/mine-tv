@@ -8,15 +8,16 @@ public class Const {
 
     public static final String DATABASE_NAME = "MineTv.db";
 
-    public static final int TAB_DEFAULT_POSITION = 1;
+    public static final int TAB_DEFAULT_POSITION = 4;
     public static final String SELECT_MOVIE_ID = "MineMovieInfo-id";
     public static final String SELECT_EPISODE = "movie-UrlInfo";
     public static final int MSG_MINE_TITLE = 100;
 
+    public static final String TAB_RECORD = "TabRecord";
     public static final String TAB_STAR = "TabStar";
-    public static final String TAB_HIS = "TabHistory";
+    public static final String TAB_OTHER = "TabOther";
     public static final String TAB_SEARCH = "TabSearch";
-    public static final String TAB_SETTING = "TabSetting";
+    public static final String TAB_SOURCE = "TabSource";
     public static final String TAB_ABOUT = "TabAbout";
 
 
@@ -27,4 +28,14 @@ public class Const {
 
     public static final String PRESENTER_SEARCH = "search";
     public static final String PRESENTER_PAGER = "pager";
+
+    // 19 上
+    // 20 下
+    // 21 左
+    // 22 右
+
+    // 66 ok
+    // 4 返
+    // 82 菜单
+
 }
