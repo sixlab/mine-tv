@@ -1,8 +1,8 @@
 ﻿{
   "data": [
     {
-      "tabCode": "TabOther",
-      "name": "未收藏",
+      "tabCode": "TabStar",
+      "name": "收藏",
       "icon": ""
     },
     {
@@ -11,8 +11,8 @@
       "icon": ""
     },
     {
-      "tabCode": "TabStar",
-      "name": "收藏",
+      "tabCode": "TabOther",
+      "name": "未收藏",
       "icon": ""
     },
     {
