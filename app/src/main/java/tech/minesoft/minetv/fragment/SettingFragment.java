@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import tech.minesoft.minetv.greendao.DaoHelper;
 public class SettingFragment extends Fragment {
 
     private RadioGroup rg;
+    private Button button;
 
     public static Fragment newInstance() {
         return new SettingFragment();
@@ -37,6 +39,8 @@ public class SettingFragment extends Fragment {
         TextView tvApp = view.findViewById(R.id.tv_app);
         tvApp.setText(getActivity().getApplicationInfo().processName);
 
+        button = view.findViewById(R.id.btn_add_source);
+        button.setHighlightColor(getResources().getColor(R.color.colorBlue));
         rg = (RadioGroup) view.findViewById(R.id.rg_urls);
         loadRadios();
 

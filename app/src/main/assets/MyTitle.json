@@ -1,37 +1,31 @@
 ﻿{
   "data": [
     {
-      "id": 1113,
       "tabCode": "TabOther",
       "name": "未收藏",
       "icon": ""
     },
     {
-      "id": 1114,
-      "tabCode": "TabStar",
-      "name": "收藏",
-      "icon": ""
-    },
-    {
-      "id": 1112,
       "tabCode": "TabRecord",
       "name": "记录",
       "icon": ""
     },
     {
-      "id": 1138,
+      "tabCode": "TabStar",
+      "name": "收藏",
+      "icon": ""
+    },
+    {
       "tabCode": "TabSearch",
       "name": "搜索",
       "icon": ""
     },
     {
-      "id": 1095,
       "tabCode": "TabSource",
       "name": "播放源",
       "icon": ""
     },
     {
-      "id": 1095,
       "tabCode": "TabAbout",
       "name": "关于",
       "icon": ""
