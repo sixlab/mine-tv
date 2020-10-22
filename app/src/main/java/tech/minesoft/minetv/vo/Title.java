@@ -17,18 +17,9 @@ public class Title {
 
     public static class DataBean {
 
-        private int id;
         private String tabCode;
         private String name;
         private String icon;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
 
         public String getTabCode() {
             return tabCode;

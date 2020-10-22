@@ -8,7 +8,7 @@ public class Const {
 
     public static final String DATABASE_NAME = "MineTv.db";
 
-    public static final int TAB_DEFAULT_POSITION = 4;
+    public static final int TAB_DEFAULT_POSITION = 1;
     public static final String SELECT_MOVIE_ID = "MineMovieInfo-id";
     public static final String SELECT_EPISODE = "movie-UrlInfo";
     public static final int MSG_MINE_TITLE = 100;
