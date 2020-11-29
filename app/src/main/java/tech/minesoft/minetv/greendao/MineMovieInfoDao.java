@@ -69,7 +69,7 @@ public class MineMovieInfoDao extends AbstractDao<MineMovieInfo, Long> {
                 "\"API_URL\" TEXT," + // 5: api_url
                 "\"API_CODE\" TEXT," + // 6: api_code
                 "\"API_NAME\" TEXT," + // 7: api_name
-                "\"VOD_ID\" INTEGER UNIQUE ," + // 8: vod_id
+                "\"VOD_ID\" INTEGER," + // 8: vod_id
                 "\"VOD_NAME\" TEXT," + // 9: vod_name
                 "\"VOD_PIC\" TEXT," + // 10: vod_pic
                 "\"TYPE_NAME\" TEXT," + // 11: type_name
