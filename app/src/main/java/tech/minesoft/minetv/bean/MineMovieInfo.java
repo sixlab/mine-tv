@@ -20,10 +20,7 @@ public class MineMovieInfo {
     private String api_url;
     private String api_code;
     private String api_name;
-
-    @Unique
     private Integer vod_id;
-
     private String vod_name;
     private String vod_pic;
     private String type_name;
