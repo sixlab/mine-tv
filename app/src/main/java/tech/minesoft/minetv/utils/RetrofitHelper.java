@@ -16,7 +16,8 @@ public class RetrofitHelper {
     public static final List<String> PLAY_FROM = Arrays.asList(
             "ckm3u8",
             "zkm3u8",
-            "33uuck"
+            "yjm3u8",
+            "123kum3u8"
     );
 
 

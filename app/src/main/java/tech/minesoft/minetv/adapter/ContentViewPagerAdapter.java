@@ -9,6 +9,7 @@ import java.util.List;
 import tech.minesoft.minetv.fragment.AboutFragment;
 import tech.minesoft.minetv.fragment.SettingFragment;
 import tech.minesoft.minetv.fragment.SearchFragment;
+import tech.minesoft.minetv.fragment.SiteFragment;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.vo.Title;
 import tech.minesoft.minetv.fragment.ContentFragment;
@@ -30,7 +31,9 @@ public class ContentViewPagerAdapter extends SmartFragmentStatePagerAdapter {
         switch (tabCode){
             case Const.TAB_SEARCH:
                 return SearchFragment.newInstance();
-            case Const.TAB_SOURCE:
+            case Const.TAB_SITE:
+                return SiteFragment.newInstance();
+            case Const.TAB_SETTING:
                 return SettingFragment.newInstance();
             case Const.TAB_ABOUT:
                 return AboutFragment.newInstance();

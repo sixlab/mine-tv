@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="48dp"
+            android:paddingTop="111dp"
+            android:paddingEnd="48dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+        <TextView
+                android:id="@+id/site_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:text="@string/site_info"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+                android:id="@+id/et_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/bl_blue"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="@string/text_hint_code"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/site_info" />
+
+        <EditText
+                android:id="@+id/et_site"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/bl_blue"
+                android:ems="30"
+                android:inputType="textUri"
+                android:hint="@string/text_hint_url"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_code" />
+
+        <tech.minesoft.minetv.widget.ScaleConstraintLayout
+                android:id="@+id/btn_add_site"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/selector_focus_bg_corner15_without_default_bg"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusDown="@+id/s_row_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_site">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/icon_padding_star"
+                    android:paddingTop="@dimen/icon_padding_top"
+                    android:paddingEnd="@dimen/icon_padding_end"
+                    android:paddingBottom="@dimen/icon_padding_top"
+                    android:text="@string/tv_site_add"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size_s"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+        </tech.minesoft.minetv.widget.ScaleConstraintLayout>
+
+        <TextView
+                android:id="@+id/tv_site_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/btn_space"
+                android:textColor="@color/colorWhite"
+                android:text="@string/app_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_add_site" />
+
+        <TableLayout
+                android:id="@+id/urls_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_site_default">
+
+
+
+        </TableLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
