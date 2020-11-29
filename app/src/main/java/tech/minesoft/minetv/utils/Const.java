@@ -17,7 +17,8 @@ public class Const {
     public static final String TAB_STAR = "TabStar";
     public static final String TAB_OTHER = "TabOther";
     public static final String TAB_SEARCH = "TabSearch";
-    public static final String TAB_SOURCE = "TabSource";
+    public static final String TAB_SITE = "TabSite";
+    public static final String TAB_SETTING = "TabSetting";
     public static final String TAB_ABOUT = "TabAbout";
 
 

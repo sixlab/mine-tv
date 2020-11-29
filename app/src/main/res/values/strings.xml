@@ -23,10 +23,15 @@
 
     <string name="tips_del">本 App 资源来自网络公开接口</string>
 
+    <string name="site_info">播放源</string>
     <string name="text_hint_code">编号</string>
     <string name="text_hint_url">地址</string>
 
-    <string name="mine_action_change_url">切换搜索源</string>
+    <string name="text_default_text">默认搜索源：%s</string>
+    <string name="text_default_text_null">无默认搜索源</string>
+
+    <string name="tv_site_add">添加</string>
+    <string name="tv_site_delete">删除</string>
 
     <string name="back_top">回到顶部</string>
     <string name="next_page">下一页</string>

@@ -107,6 +107,16 @@ public class DaoHelper {
         return id;
     }
 
+    public static void saveSiteInfo(MineSiteInfo siteInfo) {
+        MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
+
+        if(null == siteInfo.getId()){
+            siteInfoDao.insert(siteInfo);
+        }else{
+            siteInfoDao.update(siteInfo);
+        }
+    }
+
     public static MineMovieInfo getInfo(long id) {
         return Holder.daoSession.getMineMovieInfoDao().load(id);
     }
@@ -137,6 +147,10 @@ public class DaoHelper {
 
     public static void delInfo(long infoId) {
         Holder.daoSession.getMineMovieInfoDao().deleteByKey(infoId);
+    }
+
+    public static void delSite(Long infoId) {
+        Holder.daoSession.getMineSiteInfoDao().deleteByKey(infoId);
     }
 
     public static Map<String, Integer> selectView(long infoId) {
@@ -290,14 +304,14 @@ public class DaoHelper {
         }
     }
 
-    public static void updatePrimary(Integer id) {
+    public static void updatePrimary(Long id) {
         MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
         List<MineSiteInfo> list = siteInfoDao.queryBuilder().where(
                 MineSiteInfoDao.Properties.Status.eq("1")
         ).list();
 
         for (MineSiteInfo siteInfo : list) {
-            if (siteInfo.getId() == id.intValue()) {
+            if (siteInfo.getId() == id.longValue()) {
                 siteInfo.setPrimary(1);
                 siteInfoDao.update(siteInfo);
             } else if (siteInfo.getPrimary() == 1) {
@@ -315,4 +329,5 @@ public class DaoHelper {
                 MineViewInfoDao.Properties.Vod_item_name.eq(itemName)
         ).buildDelete().executeDeleteWithoutDetachingEntities();
     }
+
 }

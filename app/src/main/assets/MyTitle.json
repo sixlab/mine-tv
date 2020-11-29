@@ -21,8 +21,13 @@
       "icon": ""
     },
     {
-      "tabCode": "TabSource",
+      "tabCode": "TabSite",
       "name": "播放源",
+      "icon": ""
+    },
+    {
+      "tabCode": "TabSetting",
+      "name": "设置",
       "icon": ""
     },
     {

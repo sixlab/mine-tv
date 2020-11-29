@@ -6,20 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.util.List;
-
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.bean.MineSiteInfo;
-import tech.minesoft.minetv.greendao.DaoHelper;
 
 
 public class SettingFragment extends Fragment {
@@ -36,51 +30,7 @@ public class SettingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
-        TextView tvApp = view.findViewById(R.id.tv_app);
-        tvApp.setText(getActivity().getApplicationInfo().processName);
-
-        button = view.findViewById(R.id.btn_add_source);
-        button.setHighlightColor(getResources().getColor(R.color.colorBlue));
-        rg = (RadioGroup) view.findViewById(R.id.rg_urls);
-        loadRadios();
-
-        rg.setOnCheckedChangeListener((group, checkedId) -> {
-            changeUrl(checkedId);
-        });
-
         return view;
-    }
-
-    private void loadRadios() {
-        rg.removeAllViews();
-
-        List<MineSiteInfo> activeSites = DaoHelper.getActiveSites();
-        for (MineSiteInfo site : activeSites) {
-            RadioButton radioButton = new RadioButton(getContext());
-            int dimension = (int) (getResources().getDimension(R.dimen.btn_space) + 0.5f);//会自动转化为像素值
-            radioButton.setPadding(dimension, 0, 0, 0);
-            // radioButton.setButtonDrawable(R.drawable.selector_icon_31_32);
-            radioButton.setText(site.getName());
-            radioButton.setTextColor(getResources().getColor(R.color.colorWhite));
-            //必须有ID，否则默认选中的选项会一直是选中状态
-            radioButton.setId(site.getId().intValue());
-            if (site.getPrimary() == 1) {
-                //默认选中
-                radioButton.setChecked(true);
-            }
-
-            //layoutParams 设置margin值
-            RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            int i1 = (int) (getResources().getDimension(R.dimen.btn_row_margin) + 0.5f);
-            layoutParams.setMargins(i1, 0, 0, 0);
-
-            rg.addView(radioButton, layoutParams);
-        }
-    }
-
-    private void changeUrl(int checkedId) {
-        DaoHelper.updatePrimary(checkedId);
     }
 
     private Toast toast = null;
