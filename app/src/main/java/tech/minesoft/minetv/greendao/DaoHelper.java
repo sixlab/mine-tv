@@ -254,6 +254,18 @@ public class DaoHelper {
         Holder.daoSession.insert(viewInfo);
     }
 
+    public static void addView(UrlInfo info, String itemName) {
+        MineViewInfo viewInfo = new MineViewInfo();
+        viewInfo.setInfo_id(info.getInfoId());
+        viewInfo.setVod_from(info.getGroupName());
+        viewInfo.setVod_name(info.getVodName());
+        viewInfo.setVod_item_name(itemName);
+        viewInfo.setVod_time(new Date());
+        viewInfo.setView_position(0);
+
+        Holder.daoSession.insert(viewInfo);
+    }
+
     public static void disableAllSite() {
         MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
         List<MineSiteInfo> list = siteInfoDao.queryBuilder().where(

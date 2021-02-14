@@ -178,6 +178,8 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                     UrlInfo info = new UrlInfo();
                     info.setVodId(currentInfo.getVod_id());
                     info.setInfoId(currentInfo.getId());
+                    info.setUrl(url);
+                    info.setUrls(urls);
 
                     if (urlInfos.length == 2) {
                         info.setVodName(currentInfo.getVod_name());
