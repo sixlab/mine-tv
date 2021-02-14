@@ -3,16 +3,23 @@ package tech.minesoft.minetv.widget;
 import android.content.Context;
 import android.os.SystemClock;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.DragEvent;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+import com.shuyu.gsyvideoplayer.model.GSYVideoModel;
+import com.shuyu.gsyvideoplayer.video.ListGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 
 import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.vo.VideoPlayerModel;
 
-public class MinePlayer extends StandardGSYVideoPlayer {
+public class MinePlayer extends ListGSYVideoPlayer {
     private static String TAG = "MinePlayer";
 
     public MinePlayer(Context context, Boolean fullFlag) {
@@ -32,6 +39,40 @@ public class MinePlayer extends StandardGSYVideoPlayer {
 
     private void init() {
         getFullscreenButton().setVisibility(View.GONE);
+
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "setOnClickListener");
+            }
+        });
+        setOnDragListener(new OnDragListener() {
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                Log.i(TAG, "setOnDragListener");
+                return false;
+            }
+        });
+        setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.i(TAG, "setOnKeyListener");
+                return false;
+            }
+        });
+        setOnContextClickListener(new OnContextClickListener() {
+            @Override
+            public boolean onContextClick(View v) {
+                Log.i(TAG, "setOnContextClickListener");
+                return false;
+            }
+        });
+        setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+                Log.i(TAG, "setOnCreateContextMenuListener");
+            }
+        });
     }
 
     public String getTimes(){
@@ -132,5 +173,20 @@ public class MinePlayer extends StandardGSYVideoPlayer {
                 onVideoResume();
                 break;
         }
+    }
+
+    @Override
+    public boolean playNext() {
+        boolean next = super.playNext();
+        if (next) {
+            Log.i(TAG, "View:" + getTitleTextView());
+            VideoPlayerModel current = (VideoPlayerModel) currentModel();
+            DaoHelper.addView(current.getUrlInfo(), current.getItemName());
+        }
+        return next;
+    }
+
+    public GSYVideoModel currentModel(){
+        return mUriList.get(mPlayPosition);
     }
 }

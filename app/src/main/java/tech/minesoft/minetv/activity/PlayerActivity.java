@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,16 +12,21 @@ import android.widget.TextView;
 
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.cache.CacheFactory;
+import com.shuyu.gsyvideoplayer.model.GSYVideoModel;
 import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.base.BaseActivity;
+import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.vo.UrlInfo;
+import tech.minesoft.minetv.vo.VideoPlayerModel;
 import tech.minesoft.minetv.widget.MinePlayer;
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 import tv.danmaku.ijk.media.exo2.ExoPlayerCacheManager;
@@ -66,8 +72,26 @@ public class PlayerActivity extends BaseActivity {
         durationTv = findViewById(R.id.video_tips_duration);
         videoPlayer = findViewById(R.id.video_player);
 
-        String title = info.getVodName() + ":" + info.getItemName();
-        videoPlayer.setUp(info.getPlayUrl(), true, title);
+        String[] urls = info.getUrls();
+
+        int index = 0;
+        List<GSYVideoModel> modelList = new ArrayList<>();
+        for (int i = 0; i < urls.length; i++) {
+            String url = urls[i];
+
+            if (url.equals(info.getUrl())) {
+                index = i;
+            }
+
+            String[] urlInfos = TextUtils.split(url, "\\$");
+            VideoPlayerModel videoModel = new VideoPlayerModel(urlInfos[1], info.getVodName() + ":" + urlInfos[0]);
+            videoModel.setUrlInfo(info);
+            videoModel.setItemName(urlInfos[0]);
+            modelList.add(videoModel);
+        }
+
+        videoPlayer.setUp(modelList, true, index);
+        // videoPlayer.setUp(info.getPlayUrl(), true, title);
 
         //增加封面
         ImageView imageView = new ImageView(this);
@@ -90,6 +114,7 @@ public class PlayerActivity extends BaseActivity {
         //设置返回按键功能
         videoPlayer.getBackButton().setOnClickListener(v -> onBackPressed());
         videoPlayer.startPlayLogic();
+
     }
 
     @Override

@@ -34,6 +34,7 @@ public class Const {
     // 20 下
     // 21 左
     // 22 右
+    // 23 center
 
     // 66 ok
     // 4 返

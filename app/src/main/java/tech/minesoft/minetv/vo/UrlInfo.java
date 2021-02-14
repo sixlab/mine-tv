@@ -13,6 +13,9 @@ public class UrlInfo implements Serializable {
     private String playUrl;
     private boolean viewed;
 
+    private String url;
+    private String[] urls;
+
     public Integer getVodId() {
         return vodId;
     }
@@ -67,5 +70,21 @@ public class UrlInfo implements Serializable {
 
     public void setViewed(boolean viewed) {
         this.viewed = viewed;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String[] getUrls() {
+        return urls;
+    }
+
+    public void setUrls(String[] urls) {
+        this.urls = urls;
     }
 }
