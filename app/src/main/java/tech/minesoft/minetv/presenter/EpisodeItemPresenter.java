@@ -42,6 +42,7 @@ public class EpisodeItemPresenter extends Presenter {
             vh.view.setOnKeyListener((v, keyCode, event) -> {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     switch (keyCode) {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
                             DaoHelper.addView(urlInfo);
 
