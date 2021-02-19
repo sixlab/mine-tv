@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
@@ -36,6 +37,12 @@ public class PlayerActivity extends BaseActivity {
 
     private MinePlayer videoPlayer;
     private TextView durationTv;
+    private LinearLayout playerMenu;
+
+    private boolean menuShown = false;
+    private int menuIndex = 0;
+    private static int MAX_INDEX = 3;
+    private int direction = 1;
 
     OrientationUtils orientationUtils;
     private Handler timeHandler = new MyHandler();
@@ -46,12 +53,16 @@ public class PlayerActivity extends BaseActivity {
         @Override
         public void handleMessage(@NotNull Message msg) {
             String times = videoPlayer.getTimes();
+            if (direction == 1) {
+                times = times + ">";
+            } else {
+                times = "<" + times;
+            }
             durationTv.setText(times);
 
             timeHandler.postDelayed(runnable, 1000);
         }
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +82,7 @@ public class PlayerActivity extends BaseActivity {
     private void init(UrlInfo info) {
         durationTv = findViewById(R.id.video_tips_duration);
         videoPlayer = findViewById(R.id.video_player);
+        playerMenu = findViewById(R.id.player_menu);
 
         String[] urls = info.getUrls();
 
@@ -115,27 +127,67 @@ public class PlayerActivity extends BaseActivity {
         videoPlayer.getBackButton().setOnClickListener(v -> onBackPressed());
         videoPlayer.startPlayLogic();
 
+        findViewById(R.id.player_menu_direction).setOnClickListener(v -> {
+            direction = - direction;
+        });
+
+        findViewById(R.id.player_menu_next).setOnClickListener(v -> {
+            videoPlayer.playNext();
+        });
+
+        findViewById(R.id.player_menu_next).setOnClickListener(v -> {
+            videoPlayer.playNext();
+        });
+
+        findViewById(R.id.player_menu_prev).setOnClickListener(v -> {
+            videoPlayer.playPrev();
+        });
+
+        // findViewById(R.id.player_menu_full).setOnClickListener(v -> {
+        //     showText("player_menu_full");
+        // });
+        //
+        // findViewById(R.id.player_menu_origin).setOnClickListener(v -> {
+        //     showText("player_menu_origin");
+        // });
+        //
+        // findViewById(R.id.player_menu_ls).setOnClickListener(v -> {
+        //     showText("player_menu_ls");
+        // });
+        //
+        // findViewById(R.id.player_menu_169).setOnClickListener(v -> {
+        //     showText("16:9_"+menuIndex);
+        // });
+        //
+        // findViewById(R.id.player_menu_43).setOnClickListener(v -> {
+        //     showText("5:4_"+ menuIndex);
+        // });
+
+        MAX_INDEX = playerMenu.getChildCount() - 1;
+        menuIndex = 0;
+        menuShown = false;
+        renderMenuBtnColor();
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
         videoPlayer.onVideoPause();
+        super.onPause();
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
         videoPlayer.onVideoResume();
+        super.onResume();
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         GSYVideoManager.releaseAllVideos();
         if (orientationUtils != null) {
             orientationUtils.releaseListener();
         }
+        super.onDestroy();
     }
 
     @Override
@@ -159,31 +211,71 @@ public class PlayerActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    videoPlayer.forward();
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    videoPlayer.backward();
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_UP:
-                    videoPlayer.fastForward();
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                    videoPlayer.fastBackward();
-                    return true;
-                case KeyEvent.KEYCODE_MENU:
-                    videoPlayer.seekDuration(120);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_CENTER:
-                case KeyEvent.KEYCODE_ENTER:
-                case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-                    videoPlayer.playPause();
-                    break;
-                default:
-                    break;
+
+            if(KeyEvent.KEYCODE_MENU == keyCode){
+                toggleMenu();
+                return true;
+            }
+
+            if(menuShown){
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_DPAD_CENTER:
+                    case KeyEvent.KEYCODE_ENTER:
+                    case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+                        playerMenu.getChildAt(menuIndex).performClick();
+                        return true;
+
+                    case KeyEvent.KEYCODE_DPAD_UP:
+                        menuIndex--;
+                        if (menuIndex < 0) {
+                            menuIndex = MAX_INDEX;
+                        }
+                        renderMenuBtnColor();
+                        return true;
+                    case KeyEvent.KEYCODE_DPAD_DOWN:
+                        menuIndex++;
+                        if (menuIndex > MAX_INDEX) {
+                            menuIndex = 0;
+                        }
+                        renderMenuBtnColor();
+                        return true;
+                }
+            }else{
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_DPAD_CENTER:
+                    case KeyEvent.KEYCODE_ENTER:
+                    case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+                        videoPlayer.playPause();
+                        return true;
+
+                    case KeyEvent.KEYCODE_DPAD_LEFT:
+                        videoPlayer.seekDuration(-10);
+                        return true;
+                    case KeyEvent.KEYCODE_DPAD_RIGHT:
+                        videoPlayer.seekDuration(10);
+                        return true;
+
+                    case KeyEvent.KEYCODE_DPAD_UP:
+                        videoPlayer.seekDuration(direction * 120);
+                        return true;
+                    case KeyEvent.KEYCODE_DPAD_DOWN:
+                        videoPlayer.seekDuration(direction * 5);
+                        return true;
+                }
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void renderMenuBtnColor() {
+        for (int i = 0; i <= MAX_INDEX; i++) {
+            playerMenu.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        }
+        playerMenu.getChildAt(menuIndex).setBackgroundColor(getResources().getColor(R.color.bl_blue));
+    }
+
+    private void toggleMenu() {
+        menuShown = !menuShown;
+        playerMenu.setVisibility(menuShown ? View.VISIBLE : View.INVISIBLE);
     }
 }

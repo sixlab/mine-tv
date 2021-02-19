@@ -1,15 +1,10 @@
 package tech.minesoft.minetv.widget;
 
 import android.content.Context;
-import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.DragEvent;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.shuyu.gsyvideoplayer.model.GSYVideoModel;
 import com.shuyu.gsyvideoplayer.video.ListGSYVideoPlayer;
@@ -39,40 +34,24 @@ public class MinePlayer extends ListGSYVideoPlayer {
 
     private void init() {
         getFullscreenButton().setVisibility(View.GONE);
-
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "setOnClickListener");
-            }
-        });
-        setOnDragListener(new OnDragListener() {
-            @Override
-            public boolean onDrag(View v, DragEvent event) {
-                Log.i(TAG, "setOnDragListener");
-                return false;
-            }
-        });
-        setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                Log.i(TAG, "setOnKeyListener");
-                return false;
-            }
-        });
-        setOnContextClickListener(new OnContextClickListener() {
-            @Override
-            public boolean onContextClick(View v) {
-                Log.i(TAG, "setOnContextClickListener");
-                return false;
-            }
-        });
-        setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-            @Override
-            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-                Log.i(TAG, "setOnCreateContextMenuListener");
-            }
-        });
+        // setOnClickListener(v -> {
+        //     Log.i(TAG, "setOnClickListener");
+        // });
+        // setOnDragListener((v, event) -> {
+        //     Log.i(TAG, "setOnDragListener");
+        //     return false;
+        // });
+        // setOnKeyListener((v, keyCode, event) -> {
+        //     Log.i(TAG, "setOnKeyListener");
+        //     return false;
+        // });
+        // setOnContextClickListener(v -> {
+        //     Log.i(TAG, "setOnContextClickListener");
+        //     return false;
+        // });
+        // setOnCreateContextMenuListener((menu, v, menuInfo) -> {
+        //     Log.i(TAG, "setOnCreateContextMenuListener");
+        // });
     }
 
     public String getTimes(){
@@ -106,53 +85,7 @@ public class MinePlayer extends ListGSYVideoPlayer {
         return time;
     }
 
-    public void backward() {
-        seekDuration(-10);
-    }
-
-    public void forward() {
-        seekDuration(10);
-    }
-
-    private void move(int fix) {
-        Toast.makeText(mContext, ">"+fix, Toast.LENGTH_LONG).show();
-
-        View view = new View(mContext);
-        // view.setId(R.id.fullscreen);
-        // view.setId(R.id.progress);
-        view.setId(R.id.surface_container);
-        // seekDuration(10);
-
-        MotionEvent event;
-
-        event = newEvent(MotionEvent.ACTION_DOWN, 500, 100);
-        onTouch(view, event);
-
-        event = newEvent(MotionEvent.ACTION_MOVE, 500 + fix, 100);
-        onTouch(view, event);
-
-        event = newEvent(MotionEvent.ACTION_UP, 500 + fix, 100);
-        onTouch(view, event);
-    }
-
-    private MotionEvent newEvent(int action, int x, int y){
-        // MotionEvent parameters
-        long downTime = SystemClock.uptimeMillis();
-        long eventTime = SystemClock.uptimeMillis();
-        int metaState = 0;
-
-        return MotionEvent.obtain(downTime, eventTime, action, x, y, metaState);
-    }
-
-    public void fastBackward() {
-        seekDuration(-30);
-    }
-
-    public void fastForward() {
-        seekDuration(30);
-    }
-
-    public void seekDuration(int duration){
+    public void seekDuration(int duration) {
         long playPosition = getGSYVideoManager().getCurrentPosition() + duration * 1000;
         int total = getDuration();
         if (playPosition < 0) {
@@ -186,7 +119,37 @@ public class MinePlayer extends ListGSYVideoPlayer {
         return next;
     }
 
+    /**
+     * 播放上一集
+     *
+     * @return true表示还有下一集
+     */
+    public boolean playPrev() {
+        if (mPlayPosition < (mUriList.size() - 1)) {
+            mPlayPosition += 1;
+            GSYVideoModel gsyVideoModel = mUriList.get(mPlayPosition);
+            mSaveChangeViewTIme = 0;
+            setUp(mUriList, mCache, mPlayPosition, null, mMapHeadData, false);
+            if (!TextUtils.isEmpty(gsyVideoModel.getTitle()) && mTitleTextView != null) {
+                mTitleTextView.setText(gsyVideoModel.getTitle());
+            }
+            startPlayLogic();
+
+            Log.i(TAG, "View:" + getTitleTextView());
+            VideoPlayerModel current = (VideoPlayerModel) currentModel();
+            DaoHelper.addView(current.getUrlInfo(), current.getItemName());
+
+            return true;
+        }
+        return false;
+    }
+
     public GSYVideoModel currentModel(){
         return mUriList.get(mPlayPosition);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.mine_player;
     }
 }
