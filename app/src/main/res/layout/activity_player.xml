@@ -26,48 +26,56 @@
         <Button
                 android:id="@+id/player_menu_next"
                 android:text="@string/player_menu_next"
+                android:focusable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"></Button>
 
         <Button
                 android:id="@+id/player_menu_prev"
                 android:text="@string/player_menu_prev"
+                android:focusable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"></Button>
 
 <!--        <Button-->
 <!--                android:id="@+id/player_menu_full"-->
 <!--                android:text="@string/player_menu_full"-->
+<!--                android:focusable="false"-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"></Button>-->
 
 <!--        <Button-->
 <!--                android:id="@+id/player_menu_origin"-->
 <!--                android:text="@string/player_menu_origin"-->
+<!--                android:focusable="false"-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"></Button>-->
 
 <!--        <Button-->
 <!--                android:id="@+id/player_menu_ls"-->
 <!--                android:text="@string/player_menu_ls"-->
+<!--                android:focusable="false"-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"></Button>-->
 
 <!--        <Button-->
 <!--                android:id="@+id/player_menu_169"-->
 <!--                android:text="@string/player_menu_169"-->
+<!--                android:focusable="false"-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"></Button>-->
 
 <!--        <Button-->
 <!--                android:id="@+id/player_menu_43"-->
 <!--                android:text="@string/player_menu_43"-->
+<!--                android:focusable="false"-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"></Button>-->
 
         <Button
                 android:id="@+id/player_menu_direction"
                 android:text="@string/player_menu_direction"
+                android:focusable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"></Button>
 

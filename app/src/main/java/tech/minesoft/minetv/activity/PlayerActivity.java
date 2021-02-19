@@ -1,5 +1,6 @@
 package tech.minesoft.minetv.activity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,9 +8,11 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.cache.CacheFactory;
@@ -41,8 +44,14 @@ public class PlayerActivity extends BaseActivity {
 
     private boolean menuShown = false;
     private int menuIndex = 0;
-    private static int MAX_INDEX = 3;
     private int direction = 1;
+
+    private static final int[] MENU_BTNS = {
+            R.id.player_menu_next,
+            R.id.player_menu_prev,
+            R.id.player_menu_direction,
+    };
+    private static final int MENU_LENGTH = MENU_BTNS.length;
 
     OrientationUtils orientationUtils;
     private Handler timeHandler = new MyHandler();
@@ -127,14 +136,6 @@ public class PlayerActivity extends BaseActivity {
         videoPlayer.getBackButton().setOnClickListener(v -> onBackPressed());
         videoPlayer.startPlayLogic();
 
-        findViewById(R.id.player_menu_direction).setOnClickListener(v -> {
-            direction = - direction;
-        });
-
-        findViewById(R.id.player_menu_next).setOnClickListener(v -> {
-            videoPlayer.playNext();
-        });
-
         findViewById(R.id.player_menu_next).setOnClickListener(v -> {
             videoPlayer.playNext();
         });
@@ -163,7 +164,10 @@ public class PlayerActivity extends BaseActivity {
         //     showText("5:4_"+ menuIndex);
         // });
 
-        MAX_INDEX = playerMenu.getChildCount() - 1;
+        findViewById(R.id.player_menu_direction).setOnClickListener(v -> {
+            direction = -direction;
+        });
+
         menuIndex = 0;
         menuShown = false;
         renderMenuBtnColor();
@@ -208,6 +212,19 @@ public class PlayerActivity extends BaseActivity {
         return super.onKeyLongPress(keyCode, event);
     }
 
+    private Toast toast = null;
+
+    @SuppressLint("ShowToast")
+    public void showText(CharSequence text) {
+        try {
+            toast.getView().isShown();
+            toast.setText(text);
+        } catch (Exception e) {
+            toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        }
+        toast.show();
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -222,19 +239,20 @@ public class PlayerActivity extends BaseActivity {
                     case KeyEvent.KEYCODE_DPAD_CENTER:
                     case KeyEvent.KEYCODE_ENTER:
                     case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-                        playerMenu.getChildAt(menuIndex).performClick();
+                        Button view = findViewById(MENU_BTNS[menuIndex]);
+                        view.performClick();
                         return true;
 
                     case KeyEvent.KEYCODE_DPAD_UP:
                         menuIndex--;
                         if (menuIndex < 0) {
-                            menuIndex = MAX_INDEX;
+                            menuIndex = MENU_LENGTH;
                         }
                         renderMenuBtnColor();
                         return true;
                     case KeyEvent.KEYCODE_DPAD_DOWN:
                         menuIndex++;
-                        if (menuIndex > MAX_INDEX) {
+                        if (menuIndex > MENU_LENGTH) {
                             menuIndex = 0;
                         }
                         renderMenuBtnColor();
@@ -268,14 +286,18 @@ public class PlayerActivity extends BaseActivity {
     }
 
     private void renderMenuBtnColor() {
-        for (int i = 0; i <= MAX_INDEX; i++) {
-            playerMenu.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        for (int menuBtn : MENU_BTNS) {
+            findViewById(menuBtn).setBackgroundColor(getResources().getColor(R.color.colorWhite));
         }
-        playerMenu.getChildAt(menuIndex).setBackgroundColor(getResources().getColor(R.color.bl_blue));
+
+        findViewById(MENU_BTNS[menuIndex]).setBackgroundColor(getResources().getColor(R.color.bl_blue));
     }
 
     private void toggleMenu() {
         menuShown = !menuShown;
         playerMenu.setVisibility(menuShown ? View.VISIBLE : View.INVISIBLE);
+        if (menuShown) {
+            playerMenu.requestFocus();
+        }
     }
 }

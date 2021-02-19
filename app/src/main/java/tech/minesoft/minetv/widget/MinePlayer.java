@@ -122,11 +122,11 @@ public class MinePlayer extends ListGSYVideoPlayer {
     /**
      * 播放上一集
      *
-     * @return true表示还有下一集
+     * @return true表示还有上一集
      */
     public boolean playPrev() {
-        if (mPlayPosition < (mUriList.size() - 1)) {
-            mPlayPosition += 1;
+        if (mPlayPosition > 0) {
+            mPlayPosition -= 1;
             GSYVideoModel gsyVideoModel = mUriList.get(mPlayPosition);
             mSaveChangeViewTIme = 0;
             setUp(mUriList, mCache, mPlayPosition, null, mMapHeadData, false);
