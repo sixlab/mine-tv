@@ -9,7 +9,69 @@
             android:id="@+id/video_player"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true" >
+    </tech.minesoft.minetv.widget.MinePlayer>
+
+    <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/player_menu"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/logo_margin_50"
+            android:layout_marginEnd="@dimen/logo_margin_50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:id="@+id/player_menu_next"
+                android:text="@string/player_menu_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></Button>
+
+        <Button
+                android:id="@+id/player_menu_prev"
+                android:text="@string/player_menu_prev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></Button>
+
+<!--        <Button-->
+<!--                android:id="@+id/player_menu_full"-->
+<!--                android:text="@string/player_menu_full"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"></Button>-->
+
+<!--        <Button-->
+<!--                android:id="@+id/player_menu_origin"-->
+<!--                android:text="@string/player_menu_origin"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"></Button>-->
+
+<!--        <Button-->
+<!--                android:id="@+id/player_menu_ls"-->
+<!--                android:text="@string/player_menu_ls"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"></Button>-->
+
+<!--        <Button-->
+<!--                android:id="@+id/player_menu_169"-->
+<!--                android:text="@string/player_menu_169"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"></Button>-->
+
+<!--        <Button-->
+<!--                android:id="@+id/player_menu_43"-->
+<!--                android:text="@string/player_menu_43"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"></Button>-->
+
+        <Button
+                android:id="@+id/player_menu_direction"
+                android:text="@string/player_menu_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></Button>
+
+    </LinearLayout>
 
     <ImageView
             android:id="@+id/video_tips_logo"

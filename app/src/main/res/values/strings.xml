@@ -37,6 +37,16 @@
     <string name="next_page">下一页</string>
     <string name="prev_page">上一页</string>
 
+
+    <string name="player_menu_next">下一集</string>
+    <string name="player_menu_prev">上一集</string>
+    <string name="player_menu_full">全屏</string>
+    <string name="player_menu_origin">原始</string>
+    <string name="player_menu_ls">拉伸</string>
+    <string name="player_menu_169">16：9</string>
+    <string name="player_menu_43">4：3</string>
+    <string name="player_menu_direction">快进/快退</string>
+
     <string-array name="tips">
         <item>按菜单键删除记录或者单集记录</item>
         <item>本 App 不提供任务视频资源，所有资源来自网络公开接口</item>

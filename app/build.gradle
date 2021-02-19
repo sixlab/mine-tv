@@ -6,7 +6,9 @@ android {
 
     defaultConfig {
         applicationId "tech.minesoft.minetv.v3"
+        // 6.0
         minSdkVersion 23
+        // 10.0
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
