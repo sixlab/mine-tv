@@ -44,12 +44,10 @@ public class PlayerActivity extends BaseActivity {
 
     private boolean menuShown = false;
     private int menuIndex = 0;
-    private int direction = 1;
 
     private static final int[] MENU_BTNS = {
             R.id.player_menu_next,
             R.id.player_menu_prev,
-            R.id.player_menu_direction,
     };
     private static final int MENU_LENGTH = MENU_BTNS.length;
 
@@ -62,11 +60,6 @@ public class PlayerActivity extends BaseActivity {
         @Override
         public void handleMessage(@NotNull Message msg) {
             String times = videoPlayer.getTimes();
-            if (direction == 1) {
-                times = times + ">";
-            } else {
-                times = "<" + times;
-            }
             durationTv.setText(times);
 
             timeHandler.postDelayed(runnable, 1000);
@@ -163,10 +156,10 @@ public class PlayerActivity extends BaseActivity {
         // findViewById(R.id.player_menu_43).setOnClickListener(v -> {
         //     showText("5:4_"+ menuIndex);
         // });
-
-        findViewById(R.id.player_menu_direction).setOnClickListener(v -> {
-            direction = -direction;
-        });
+        //
+        // findViewById(R.id.player_menu_direction).setOnClickListener(v -> {
+        //     direction = -direction;
+        // });
 
         menuIndex = 0;
         menuShown = false;
@@ -238,21 +231,22 @@ public class PlayerActivity extends BaseActivity {
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_DPAD_CENTER:
                     case KeyEvent.KEYCODE_ENTER:
-                    case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+                    // case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
                         Button view = findViewById(MENU_BTNS[menuIndex]);
                         view.performClick();
+                        toggleMenu();
                         return true;
 
                     case KeyEvent.KEYCODE_DPAD_UP:
                         menuIndex--;
                         if (menuIndex < 0) {
-                            menuIndex = MENU_LENGTH;
+                            menuIndex = MENU_LENGTH - 1;
                         }
                         renderMenuBtnColor();
                         return true;
                     case KeyEvent.KEYCODE_DPAD_DOWN:
                         menuIndex++;
-                        if (menuIndex > MENU_LENGTH) {
+                        if (menuIndex >= MENU_LENGTH) {
                             menuIndex = 0;
                         }
                         renderMenuBtnColor();
@@ -274,10 +268,10 @@ public class PlayerActivity extends BaseActivity {
                         return true;
 
                     case KeyEvent.KEYCODE_DPAD_UP:
-                        videoPlayer.seekDuration(direction * 120);
+                        videoPlayer.seekDuration(120);
                         return true;
                     case KeyEvent.KEYCODE_DPAD_DOWN:
-                        videoPlayer.seekDuration(direction * 5);
+                        videoPlayer.seekDuration(-120);
                         return true;
                 }
             }
