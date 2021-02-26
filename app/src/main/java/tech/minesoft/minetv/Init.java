@@ -28,7 +28,7 @@ public class Init {
             siteInfo.setCode((String) infoMap.get("code"));
             siteInfo.setName((String) infoMap.get("name"));
             siteInfo.setUrl((String) infoMap.get("url"));
-            siteInfo.setPrimary((Integer) infoMap.get("primary"));
+            siteInfo.setPrimary(((Double) infoMap.get("primary")).intValue());
             DaoHelper.updateSite(siteInfo);
         }
 
