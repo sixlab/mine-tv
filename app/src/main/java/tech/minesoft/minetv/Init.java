@@ -20,9 +20,12 @@ public class Init {
         RetrofitHelper.add("github", Const.URL_INIT);
 
         String defaultJson = IOUtils.readAssets(context, "Api.json");
-        MineSiteInfo siteInfo = JsonUtils.toBean(defaultJson, MineSiteInfo.class);
-        siteInfo.setStatus(1);
-        DaoHelper.updateSite(siteInfo);
+        List<MineSiteInfo> siteInfoList = JsonUtils.toBean(defaultJson, List.class);
+
+        for (MineSiteInfo siteInfo : siteInfoList) {
+            siteInfo.setStatus(1);
+            DaoHelper.updateSite(siteInfo);
+        }
 
         RetrofitHelper.get("github").init().enqueue(new MineCallback<InitVo>(context) {
             @Override
@@ -42,8 +45,6 @@ public class Init {
                         for (MineSiteInfo info : sites) {
                             info.setPrimary(0);
                             DaoHelper.updateSite(info);
-
-                            RetrofitHelper.add(info.getCode(), info.getUrl());
                         }
 
                         DaoHelper.updatePrimary(body.getPrimary());
@@ -58,6 +59,11 @@ public class Init {
                     //             System.exit(0);
                     //         })
                     //         .show();
+                }
+
+                List<MineSiteInfo> activeSites = DaoHelper.getActiveSites();
+                for (MineSiteInfo info : activeSites) {
+                    RetrofitHelper.add(info.getCode(), info.getUrl());
                 }
             }
         });
