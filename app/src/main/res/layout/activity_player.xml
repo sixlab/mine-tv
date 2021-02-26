@@ -72,12 +72,12 @@
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"></Button>-->
 
-        <Button
-                android:id="@+id/player_menu_direction"
-                android:text="@string/player_menu_direction"
-                android:focusable="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></Button>
+<!--        <Button-->
+<!--                android:id="@+id/player_menu_direction"-->
+<!--                android:text="@string/player_menu_direction"-->
+<!--                android:focusable="false"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"></Button>-->
 
     </LinearLayout>
 
