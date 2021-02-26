@@ -3,6 +3,7 @@ package tech.minesoft.minetv;
 import android.content.Context;
 
 import java.util.List;
+import java.util.Map;
 
 import tech.minesoft.minetv.bean.MineSiteInfo;
 import tech.minesoft.minetv.greendao.DaoHelper;
@@ -20,10 +21,14 @@ public class Init {
         RetrofitHelper.add("github", Const.URL_INIT);
 
         String defaultJson = IOUtils.readAssets(context, "Api.json");
-        List<MineSiteInfo> siteInfoList = JsonUtils.toBean(defaultJson, List.class);
+        List<Map> siteInfoList = JsonUtils.toBean(defaultJson, List.class);
 
-        for (MineSiteInfo siteInfo : siteInfoList) {
-            siteInfo.setStatus(1);
+        for (Map infoMap : siteInfoList) {
+            MineSiteInfo siteInfo = new MineSiteInfo();
+            siteInfo.setCode((String) infoMap.get("code"));
+            siteInfo.setName((String) infoMap.get("name"));
+            siteInfo.setUrl((String) infoMap.get("url"));
+            siteInfo.setPrimary((Integer) infoMap.get("primary"));
             DaoHelper.updateSite(siteInfo);
         }
 
