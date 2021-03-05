@@ -1,13 +1,16 @@
 package tech.minesoft.minetv.presenter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.leanback.widget.Presenter;
 
@@ -74,6 +77,10 @@ public class BlockContentPresenter extends Presenter {
                     switch (keyCode) {
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
+                            if(TextUtils.isEmpty(info.getVod_play_url())){
+                                showText("播放地址为空");
+                                return true;
+                            }
                             long infoId = DaoHelper.saveInfo(info);
 
                             Intent intent = new Intent(mContext, DetailActivity.class);
@@ -92,6 +99,19 @@ public class BlockContentPresenter extends Presenter {
                 return false;
             });
         }
+    }
+    
+    private Toast toast = null;
+    
+    @SuppressLint("ShowToast")
+    public void showText(CharSequence text) {
+        try {
+            toast.getView().isShown();
+            toast.setText(text);
+        } catch (Exception e) {
+            toast = Toast.makeText(mContext, text, Toast.LENGTH_SHORT);
+        }
+        toast.show();
     }
 
     @Override
