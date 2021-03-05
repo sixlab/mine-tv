@@ -76,7 +76,7 @@ public class ContentFragment extends BaseLazyLoadFragment {
     public void onResume() {
         super.onResume();
         fetchData();
-    //    todo 好像是因为Resume的时候，界面处理有问题，才导致有时候顶部显示有问题
+        mListener.onFragmentInteraction(Uri.parse(Const.URI_SHOW_TITLE));
     }
 
     @Override
