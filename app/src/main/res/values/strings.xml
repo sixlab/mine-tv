@@ -4,13 +4,13 @@
 
     <string name="clear_record">清空记录</string>
     <string name="clear_unstar">清空未收藏</string>
-    <string name="clear_view">清空观影记录</string>
+    <string name="clear_view">清空进度记录</string>
     <string name="clear_star">清空收藏</string>
 
     <string name="action_update">更新</string>
     <string name="action_star">收藏</string>
     <string name="action_unstar">取消收藏</string>
-    <string name="action_clear_view">清空观影记录</string>
+    <string name="action_clear_view">清空进度记录</string>
 
     <string name="action_reverse">反转</string>
 

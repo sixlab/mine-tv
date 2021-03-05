@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,7 +42,6 @@ public class ContentFragment extends BaseLazyLoadFragment {
     private TabVerticalGridView mVerticalGridView;
     private MineActivity mActivity;
     private View mRootView;
-    private ProgressBar mPbLoading;
     private ArrayObjectAdapter mAdapter;
 
     private String mCurrentTabCode;
@@ -115,7 +113,6 @@ public class ContentFragment extends BaseLazyLoadFragment {
     }
 
     private void initView() {
-        mPbLoading = mRootView.findViewById(R.id.pb_loading);
         mVerticalGridView = mRootView.findViewById(R.id.hg_content);
         mVerticalGridView.setTabView(mActivity.getHorizontalGridView());
         mVerticalGridView.setGroup(mActivity.getGroup());

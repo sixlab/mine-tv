@@ -35,7 +35,7 @@ android {
 }
 
 greendao {
-    schemaVersion 1
+    schemaVersion 2
     // 设置DaoMaster、DaoSession、Dao 包名
     daoPackage 'tech.minesoft.minetv.greendao'
     // 设置DaoMaster、DaoSession、Dao目录,请注意，这里路径用/不要用.
