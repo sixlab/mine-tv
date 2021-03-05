@@ -194,23 +194,43 @@ public class DaoHelper {
     public static List<MineMovieInfo> loadAll() {
         MineMovieInfoDao infoDao = Holder.daoSession.getMineMovieInfoDao();
 
-        return infoDao.queryBuilder().orderDesc(MineMovieInfoDao.Properties.Last_open).list();
+        if(Holder.showHidden){
+            return infoDao.queryBuilder().orderDesc(MineMovieInfoDao.Properties.Last_open).list();
+        }else{
+            return infoDao.queryBuilder().where(
+                    MineMovieInfoDao.Properties.Vod_hide.eq("0")
+            ).orderDesc(MineMovieInfoDao.Properties.Last_open).list();
+        }
     }
 
     public static List<MineMovieInfo> loadStar() {
         MineMovieInfoDao infoDao = Holder.daoSession.getMineMovieInfoDao();
-
-        return infoDao.queryBuilder().where(
-                MineMovieInfoDao.Properties.Star_flag.eq("1")
-        ).orderDesc(MineMovieInfoDao.Properties.Last_open).list();
+    
+        if(Holder.showHidden){
+            return infoDao.queryBuilder().where(
+                    MineMovieInfoDao.Properties.Star_flag.eq("1")
+            ).orderDesc(MineMovieInfoDao.Properties.Last_open).list();
+        }else{
+            return infoDao.queryBuilder().where(
+                    MineMovieInfoDao.Properties.Vod_hide.eq("0"),
+                    MineMovieInfoDao.Properties.Star_flag.eq("1")
+            ).orderDesc(MineMovieInfoDao.Properties.Last_open).list();
+        }
     }
 
     public static List<MineMovieInfo> loadUnStar() {
         MineMovieInfoDao infoDao = Holder.daoSession.getMineMovieInfoDao();
 
-        return infoDao.queryBuilder().where(
-                MineMovieInfoDao.Properties.Star_flag.eq("0")
-        ).orderDesc(MineMovieInfoDao.Properties.Last_open).list();
+        if(Holder.showHidden){
+            return infoDao.queryBuilder().where(
+                    MineMovieInfoDao.Properties.Star_flag.eq("0")
+            ).orderDesc(MineMovieInfoDao.Properties.Last_open).list();
+        }else{
+            return infoDao.queryBuilder().where(
+                    MineMovieInfoDao.Properties.Vod_hide.eq("0"),
+                    MineMovieInfoDao.Properties.Star_flag.eq("0")
+            ).orderDesc(MineMovieInfoDao.Properties.Last_open).list();
+        }
     }
 
     public static List<MineSiteInfo> getActiveSites() {
@@ -341,5 +361,56 @@ public class DaoHelper {
                 MineViewInfoDao.Properties.Vod_item_name.eq(itemName)
         ).buildDelete().executeDeleteWithoutDetachingEntities();
     }
-
+    
+    public static boolean showHidden() {
+        MineMetaDao metaDao = Holder.daoSession.getMineMetaDao();
+        
+        MineMeta meta = metaDao.queryBuilder().where(
+                MineMetaDao.Properties.Meta.eq("showHidden")
+        ).limit(1).unique();
+        
+        if(meta == null){
+            meta = new MineMeta();
+            meta.setMeta("showHidden");
+            meta.setVal("0");
+            
+            metaDao.insert(meta);
+            
+            return false;
+        }else{
+            return "1".equals(meta.getVal());
+        }
+    }
+    
+    public static boolean toggleHiddenDisplay() {
+        MineMetaDao metaDao = Holder.daoSession.getMineMetaDao();
+        
+        MineMeta meta = metaDao.queryBuilder().where(
+                MineMetaDao.Properties.Meta.eq("showHidden")
+        ).limit(1).unique();
+        
+        if(meta == null){
+            meta = new MineMeta();
+            meta.setMeta("showHidden");
+            meta.setVal("0");
+            
+            metaDao.insert(meta);
+            
+            return false;
+        }else{
+            boolean hidden = "0".equals(meta.getVal());
+    
+            meta.setVal(hidden?"1":"0");
+            metaDao.update(meta);
+            
+            return hidden;
+        }
+    }
+    
+    public static MineMovieInfo toggleVodHidden(Long infoId) {
+        MineMovieInfo info = getInfo(infoId);
+        info.setVod_hide(1 - info.getVod_hide());
+        Holder.daoSession.update(info);
+        return info;
+    }
 }

@@ -44,6 +44,7 @@ import tech.minesoft.minetv.fragment.OnFragmentInteractionListener;
 import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.presenter.TitlePresenter;
 import tech.minesoft.minetv.utils.Const;
+import tech.minesoft.minetv.utils.Holder;
 import tech.minesoft.minetv.utils.IOUtils;
 import tech.minesoft.minetv.utils.JsonUtils;
 import tech.minesoft.minetv.utils.SizeUtils;
@@ -106,30 +107,44 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
             ((TextView) oldFocus).getPaint().setFakeBoldText(false);
         }
     }
+    
+    private void initHiddenIcon() {
+        if(Holder.showHidden){
+            mImgClearView.setImageResource(R.drawable.icon_view_show);
+        }else{
+            mImgClearView.setImageResource(R.drawable.icon_view_hide);
+        }
+    }
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
-            //            isPressBack = true;
-            switch (v.getId()) {
-                case R.id.btn_clear_record:
-                case R.id.btn_clear_unstar:
-                case R.id.btn_clear_view:
-                case R.id.btn_clear_star:
-                case R.id.info_tips:
-                    if (mHorizontalGridView != null) {
-                        mHorizontalGridView.requestFocus();
-                    }
-                    return true;
-                default:
-                    break;
+        if (event.getAction() == KeyEvent.ACTION_DOWN ) {
+            if(keyCode == KeyEvent.KEYCODE_BACK){
+                switch (v.getId()) {
+                    case R.id.btn_clear_record:
+                    case R.id.btn_clear_unstar:
+                    case R.id.btn_clear_view:
+                    case R.id.btn_clear_star:
+                    case R.id.info_tips:
+                        if (mHorizontalGridView != null) {
+                            mHorizontalGridView.requestFocus();
+                        }
+                        return true;
+                    default:
+                        break;
+                }
+            }else if(keyCode == KeyEvent.KEYCODE_MENU && v.getId()==R.id.btn_clear_view){
+                Holder.showHidden = DaoHelper.toggleHiddenDisplay();
+                initHiddenIcon();
+                showText("操作成功");
+    
+                // todo   刷新数据
             }
-
         }
 
         return false;
     }
-
+    
     @Override
     public void onClick(View v) {
         Log.i(Const.LOG_TAG, v.toString());
@@ -200,6 +215,9 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine);
+    
+        Holder.showHidden = DaoHelper.showHidden();
+        
         initView();
         initData();
         initListener();
@@ -260,6 +278,9 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
     private ConstraintLayout mBtnClearUnStar;
     private ConstraintLayout mBtnClearView;
     private ConstraintLayout mBtnClearStar;
+    
+    private ImageView mImgClearView;
+    
     private ScaleTextView mTipsTv;
 
     private Thread mThread = new Thread(() -> {
@@ -285,6 +306,9 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
         mBtnClearUnStar = findViewById(R.id.btn_clear_unstar);
         mBtnClearView = findViewById(R.id.btn_clear_view);
         mBtnClearStar = findViewById(R.id.btn_clear_star);
+        
+        mImgClearView = findViewById(R.id.img_clear_view);
+        
         mTipsTv = findViewById(R.id.info_tips);
 
         mViewPager.setOffscreenPageLimit(2);
@@ -295,6 +319,8 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
         mHorizontalGridView.setHorizontalSpacing(SizeUtils.dp2px(this, 10));
         FocusHighlightHelper.setupBrowseItemFocusHighlight(itemBridgeAdapter,
                 FocusHighlight.ZOOM_FACTOR_MEDIUM, false);
+        
+        initHiddenIcon();
     }
 
     private void initData() {

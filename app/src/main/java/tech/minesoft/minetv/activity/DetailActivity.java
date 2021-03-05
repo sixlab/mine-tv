@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +31,6 @@ import java.util.Map;
 import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.base.BaseActivity;
 import tech.minesoft.minetv.bean.MineMovieInfo;
-import tech.minesoft.minetv.utils.RetrofitService;
 import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.presenter.EpisodeGroupPresenter;
 import tech.minesoft.minetv.presenter.EpisodeItemPresenter;
@@ -39,13 +39,14 @@ import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.ListUtils;
 import tech.minesoft.minetv.utils.MineCallback;
 import tech.minesoft.minetv.utils.RetrofitHelper;
+import tech.minesoft.minetv.utils.RetrofitService;
 import tech.minesoft.minetv.utils.SizeUtils;
-import tech.minesoft.minetv.vo.UrlInfo;
 import tech.minesoft.minetv.vo.MovieListVo;
+import tech.minesoft.minetv.vo.UrlInfo;
 import tech.minesoft.minetv.widget.TabVerticalGridView;
 import tech.minesoft.minetv.widget.focus.MyItemBridgeAdapter;
 
-public class DetailActivity extends BaseActivity implements View.OnClickListener {
+public class DetailActivity extends BaseActivity implements View.OnClickListener,View.OnKeyListener {
     private static final String TAG = "VideoDetailActivity";
 
     private TabVerticalGridView mVerticalGridView;
@@ -58,7 +59,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
 
     private MineMovieInfo currentInfo;
     private Map<String, List<UrlInfo>> vodMap = new HashMap<>();
-
+    
     private TextView mTvUpdate;
     private TextView mTvStar;
     private TextView mTvClean;
@@ -122,18 +123,17 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                         .placeholder(R.drawable.load))
                 .into(mPic);
 
-        TextView textView;
 
-        textView = findViewById(R.id.tv_video_name);
-        textView.setText(currentInfo.getVod_name());
+        TextView mIntro = findViewById(R.id.tv_video_name);
+        mIntro.setText(currentInfo.getVod_name());
 
-        textView = findViewById(R.id.tv_video_info);
-        textView.setText(String.format("%s\n%s：%s\n导演：%s\n主演：%s", currentInfo.getVod_remarks(),
+        mIntro = findViewById(R.id.tv_video_info);
+        mIntro.setText(String.format("%s\n%s：%s\n导演：%s\n主演：%s", currentInfo.getVod_remarks(),
                 currentInfo.getVod_year(), currentInfo.getType_name(), currentInfo.getVod_director(),
                 currentInfo.getVod_actor()));
 
-        textView = findViewById(R.id.tv_video_intro);
-        textView.setText(Html.fromHtml(currentInfo.getVod_content()));
+        mIntro = findViewById(R.id.tv_video_intro);
+        mIntro.setText(Html.fromHtml(currentInfo.getVod_content()));
 
         mTvUpdate = findViewById(R.id.tv_update);
         mTvStar = findViewById(R.id.tv_star);
@@ -144,8 +144,10 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
 
         initEpisodes();
         initEpisodeGroup();
+        
+        initHidden();
     }
-
+    
     private void loadData() {
         String playFrom = currentInfo.getVod_play_from();
         String playUrl = currentInfo.getVod_play_url();
@@ -225,6 +227,8 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         mTvStar.setOnClickListener(this);
         mTvClean.setOnClickListener(this);
         mTvReverse.setOnClickListener(this);
+    
+        mTvClean.setOnKeyListener(this);
     }
 
     private void initEpisodes() {
@@ -286,6 +290,14 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
             addWithTryCatch(listRow);
         }
     }
+    
+    private void initHidden() {
+        if(Integer.valueOf(1).equals(currentInfo.getVod_hide())){
+            mTvClean.setTextColor(getColor(R.color.bl_purple));
+        }else{
+            mTvClean.setTextColor(getColor(R.color.colorWhite));
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -312,6 +324,16 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
             default:
                 break;
         }
+    }
+    
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU && v.getId()==R.id.tv_clean) {
+            currentInfo = DaoHelper.toggleVodHidden(currentInfo.getId());
+            initHidden();
+            showText("操作成功");
+        }
+        return false;
     }
 
     private void addWithTryCatch(Object item) {
