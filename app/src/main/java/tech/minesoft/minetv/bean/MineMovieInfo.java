@@ -3,7 +3,6 @@ package tech.minesoft.minetv.bean;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Unique;
 
 import java.util.Date;
 
@@ -13,6 +12,7 @@ public class MineMovieInfo {
     @Id
     private Long id;
     private Integer star_flag;
+    private Integer vod_hide;
     private Integer vod_reverse;
     private Date star_time;
     private Date last_open;
@@ -34,16 +34,17 @@ public class MineMovieInfo {
     private String vod_play_server;
     private String vod_play_note;
     private String vod_play_url;
-    @Generated(hash = 413191978)
-    public MineMovieInfo(Long id, Integer star_flag, Integer vod_reverse,
-            Date star_time, Date last_open, String api_url, String api_code,
-            String api_name, Integer vod_id, String vod_name, String vod_pic,
-            String type_name, String vod_director, String vod_actor,
+    @Generated(hash = 1105747096)
+    public MineMovieInfo(Long id, Integer star_flag, Integer vod_hide,
+            Integer vod_reverse, Date star_time, Date last_open, String api_url,
+            String api_code, String api_name, Integer vod_id, String vod_name,
+            String vod_pic, String type_name, String vod_director, String vod_actor,
             String vod_area, String vod_year, String vod_remarks,
             String vod_content, String vod_play_from, String vod_play_server,
             String vod_play_note, String vod_play_url) {
         this.id = id;
         this.star_flag = star_flag;
+        this.vod_hide = vod_hide;
         this.vod_reverse = vod_reverse;
         this.star_time = star_time;
         this.last_open = last_open;
@@ -199,6 +200,12 @@ public class MineMovieInfo {
     }
     public void setVod_play_url(String vod_play_url) {
         this.vod_play_url = vod_play_url;
+    }
+    public Integer getVod_hide() {
+        return this.vod_hide;
+    }
+    public void setVod_hide(Integer vod_hide) {
+        this.vod_hide = vod_hide;
     }
 
 }

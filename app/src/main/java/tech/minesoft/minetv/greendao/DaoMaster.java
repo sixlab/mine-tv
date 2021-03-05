@@ -29,10 +29,10 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
-        MineMetaDao.dropTable(db, ifExists);
-        MineMovieInfoDao.dropTable(db, ifExists);
-        MineSiteInfoDao.dropTable(db, ifExists);
-        MineViewInfoDao.dropTable(db, ifExists);
+//        MineMetaDao.dropTable(db, ifExists);
+//        MineMovieInfoDao.dropTable(db, ifExists);
+//        MineSiteInfoDao.dropTable(db, ifExists);
+//        MineViewInfoDao.dropTable(db, ifExists);
     }
 
     /**
