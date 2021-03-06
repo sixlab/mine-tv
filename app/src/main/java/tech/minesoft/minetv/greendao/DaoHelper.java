@@ -99,6 +99,7 @@ public class DaoHelper {
         } else {
             info.setId(null);
             info.setStar_flag(0);
+            info.setVod_hide(0);
             info.setVod_reverse(0);
 
             id = infoDao.insert(info);
