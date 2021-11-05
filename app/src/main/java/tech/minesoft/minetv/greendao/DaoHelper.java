@@ -414,4 +414,24 @@ public class DaoHelper {
         Holder.daoSession.update(info);
         return info;
     }
+
+    public static String playFrom() {
+        MineMetaDao metaDao = Holder.daoSession.getMineMetaDao();
+
+        MineMeta meta = metaDao.queryBuilder().where(
+                MineMetaDao.Properties.Meta.eq("playFrom")
+        ).limit(1).unique();
+
+        if (meta == null) {
+            meta = new MineMeta();
+            meta.setMeta("playFrom");
+            meta.setVal("");
+
+            metaDao.insert(meta);
+
+            return "";
+        } else {
+            return meta.getVal();
+        }
+    }
 }

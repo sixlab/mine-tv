@@ -47,6 +47,7 @@ import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.Holder;
 import tech.minesoft.minetv.utils.IOUtils;
 import tech.minesoft.minetv.utils.JsonUtils;
+import tech.minesoft.minetv.utils.RetrofitHelper;
 import tech.minesoft.minetv.utils.SizeUtils;
 import tech.minesoft.minetv.vo.Title;
 import tech.minesoft.minetv.widget.ScaleTextView;
@@ -217,6 +218,7 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
         setContentView(R.layout.activity_mine);
     
         Holder.showHidden = DaoHelper.showHidden();
+        RetrofitHelper.initPlayFrom();
         
         initView();
         initData();
