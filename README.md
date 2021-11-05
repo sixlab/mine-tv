@@ -13,6 +13,9 @@ Android TV 上的影视播放软件
 
 当贝F3遥控器对应的按键：
 
+```
+adb -s xxxx shell input keyevent 4
+.
 返回： KeyEvent.KEYCODE_BACK; //4
 菜单： KeyEvent.KEYCODE_MENU; //82
 语音： KeyEvent.KEYCODE_F5; //135
@@ -26,3 +29,4 @@ Android TV 上的影视播放软件
 
 音量+： KeyEvent.KEYCODE_VOLUME_UP; // 24
 音量-： KeyEvent.KEYCODE_VOLUME_DOWN; // 25
+```

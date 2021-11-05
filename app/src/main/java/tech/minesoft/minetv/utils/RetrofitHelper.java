@@ -1,5 +1,7 @@
 package tech.minesoft.minetv.utils;
 
+import android.text.TextUtils;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -13,13 +15,21 @@ import tech.minesoft.minetv.bean.MineSiteInfo;
 import tech.minesoft.minetv.greendao.DaoHelper;
 
 public class RetrofitHelper {
-    public static final List<String> PLAY_FROM = Arrays.asList(
+    public static List<String> PLAY_FROM = Arrays.asList(
+            "kbm3u8",
+            "tkm3u8",
             "ckm3u8",
             "zkm3u8",
             "yjm3u8",
             "123kum3u8"
     );
 
+    public static void initPlayFrom() {
+        String playFrom = DaoHelper.playFrom();
+        if (!TextUtils.isEmpty(playFrom)) {
+            PLAY_FROM = Arrays.asList(TextUtils.split(playFrom, ","));
+        }
+    }
 
     private static Map<String, RetrofitService> SERVICE = new HashMap<>();
     public static OkHttpClient client;
