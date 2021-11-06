@@ -237,6 +237,10 @@ public class PlayerActivity extends BaseActivity {
                         toggleMenu();
                         return true;
 
+                    case KeyEvent.KEYCODE_BACK:
+                        toggleMenu();
+                        return true;
+
                     case KeyEvent.KEYCODE_DPAD_UP:
                         menuIndex--;
                         if (menuIndex < 0) {
@@ -261,10 +265,10 @@ public class PlayerActivity extends BaseActivity {
                         return true;
 
                     case KeyEvent.KEYCODE_DPAD_LEFT:
-                        videoPlayer.seekDuration(-10);
+                        videoPlayer.seekDuration(-5);
                         return true;
                     case KeyEvent.KEYCODE_DPAD_RIGHT:
-                        videoPlayer.seekDuration(10);
+                        videoPlayer.seekDuration(5);
                         return true;
 
                     case KeyEvent.KEYCODE_DPAD_UP:

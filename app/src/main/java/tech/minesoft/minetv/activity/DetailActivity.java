@@ -114,14 +114,14 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                         .placeholder(R.drawable.load))
                 .into(mPic);
 
-        mPic = findViewById(R.id.iv_logo_pic);
-        Glide.with(this)
-                .load(getDrawable(R.drawable.icon_logo))
-                .apply(new RequestOptions()
-                        .override(SizeUtils.dp2px(this, 150),
-                                SizeUtils.dp2px(this, 240))
-                        .placeholder(R.drawable.load))
-                .into(mPic);
+//        mPic = findViewById(R.id.iv_logo_pic);
+//        Glide.with(this)
+//                .load(getDrawable(R.drawable.icon_logo))
+//                .apply(new RequestOptions()
+//                        .override(SizeUtils.dp2px(this, 150),
+//                                SizeUtils.dp2px(this, 240))
+//                        .placeholder(R.drawable.load))
+//                .into(mPic);
 
 
         TextView mIntro = findViewById(R.id.tv_video_name);
@@ -140,7 +140,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         mTvClean = findViewById(R.id.tv_clean);
         mTvReverse = findViewById(R.id.tv_reverse);
 
-        tvGroupName = findViewById(R.id.tv_episode);
+        tvGroupName = findViewById(R.id.tv_episode_source);
 
         initEpisodes();
         initEpisodeGroup();
