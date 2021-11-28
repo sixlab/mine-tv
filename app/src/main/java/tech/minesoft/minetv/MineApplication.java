@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import tech.minesoft.minetv.greendao.DaoMaster;
 import tech.minesoft.minetv.greendao.DaoOpenHelper;
 import tech.minesoft.minetv.utils.Const;
+import tech.minesoft.minetv.utils.CrashHandler;
 import tech.minesoft.minetv.utils.Holder;
 
 public class MineApplication extends Application {
@@ -31,6 +32,9 @@ public class MineApplication extends Application {
         //         // .setPackageName("your.package")
         //         .enable()
         //         .run();
+
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(context);
     }
 
     /**

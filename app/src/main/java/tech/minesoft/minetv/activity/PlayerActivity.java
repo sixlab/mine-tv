@@ -36,8 +36,6 @@ import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 import tv.danmaku.ijk.media.exo2.ExoPlayerCacheManager;
 
 public class PlayerActivity extends BaseActivity {
-    private static String TAG = "PlayerActivity";
-
     private MinePlayer videoPlayer;
     private TextView durationTv;
     private LinearLayout playerMenu;
@@ -79,6 +77,8 @@ public class PlayerActivity extends BaseActivity {
         init(info);
 
         timeHandler.sendMessage(new Message());
+
+        videoPlayer.requestFocus();
     }
 
     private void init(UrlInfo info) {
@@ -137,6 +137,16 @@ public class PlayerActivity extends BaseActivity {
             videoPlayer.playPrev();
         });
 
+//        TestListener testListener = new TestListener(this.getApplicationContext());
+//        findViewById(R.id.player_menu_prev).setOnKeyListener(testListener);
+//        findViewById(R.id.player_menu_next).setOnKeyListener(testListener);
+//        findViewById(R.id.activity_play).setOnKeyListener(testListener);
+//        findViewById(R.id.video_player).setOnKeyListener(testListener);
+//        findViewById(R.id.player_menu).setOnKeyListener(testListener);
+//        findViewById(R.id.video_tips_logo).setOnKeyListener(testListener);
+//        findViewById(R.id.video_tips_time).setOnKeyListener(testListener);
+//        findViewById(R.id.video_tips_duration).setOnKeyListener(testListener);
+
         // findViewById(R.id.player_menu_full).setOnClickListener(v -> {
         //     showText("player_menu_full");
         // });
@@ -189,6 +199,7 @@ public class PlayerActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+
         //释放所有
         new AlertDialog.Builder(this)
                 .setMessage("确定退出？")
@@ -224,6 +235,7 @@ public class PlayerActivity extends BaseActivity {
 
             if(KeyEvent.KEYCODE_MENU == keyCode){
                 toggleMenu();
+                videoPlayer.playPause();
                 return true;
             }
 
@@ -231,7 +243,7 @@ public class PlayerActivity extends BaseActivity {
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_DPAD_CENTER:
                     case KeyEvent.KEYCODE_ENTER:
-                    // case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+                    case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
                         Button view = findViewById(MENU_BTNS[menuIndex]);
                         view.performClick();
                         toggleMenu();
@@ -296,6 +308,8 @@ public class PlayerActivity extends BaseActivity {
         playerMenu.setVisibility(menuShown ? View.VISIBLE : View.INVISIBLE);
         if (menuShown) {
             playerMenu.requestFocus();
+        }else {
+            videoPlayer.requestFocus();
         }
     }
 }

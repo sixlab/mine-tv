@@ -8,6 +8,9 @@ import java.util.Map;
 public class ListUtils {
 
     public static List<List> splitList(List list, int groupSize) {
+        if(null==list || list.size() == 0){
+            return new ArrayList<>();
+        }
         int length = list.size();
 
         // 计算可以分成多少组
