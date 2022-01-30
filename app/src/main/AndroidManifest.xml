@@ -21,6 +21,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:fullBackupContent="@xml/my_backup_rules"
+            android:usesCleartextTraffic="true"
             android:allowBackup="true">
 
         <activity

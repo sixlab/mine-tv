@@ -16,7 +16,6 @@ import tech.minesoft.minetv.greendao.DaoHelper;
 
 public class RetrofitHelper {
     public static List<String> PLAY_FROM = Arrays.asList(
-            "88zym3u8",
             "dbm3u8",
             "kbm3u8",
             "tkm3u8",
