@@ -1,4 +1,4 @@
-package tech.minesoft.minetv;
+package tech.minesoft.minetv.activity;
 
 import android.os.Bundle;
 
@@ -10,22 +10,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import tech.minesoft.minetv.databinding.ActivityMainBinding;
+import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.databinding.ActivitySearchBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    private ActivitySearchBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
     }
-
 }

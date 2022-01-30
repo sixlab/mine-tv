@@ -7,9 +7,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
-    <include layout="@layout/global_bar" />
+    <include layout="@layout/top_toolbar" />
 
     <include layout="@layout/main_scrolling" />
 

@@ -1,12 +1,13 @@
 plugins {
     id 'com.android.application'
+    id 'org.greenrobot.greendao'
 }
 
 android {
     compileSdkVersion 32
 
     defaultConfig {
-        applicationId "tech.minesoft.minetv"
+        applicationId "tech.minesoft.minetv.v4"
         minSdkVersion 23
         targetSdkVersion 32
         versionCode 1
@@ -30,6 +31,18 @@ android {
     }
 }
 
+greendao {
+    schemaVersion 2
+    // 设置DaoMaster、DaoSession、Dao 包名
+    daoPackage 'tech.minesoft.minetv.greendao'
+    // 设置DaoMaster、DaoSession、Dao目录,请注意，这里路径用/不要用.
+    targetGenDir 'src/main/java'
+    // 设置为true以自动生成单元测试。
+    generateTests false
+    // 应存储生成的单元测试的基本目录。默认为 src / androidTest / java。
+    targetGenDirTests 'src/androidTest/java'
+}
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -38,4 +51,11 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'org.greenrobot:greendao:3.3.0' // add library
+
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }
