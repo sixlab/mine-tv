@@ -7,10 +7,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".activity.MainActivity">
+    tools:context=".activity.SearchActivity">
 
     <include layout="@layout/top_toolbar" />
 
-    <include layout="@layout/main_scrolling" />
+    <include layout="@layout/search_scrolling" />
 
 </LinearLayout>
