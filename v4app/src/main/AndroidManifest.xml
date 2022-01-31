@@ -18,8 +18,8 @@
         android:name=".MineApplication"
         android:allowBackup="true"
         android:banner="@style/Theme.Minetv.NoActionBar"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/icon_logo"
+        android:roundIcon="@drawable/icon_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Minetv"
         android:usesCleartextTraffic="true">
