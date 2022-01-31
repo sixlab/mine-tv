@@ -7,13 +7,8 @@ import java.util.Map;
 
 import tech.minesoft.minetv.bean.MineSiteInfo;
 import tech.minesoft.minetv.greendao.DaoHelper;
-import tech.minesoft.minetv.greendao.DaoMaster;
-import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.IOUtils;
 import tech.minesoft.minetv.utils.JsonUtils;
-import tech.minesoft.minetv.utils.MineCallback;
-import tech.minesoft.minetv.utils.RetrofitHelper;
-import tech.minesoft.minetv.vo.InitVo;
 
 public class Init {
 

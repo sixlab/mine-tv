@@ -4,15 +4,9 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Query;
-import tech.minesoft.minetv.vo.InitVo;
 import tech.minesoft.minetv.vo.MovieListVo;
 
 public interface RetrofitService {
-
-    @Headers("User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.26 Safari/537.36 Edg/85.0.564.13")
-    @GET("init.json")
-    Call<InitVo> init();
-
 
     /**
      *
@@ -23,6 +17,7 @@ public interface RetrofitService {
      *
      * @return
      */
+    @Headers("User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.26 Safari/537.36 Edg/85.0.564.13")
     @GET("?ac=list")
     Call<MovieListVo> list(@Query("wd")String wd, @Query("pg")Integer pg);
 
