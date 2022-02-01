@@ -9,8 +9,51 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.SearchActivity">
 
-    <include layout="@layout/top_toolbar" />
+    <tech.minesoft.minetv.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_height"
+        android:layout_marginTop="@dimen/toolbar_margin"
+        android:layout_marginHorizontal="@dimen/toolbar_margin"/>
 
-    <include layout="@layout/search_scrolling" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_height"
+        android:layout_marginTop="@dimen/toolbar_margin"
+        android:layout_marginHorizontal="@dimen/toolbar_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/search_input"
+            android:layout_width="@dimen/search_width"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginEnd="@dimen/btn_space"
+            android:ems="10"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:hint="@string/search"
+            android:importantForAutofill="no" />
+
+        <tech.minesoft.minetv.widget.IconButton
+            android:id="@+id/search_btn"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+            app:srcCompat="@drawable/icon_search" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/content"
+        layout="@layout/search_scrolling" />
 
 </LinearLayout>

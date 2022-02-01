@@ -5,20 +5,20 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.databinding.ActivitySettingBinding;
+import tech.minesoft.minetv.databinding.ActivityHomeBinding;
 
-public class SettingActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
-    private ActivitySettingBinding binding;
+    private ActivityHomeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivitySettingBinding.inflate(getLayoutInflater());
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.toolbar.setTitle(R.string.title_setting);
-
+        binding.toolbar.setTitle(R.string.title_main);
     }
+
 }

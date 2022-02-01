@@ -1,5 +1,18 @@
 <resources>
-    <dimen name="app_bar_height">180dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
+    <dimen name="toolbar_margin">12dp</dimen>
+
+    <dimen name="btn_width">48dp</dimen>
+    <dimen name="btn_height">48dp</dimen>
+    <dimen name="btn_radius">24dp</dimen>
+    <dimen name="btn_space">6dp</dimen>
+
+    <dimen name="block_space">12dp</dimen>
+    <dimen name="block_width">149dp</dimen>
+    <dimen name="block_height">225dp</dimen>
+    <dimen name="block_img_width">125dp</dimen>
+    <dimen name="block_img_height">185dp</dimen>
+    <dimen name="block_h1_height">25dp</dimen>
+    <dimen name="block_h2_height">15dp</dimen>
+
+    <dimen name="search_width">240dp</dimen>
 </resources>
