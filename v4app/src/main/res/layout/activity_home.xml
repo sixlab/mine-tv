@@ -7,10 +7,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".activity.MainActivity">
+    tools:context=".activity.HomeActivity">
 
-    <include layout="@layout/top_toolbar" />
+    <tech.minesoft.minetv.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="@dimen/btn_height"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/toolbar_margin"
+        android:layout_marginHorizontal="@dimen/toolbar_margin"/>
 
-    <include layout="@layout/main_scrolling" />
+    <include layout="@layout/home_scrolling" />
 
 </LinearLayout>

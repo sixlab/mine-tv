@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.databinding.ActivitySettingBinding;
 
 public class SettingActivity extends AppCompatActivity {
@@ -16,6 +17,8 @@ public class SettingActivity extends AppCompatActivity {
 
         binding = ActivitySettingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.toolbar.setTitle(R.string.title_setting);
 
     }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/block_width"
+    android:layout_height="@dimen/block_height"
+    android:layout_marginHorizontal="@dimen/block_space"
+    android:layout_marginTop="@dimen/block_space"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/vod_pic"
+        android:layout_width="@dimen/block_img_width"
+        android:layout_height="@dimen/block_img_height"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/vod_title"
+        android:layout_width="@dimen/block_img_width"
+        android:layout_height="@dimen/block_h1_height"
+        android:gravity="start" />
+
+    <TextView
+        android:id="@+id/vod_desc"
+        android:layout_width="@dimen/block_img_width"
+        android:layout_height="@dimen/block_h2_height"
+        android:gravity="start" />
+
+</LinearLayout>
