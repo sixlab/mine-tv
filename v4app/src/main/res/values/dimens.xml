@@ -6,13 +6,17 @@
     <dimen name="btn_radius">24dp</dimen>
     <dimen name="btn_space">6dp</dimen>
 
-    <dimen name="block_space">12dp</dimen>
-    <dimen name="block_width">149dp</dimen>
-    <dimen name="block_height">225dp</dimen>
-    <dimen name="block_img_width">125dp</dimen>
-    <dimen name="block_img_height">185dp</dimen>
-    <dimen name="block_h1_height">25dp</dimen>
-    <dimen name="block_h2_height">15dp</dimen>
+    <dimen name="block_space">6dp</dimen>
+    <dimen name="block_width">178dp</dimen>
+<!--    <dimen name="block_img_width">150dp</dimen>-->
+
+    <dimen name="block_height">295dp</dimen>
+    <dimen name="block_img_height">245dp</dimen>
+    <dimen name="block_h1_height">30dp</dimen>
+    <dimen name="block_h2_height">20dp</dimen>
 
     <dimen name="search_width">240dp</dimen>
 </resources>
+
+
+

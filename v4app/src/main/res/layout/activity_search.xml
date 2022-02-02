@@ -34,16 +34,17 @@
             android:layout_height="@dimen/btn_height"
             android:layout_marginEnd="@dimen/btn_space"
             android:ems="10"
-            android:imeOptions="actionSearch"
             android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionSearch"
             android:hint="@string/search"
             android:importantForAutofill="no" />
 
-        <tech.minesoft.minetv.widget.IconButton
-            android:id="@+id/search_btn"
-            android:layout_width="@dimen/btn_width"
-            android:layout_height="@dimen/btn_height"
-            app:srcCompat="@drawable/icon_search" />
+<!--        <tech.minesoft.minetv.widget.IconButton-->
+<!--            android:id="@+id/search_btn"-->
+<!--            android:layout_width="@dimen/btn_width"-->
+<!--            android:layout_height="@dimen/btn_height"-->
+<!--            app:srcCompat="@drawable/icon_search" />-->
 
         <TextView
             android:layout_width="0dp"

@@ -20,6 +20,7 @@ import tech.minesoft.minetv.activity.HomeActivity;
 import tech.minesoft.minetv.activity.SearchActivity;
 import tech.minesoft.minetv.activity.SettingActivity;
 import tech.minesoft.minetv.databinding.WidgetToolbarBinding;
+import tech.minesoft.minetv.utils.Const;
 
 public class Toolbar extends LinearLayout {
     private WidgetToolbarBinding binding;
@@ -66,7 +67,7 @@ public class Toolbar extends LinearLayout {
 
         binding.starBtn.setOnClickListener(view -> {
             Intent intent=new Intent(context, HomeActivity.class);
-            intent.putExtra("star", true);
+            intent.putExtra(Const.ACTIVITY_STAR, true);
             context.startActivity(intent);
         });
 
@@ -83,7 +84,15 @@ public class Toolbar extends LinearLayout {
         timeHandler.sendMessage(new Message());
     }
 
+    public void setTitle(String text){
+        binding.title.setText(text);
+    }
+
     public void setTitle(int resId){
         binding.title.setText(resId);
+    }
+
+    public void focusStar(){
+        binding.starBtn.requestFocus();
     }
 }

@@ -1,15 +1,14 @@
 package tech.minesoft.minetv.widget;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.activity.DetailActivity;
 import tech.minesoft.minetv.databinding.WidgetImageBlockBinding;
 
 public class ImageBlock extends LinearLayout {
@@ -39,10 +38,20 @@ public class ImageBlock extends LinearLayout {
         View inflate = inflate(context, R.layout.widget_image_block,this);
         binding = WidgetImageBlockBinding.bind(inflate);
 
-        inflate.setOnClickListener(view -> {
-            Intent intent=new Intent(context, DetailActivity.class);
-            intent.putExtra("vodId", 1);
-            context.startActivity(intent);
+        setFocusable(true);
+
+        setOnFocusChangeListener((view, focus) -> {
+            if (focus) {
+                setBackgroundColor(getResources().getColor(R.color.mtv_main));
+                binding.vodTitle.setTextColor(getResources().getColor(R.color.white));
+                binding.vodDesc.setTextColor(getResources().getColor(R.color.white));
+
+                Toast.makeText(context, binding.vodTitle.getText(), Toast.LENGTH_SHORT).show();
+            }else{
+                setBackgroundResource(0);
+                binding.vodTitle.setTextColor(getResources().getColor(R.color.black));
+                binding.vodDesc.setTextColor(getResources().getColor(R.color.black));
+            }
         });
     }
 }
