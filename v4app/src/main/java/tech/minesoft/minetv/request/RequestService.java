@@ -9,10 +9,19 @@ import tech.minesoft.minetv.utils.RetrofitService;
 
 public class RequestService {
     private static RetrofitService service(){
-        MineSiteInfo activeSite = DaoHelper.getPrimarySite();
+        MineSiteInfo activeSite = activeSite();
 
         if (null != activeSite) {
             return RetrofitHelper.get(activeSite.getCode());
+        }
+        return null;
+    }
+
+    public static MineSiteInfo activeSite(){
+        MineSiteInfo activeSite = DaoHelper.getPrimarySite();
+
+        if (null != activeSite) {
+            return activeSite;
         }
         return null;
     }

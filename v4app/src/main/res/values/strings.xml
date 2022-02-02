@@ -7,9 +7,13 @@
     <string name="title_search">搜索</string>
     <string name="title_star">收藏</string>
     <string name="title_setting">设置</string>
-    <string name="title_detail">详情</string>
+    <string name="title_detail">详情:%1$s</string>
 
     <string name="search">搜索</string>
 
-    <string name="large_text"></string>
+    <string name="action_unstar">取消收藏</string>
+    <string name="action_star">收藏</string>
+    <string name="action_update">更新</string>
+    <string name="action_clean">情况观影记录</string>
+    <string name="action_reverse">反转排序</string>
 </resources>
