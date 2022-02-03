@@ -80,7 +80,7 @@ public class ScrollViewUtils {
             btn.setOnClickListener(callback.click(info));
 
             if(info.isViewed()){
-                btn.setBackgroundColor(mContext.getColor(R.color.mtv_main));
+                btn.setBackgroundColor(mContext.getColor(R.color.mtv_viewed));
                 btn.setTextColor(mContext.getColor(R.color.white));
             }
 

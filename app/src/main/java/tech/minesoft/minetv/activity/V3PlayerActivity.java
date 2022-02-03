@@ -35,7 +35,7 @@ import tech.minesoft.minetv.widget.MinePlayer;
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
 import tv.danmaku.ijk.media.exo2.ExoPlayerCacheManager;
 
-public class PlayerActivity extends BaseActivity {
+public class V3PlayerActivity extends BaseActivity {
     private MinePlayer videoPlayer;
     private TextView durationTv;
     private LinearLayout playerMenu;

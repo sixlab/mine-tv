@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.leanback.widget.Presenter;
 
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.activity.DetailActivity;
-import tech.minesoft.minetv.activity.PlayerActivity;
+import tech.minesoft.minetv.activity.V3DetailActivity;
+import tech.minesoft.minetv.activity.V3PlayerActivity;
 import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.vo.UrlInfo;
@@ -46,14 +46,14 @@ public class EpisodeItemPresenter extends Presenter {
                         case KeyEvent.KEYCODE_ENTER:
                             DaoHelper.addView(urlInfo);
 
-                            Intent intent = new Intent(mContext, PlayerActivity.class);
+                            Intent intent = new Intent(mContext, V3PlayerActivity.class);
                             intent.putExtra(Const.SELECT_EPISODE, urlInfo);
 
                             mContext.startActivity(intent);
                             return true;
                         case KeyEvent.KEYCODE_MENU:
-                            if (mContext instanceof DetailActivity) {
-                                DetailActivity activity = (DetailActivity) mContext;
+                            if (mContext instanceof V3DetailActivity) {
+                                V3DetailActivity activity = (V3DetailActivity) mContext;
                                 activity.clean(urlInfo);
                                 return true;
                             }

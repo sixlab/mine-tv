@@ -1,5 +1,6 @@
 <resources>
-    <dimen name="toolbar_margin">12dp</dimen>
+    <dimen name="widget_margin_1x">6dp</dimen>
+    <dimen name="widget_margin_2x">12dp</dimen>
 
     <dimen name="btn_width">48dp</dimen>
     <dimen name="btn_height">48dp</dimen>

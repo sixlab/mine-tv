@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.PlayerActivity">
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/info_bar"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/btn_height"-->
+    <!--        android:orientation="horizontal">-->
+    <!--    </LinearLayout>-->
+
+    <!--    <VideoView-->
+    <!--        android:id="@+id/videoView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent" />-->
+
+
+
+    <com.google.android.exoplayer2.ui.StyledPlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/btn_width"
+            android:layout_marginStart="@dimen/btn_width"
+            android:textAlignment="center" />
+
+    </com.google.android.exoplayer2.ui.StyledPlayerView>
+
+</LinearLayout>

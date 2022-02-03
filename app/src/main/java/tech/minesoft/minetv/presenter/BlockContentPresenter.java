@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.activity.DetailActivity;
+import tech.minesoft.minetv.activity.V3DetailActivity;
 import tech.minesoft.minetv.base.BaseLazyLoadFragment;
 import tech.minesoft.minetv.bean.MineMovieInfo;
 import tech.minesoft.minetv.greendao.DaoHelper;
@@ -83,7 +83,7 @@ public class BlockContentPresenter extends Presenter {
                             }
                             long infoId = DaoHelper.saveInfo(info);
 
-                            Intent intent = new Intent(mContext, DetailActivity.class);
+                            Intent intent = new Intent(mContext, V3DetailActivity.class);
                             intent.putExtra(Const.SELECT_MOVIE_ID, infoId);
 
                             mContext.startActivity(intent);

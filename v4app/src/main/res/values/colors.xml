@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="mtv_gray">#33333333</color>
     <color name="mtv_main">#ff26b5ff</color>
+    <color name="mtv_main_dark">#2688FF</color>
+    <color name="mtv_viewed">#ffAB5DC2</color>
 </resources>
