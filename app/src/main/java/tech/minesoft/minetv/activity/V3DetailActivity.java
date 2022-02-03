@@ -46,7 +46,7 @@ import tech.minesoft.minetv.vo.UrlInfo;
 import tech.minesoft.minetv.widget.TabVerticalGridView;
 import tech.minesoft.minetv.widget.focus.MyItemBridgeAdapter;
 
-public class DetailActivity extends BaseActivity implements View.OnClickListener,View.OnKeyListener {
+public class V3DetailActivity extends BaseActivity implements View.OnClickListener,View.OnKeyListener {
     private static final String TAG = "VideoDetailActivity";
 
     private TabVerticalGridView mVerticalGridView;

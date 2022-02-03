@@ -25,13 +25,6 @@ public class RetrofitHelper {
             "123kum3u8"
     );
 
-    public static void initPlayFrom() {
-        String playFrom = DaoHelper.playFrom();
-        if (!TextUtils.isEmpty(playFrom)) {
-            PLAY_FROM = Arrays.asList(TextUtils.split(playFrom, ","));
-        }
-    }
-
     private static Map<String, RetrofitService> SERVICE = new HashMap<>();
     public static OkHttpClient client;
 

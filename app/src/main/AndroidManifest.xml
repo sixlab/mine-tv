@@ -38,9 +38,9 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="tech.minesoft.minetv.activity.DetailActivity" />
+        <activity android:name="tech.minesoft.minetv.activity.V3DetailActivity" />
         <activity
-                android:name="tech.minesoft.minetv.activity.PlayerActivity"
+                android:name="tech.minesoft.minetv.activity.V3PlayerActivity"
                 android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode" />
 
         <meta-data

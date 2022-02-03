@@ -171,6 +171,14 @@ public class DaoHelper {
         return viewed;
     }
 
+    public static MineViewInfo selectLastView(Long infoId) {
+        MineViewInfoDao viewDao = Holder.daoSession.getMineViewInfoDao();
+
+        return viewDao.queryBuilder().where(
+                MineViewInfoDao.Properties.Info_id.eq(infoId)
+        ).orderDesc(MineViewInfoDao.Properties.Vod_time).limit(1).unique();
+    }
+
     public static MineMovieInfo changeReverse(long infoId) {
         MineMovieInfo info = getInfo(infoId);
         info.setVod_reverse(1 - info.getVod_reverse());
@@ -361,77 +369,5 @@ public class DaoHelper {
                 MineViewInfoDao.Properties.Vod_from.eq(groupName),
                 MineViewInfoDao.Properties.Vod_item_name.eq(itemName)
         ).buildDelete().executeDeleteWithoutDetachingEntities();
-    }
-    
-    public static boolean showHidden() {
-        MineMetaDao metaDao = Holder.daoSession.getMineMetaDao();
-        
-        MineMeta meta = metaDao.queryBuilder().where(
-                MineMetaDao.Properties.Meta.eq("showHidden")
-        ).limit(1).unique();
-        
-        if(meta == null){
-            meta = new MineMeta();
-            meta.setMeta("showHidden");
-            meta.setVal("0");
-            
-            metaDao.insert(meta);
-            
-            return false;
-        }else{
-            return "1".equals(meta.getVal());
-        }
-    }
-    
-    public static boolean toggleHiddenDisplay() {
-        MineMetaDao metaDao = Holder.daoSession.getMineMetaDao();
-        
-        MineMeta meta = metaDao.queryBuilder().where(
-                MineMetaDao.Properties.Meta.eq("showHidden")
-        ).limit(1).unique();
-        
-        if(meta == null){
-            meta = new MineMeta();
-            meta.setMeta("showHidden");
-            meta.setVal("0");
-            
-            metaDao.insert(meta);
-            
-            return false;
-        }else{
-            boolean hidden = "0".equals(meta.getVal());
-    
-            meta.setVal(hidden?"1":"0");
-            metaDao.update(meta);
-            
-            return hidden;
-        }
-    }
-    
-    public static MineMovieInfo toggleVodHidden(Long infoId) {
-        MineMovieInfo info = getInfo(infoId);
-        info.setVod_hide(1 - info.getVod_hide());
-        Holder.daoSession.update(info);
-        return info;
-    }
-
-    public static String playFrom() {
-        MineMetaDao metaDao = Holder.daoSession.getMineMetaDao();
-
-        MineMeta meta = metaDao.queryBuilder().where(
-                MineMetaDao.Properties.Meta.eq("playFrom")
-        ).limit(1).unique();
-
-        if (meta == null) {
-            meta = new MineMeta();
-            meta.setMeta("playFrom");
-            meta.setVal("");
-
-            metaDao.insert(meta);
-
-            return "";
-        } else {
-            return meta.getVal();
-        }
     }
 }

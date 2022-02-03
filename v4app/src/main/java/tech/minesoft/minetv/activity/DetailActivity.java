@@ -24,6 +24,7 @@ import java.util.Map;
 
 import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.bean.MineMovieInfo;
+import tech.minesoft.minetv.bean.MineViewInfo;
 import tech.minesoft.minetv.databinding.ActivityDetailBinding;
 import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.utils.Const;
@@ -68,6 +69,12 @@ public class DetailActivity extends AppCompatActivity {
         updateInfo();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
+    }
+
     private void initInfoView() {
         Glide.with(this)
                 .load(currentInfo.getVod_pic())
@@ -77,11 +84,23 @@ public class DetailActivity extends AppCompatActivity {
                         .placeholder(R.drawable.load))
                 .into(binding.ivVideoPic);
 
-        binding.tvVideoName.setText(currentInfo.getVod_name());
+        binding.tvVideoName.setText(
+                String.format(
+                        "%s [%s|%s|%s]",
+                        currentInfo.getVod_name(),
+                        currentInfo.getVod_year(),
+                        currentInfo.getType_name(),
+                        currentInfo.getVod_remarks()
+                )
+        );
 
-        binding.tvVideoInfo.setText(String.format("%s\n%s：%s\n导演：%s\n主演：%s", currentInfo.getVod_remarks(),
-                currentInfo.getVod_year(), currentInfo.getType_name(), currentInfo.getVod_director(),
-                currentInfo.getVod_actor()));
+        binding.tvVideoInfo.setText(
+                String.format(
+                        "导演：%s\n主演：%s",
+                        currentInfo.getVod_director(),
+                        currentInfo.getVod_actor()
+                )
+        );
 
         binding.tvVideoIntro.setText(Html.fromHtml(currentInfo.getVod_content()));
     }
@@ -97,7 +116,12 @@ public class DetailActivity extends AppCompatActivity {
         Map<String, Integer> map = DaoHelper.selectView(currentInfo.getId());
 
         validateGroup.clear();
-        for (String group : RetrofitHelper.PLAY_FROM) {
+
+        MineViewInfo viewInfo = DaoHelper.selectLastView(currentInfo.getId());
+        if (null != viewInfo) {
+            currentGroup = viewInfo.getVod_from();
+        }
+        for (String group : groups) {
             String groupUrls = links.get(group);
             if (!TextUtils.isEmpty(groupUrls)) {
                 validateGroup.add(group);
@@ -217,6 +241,7 @@ public class DetailActivity extends AppCompatActivity {
             DaoHelper.addView(info);
 
             Intent intent = new Intent(mContext, PlayerActivity.class);
+            intent.putExtra(Const.SELECT_EPISODE, info);
             mContext.startActivity(intent);
         });
     }

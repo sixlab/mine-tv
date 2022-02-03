@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:clipChildren="false"
         android:clipToPadding="false"
-        tools:context=".activity.DetailActivity">
+        tools:context=".activity.V3DetailActivity">
 
     <ImageView
             android:id="@+id/iv_video_pic"

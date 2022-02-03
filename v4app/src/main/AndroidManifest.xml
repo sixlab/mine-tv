@@ -39,6 +39,10 @@
             android:exported="false"
             android:theme="@style/Theme.Minetv.NoActionBar" />
         <activity
+            android:name=".activity.PlayerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Minetv.NoActionBar" />
+        <activity
             android:name=".activity.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.Minetv.NoActionBar">

@@ -13,12 +13,14 @@
         android:id="@+id/toolbar"
         android:layout_height="@dimen/btn_height"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/toolbar_margin"
-        android:layout_marginHorizontal="@dimen/toolbar_margin"/>
+        android:layout_marginTop="@dimen/widget_margin_2x"
+        android:layout_marginHorizontal="@dimen/widget_margin_2x"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/widget_margin_1x"
+        android:layout_marginHorizontal="@dimen/widget_margin_2x"
         android:orientation="horizontal">
 
         <ImageView
@@ -30,26 +32,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/widget_margin_2x"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_video_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:maxLines="@integer/detail_line_1" />
 
             <TextView
                 android:id="@+id/tv_video_info"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/widget_margin_1x"
+                android:maxLines="@integer/detail_line_2" />
 
             <TextView
                 android:id="@+id/tv_video_intro"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:maxLines="@integer/detail_line_3" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/widget_margin_1x"
                 android:orientation="horizontal">
 
                 <Button
@@ -62,29 +70,31 @@
                     android:id="@+id/tv_star"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/widget_margin_1x"
                     android:text="@string/action_star" />
 
                 <Button
                     android:id="@+id/tv_clean"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/widget_margin_1x"
                     android:text="@string/action_clean" />
 
                 <Button
                     android:id="@+id/tv_reverse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/widget_margin_1x"
                     android:text="@string/action_reverse" />
 
             </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/tv_episode_source"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/tv_episode_source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"></LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <include
