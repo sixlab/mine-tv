@@ -68,7 +68,7 @@ public class ScrollViewUtils {
         for (int i = 0; i < list.size(); i++) {
             UrlInfo info = list.get(i);
 
-            if (i % 5 == 0) {
+            if (i % 10 == 0) {
                 line = new LinearLayout(mContext);
                 line.setOrientation(LinearLayout.HORIZONTAL);
                 line.setLayoutParams(layoutParams);

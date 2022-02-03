@@ -42,15 +42,15 @@ public class ImageBlock extends LinearLayout {
 
         setOnFocusChangeListener((view, focus) -> {
             if (focus) {
-                setBackgroundColor(getResources().getColor(R.color.mtv_main));
-                binding.vodTitle.setTextColor(getResources().getColor(R.color.white));
-                binding.vodDesc.setTextColor(getResources().getColor(R.color.white));
+                setBackgroundColor(context.getColor(R.color.mtv_main));
+                binding.vodTitle.setTextColor(context.getColor(R.color.white));
+                binding.vodDesc.setTextColor(context.getColor(R.color.white));
 
                 Toast.makeText(context, binding.vodTitle.getText(), Toast.LENGTH_SHORT).show();
             }else{
                 setBackgroundResource(0);
-                binding.vodTitle.setTextColor(getResources().getColor(R.color.black));
-                binding.vodDesc.setTextColor(getResources().getColor(R.color.black));
+                binding.vodTitle.setTextColor(context.getColor(R.color.black));
+                binding.vodDesc.setTextColor(context.getColor(R.color.black));
             }
         });
     }

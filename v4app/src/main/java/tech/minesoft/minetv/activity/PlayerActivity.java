@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 
 import org.jetbrains.annotations.NotNull;
@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.databinding.ActivityPlayerBinding;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.vo.UrlInfo;
@@ -71,6 +72,8 @@ public class PlayerActivity extends AppCompatActivity {
 
         playerView.setPlayer(player);
         playerView.hideController();
+        playerView.setBackgroundColor(getColor(R.color.black));
+        playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
 
         // Build the media item.
         MediaItem mediaItem = MediaItem.fromUri(info.getPlayUrl());
@@ -87,22 +90,19 @@ public class PlayerActivity extends AppCompatActivity {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        Toast.makeText(PlayerActivity.this, event.getAction() + ":::" + event.getKeyCode(), Toast.LENGTH_SHORT).show();
         if(KeyEvent.ACTION_DOWN == event.getAction()){
             int keyCode = event.getKeyCode();
             switch (keyCode){
-                case KeyEvent.KEYCODE_DPAD_UP: // 19
-                    playerView.showController();
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_DOWN: // 20
-                    playerView.hideController();
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_LEFT: // 21
-                    player.seekBack();
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_RIGHT:  // 22
-                    player.seekForward();
-                    return true;
+                // case KeyEvent.KEYCODE_DPAD_UP: // 19
+                //     return true;
+                // case KeyEvent.KEYCODE_DPAD_DOWN: // 20
+                //     return true;
+                // case KeyEvent.KEYCODE_DPAD_LEFT: // 21
+                //     player.seekBack();
+                //     return true;
+                // case KeyEvent.KEYCODE_DPAD_RIGHT:  // 22
+                //     player.seekForward();
+                //     return true;
                 case KeyEvent.KEYCODE_DPAD_CENTER:  // 23
                 case KeyEvent.KEYCODE_ENTER: // 66
                     if (player.isPlaying()) {
@@ -112,6 +112,7 @@ public class PlayerActivity extends AppCompatActivity {
                     }
                     return true;
                 case KeyEvent.KEYCODE_BACK: // 4
+                    playerView.hideController();
                     new AlertDialog.Builder(this)
                             .setMessage("是否退出？")
                             .setNegativeButton("确定", (dialog, id) -> {
@@ -122,7 +123,7 @@ public class PlayerActivity extends AppCompatActivity {
                             .show();
                     return true;
                 case KeyEvent.KEYCODE_MENU: // 82
-                    // TODO
+                    playerView.showController();
                     return true;
             }
         }
