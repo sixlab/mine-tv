@@ -57,7 +57,7 @@ public class DetailActivity extends AppCompatActivity {
         long infoId = bundle.getLong(Const.SELECT_MOVIE_ID);
         String vodName = bundle.getString(Const.SELECT_MOVIE_NAME);
 
-        binding.toolbar.setTitle(getResources().getString(R.string.title_detail, vodName));
+        binding.toolbar.setTitle(getString(R.string.title_detail, vodName));
 
         currentInfo = DaoHelper.getInfo(infoId);
 
@@ -214,8 +214,8 @@ public class DetailActivity extends AppCompatActivity {
                 renderEpisodes();
             });
             if (group.equals(currentGroup)) {
-                btn.setBackgroundColor(getResources().getColor(R.color.mtv_main));
-                btn.setTextColor(getResources().getColor(R.color.white));
+                btn.setBackgroundColor(getColor(R.color.mtv_main));
+                btn.setTextColor(getColor(R.color.white));
             }
             binding.tvEpisodeSource.addView(btn);
         }

@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import tech.minesoft.minetv.R;
 
 public class IconButton extends AppCompatImageButton implements View.OnFocusChangeListener {
+    private Context context;
     public IconButton(@NonNull Context context) {
         super(context);
         this.init(context, null, 0);
@@ -27,6 +28,7 @@ public class IconButton extends AppCompatImageButton implements View.OnFocusChan
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr){
+        this.context = context;
         setNormalStyle();
         setScaleType(ScaleType.CENTER_INSIDE);
         // setFocusableInTouchMode(true);
@@ -48,10 +50,10 @@ public class IconButton extends AppCompatImageButton implements View.OnFocusChan
     }
 
     private void setFocusStyle() {
-        setBackgroundColor(getResources().getColor(R.color.mtv_main));
+        setBackgroundColor(context.getColor(R.color.mtv_main));
     }
 
     private void setNormalStyle() {
-        setBackgroundColor(getResources().getColor(R.color.mtv_gray));
+        setBackgroundColor(context.getColor(R.color.mtv_gray));
     }
 }
