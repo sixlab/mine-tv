@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimaryVariant"
     android:fitsSystemWindows="true"
     tools:context=".activity.PlayerActivity">
 
@@ -32,8 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:layout_marginTop="@dimen/block_h1_height"
-            android:layout_marginStart="@dimen/btn_width"
+            android:layout_marginTop="@dimen/widget_margin_5x"
+            android:layout_marginEnd="@dimen/widget_margin_5x"
             android:textAlignment="center" />
 
     </com.google.android.exoplayer2.ui.StyledPlayerView>

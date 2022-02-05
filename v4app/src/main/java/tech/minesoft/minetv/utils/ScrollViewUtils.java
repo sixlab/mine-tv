@@ -52,7 +52,7 @@ public class ScrollViewUtils {
                     .into(iv);
 
             ((TextView) block.findViewById(R.id.vod_title)).setText(info.getVod_name());
-            ((TextView) block.findViewById(R.id.vod_desc)).setText(info.getVod_director());
+            ((TextView) block.findViewById(R.id.vod_desc)).setText(String.format("[%s] %s", info.getVod_year(), info.getVod_director()));
 
 
             block.setOnClickListener(callback.click(info));
@@ -63,6 +63,11 @@ public class ScrollViewUtils {
 
     public static void addBtn(Context mContext, LinearLayout episodeList, List<UrlInfo> list, BlockCallback<UrlInfo> callback) {
         init(mContext);
+
+        LinearLayout.LayoutParams btnLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int dimension = (int) mContext.getResources().getDimension(R.dimen.widget_margin_1x);
+        btnLayoutParams.setMargins(0, 0, dimension, dimension);
+
 
         LinearLayout line = null;
         for (int i = 0; i < list.size(); i++) {
@@ -78,10 +83,13 @@ public class ScrollViewUtils {
             Button btn = new Button(mContext);
             btn.setText(info.getItemName());
             btn.setOnClickListener(callback.click(info));
+            btn.setLayoutParams(btnLayoutParams);
 
+            btn.setTextColor(mContext.getColor(R.color.white));
             if(info.isViewed()){
                 btn.setBackgroundColor(mContext.getColor(R.color.mtv_viewed));
-                btn.setTextColor(mContext.getColor(R.color.white));
+            }else{
+                btn.setBackgroundColor(mContext.getColor(R.color.mtv_btn_normal));
             }
 
             line.addView(btn);
@@ -92,7 +100,7 @@ public class ScrollViewUtils {
         if (!init) {
             init = true;
 
-            int dimension = (int) mContext.getResources().getDimension(R.dimen.block_space);
+            int dimension = (int) mContext.getResources().getDimension(R.dimen.widget_margin_1x);
             layoutParams.setMargins(dimension, 0, dimension, 0);
         }
     }

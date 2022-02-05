@@ -38,19 +38,17 @@ public class ImageBlock extends LinearLayout {
         View inflate = inflate(context, R.layout.widget_image_block,this);
         binding = WidgetImageBlockBinding.bind(inflate);
 
+        binding.vodTitle.setTextColor(context.getColor(R.color.white));
+        binding.vodDesc.setTextColor(context.getColor(R.color.white));
+
         setFocusable(true);
 
         setOnFocusChangeListener((view, focus) -> {
             if (focus) {
-                setBackgroundColor(context.getColor(R.color.mtv_main));
-                binding.vodTitle.setTextColor(context.getColor(R.color.white));
-                binding.vodDesc.setTextColor(context.getColor(R.color.white));
-
+                setBackgroundColor(context.getColor(R.color.mtv_selected));
                 Toast.makeText(context, binding.vodTitle.getText(), Toast.LENGTH_SHORT).show();
             }else{
                 setBackgroundResource(0);
-                binding.vodTitle.setTextColor(context.getColor(R.color.black));
-                binding.vodDesc.setTextColor(context.getColor(R.color.black));
             }
         });
     }

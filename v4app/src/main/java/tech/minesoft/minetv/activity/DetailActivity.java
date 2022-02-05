@@ -214,7 +214,7 @@ public class DetailActivity extends AppCompatActivity {
                 renderEpisodes();
             });
             if (group.equals(currentGroup)) {
-                btn.setBackgroundColor(getColor(R.color.mtv_main));
+                btn.setBackgroundColor(getColor(R.color.mtv_selected));
                 btn.setTextColor(getColor(R.color.white));
             }
             binding.tvEpisodeSource.addView(btn);

@@ -31,7 +31,6 @@ public class IconButton extends AppCompatImageButton implements View.OnFocusChan
         this.context = context;
         setNormalStyle();
         setScaleType(ScaleType.CENTER_INSIDE);
-        // setFocusableInTouchMode(true);
         setOnFocusChangeListener(this);
     }
 
@@ -50,10 +49,10 @@ public class IconButton extends AppCompatImageButton implements View.OnFocusChan
     }
 
     private void setFocusStyle() {
-        setBackgroundColor(context.getColor(R.color.mtv_main));
+        setBackgroundColor(context.getColor(R.color.mtv_selected));
     }
 
     private void setNormalStyle() {
-        setBackgroundColor(context.getColor(R.color.mtv_gray));
+        setBackgroundColor(context.getColor(R.color.mtv_btn_normal));
     }
 }

@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="colorPrimary">#ff0a0e1c</color>
+    <color name="colorPrimaryVariant">#ff192338</color>
+
+    <color name="mtv_btn_normal">#BE020307</color>
+    <color name="mtv_selected">#2688FF</color>
+
+
+
+
+
+
+
+    <color name="black">#FF020307</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="mtv_gray">#33333333</color>
-    <color name="mtv_main">#ff26b5ff</color>
     <color name="mtv_main_dark">#2688FF</color>
-    <color name="mtv_viewed">#ffAB5DC2</color>
+    <color name="mtv_viewed1">#ffAB5DC2</color>
+    <color name="mtv_viewed">#FEC52C</color>
+
+
+    <color name="bl_yellow">#FEC52C</color>
+    <color name="bl_pink">#FC7394</color>
+    <color name="bl_red">#F34F4F</color>
+    <color name="bl_green">#5BEBBC</color>
+    <color name="bl_purple">#AB5DC2</color>
+    <color name="bl_blue">#53B3E6</color>
+    <color name="bl_cyan">#B5E233</color>
+    <color name="bl_transparent">#00000000</color>
+
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorBg">#020307</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlue">#ff26b5ff</color>
+    <color name="white_8_percent">#14FFFFFF</color>
+
+    <color name="split_line">#5d5e60</color>
 </resources>
