@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/block_width"
     android:layout_height="@dimen/block_height"
-    android:layout_marginHorizontal="@dimen/block_space"
-    android:layout_marginVertical="@dimen/block_space"
+    android:layout_marginHorizontal="@dimen/widget_margin_1x"
+    android:layout_marginVertical="@dimen/widget_margin_1x"
     android:orientation="vertical">
 
     <ImageView

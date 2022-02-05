@@ -74,6 +74,7 @@ public class PlayerActivity extends AppCompatActivity {
         playerView.hideController();
         playerView.setBackgroundColor(getColor(R.color.black));
         playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
+        playerView.setKeepScreenOn(true);
 
         // Build the media item.
         MediaItem mediaItem = MediaItem.fromUri(info.getPlayUrl());
