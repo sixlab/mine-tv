@@ -35,10 +35,11 @@
             android:layout_height="@dimen/btn_height"
             android:layout_marginEnd="@dimen/btn_space"
             android:ems="10"
-            android:inputType="text"
             android:maxLines="1"
-            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:textColor="@color/white"
             android:hint="@string/search"
+            android:imeOptions="actionSearch"
             android:importantForAutofill="no" />
 
 <!--        <tech.minesoft.minetv.widget.IconButton-->

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,10 +19,12 @@ import tech.minesoft.minetv.databinding.ActivitySearchBinding;
 import tech.minesoft.minetv.databinding.SearchScrollingBinding;
 import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.request.RequestService;
-import tech.minesoft.minetv.utils.ScrollViewUtils;
 import tech.minesoft.minetv.utils.Const;
+import tech.minesoft.minetv.utils.LayoutUtils;
 import tech.minesoft.minetv.utils.MineCallback;
+import tech.minesoft.minetv.utils.ScrollViewUtils;
 import tech.minesoft.minetv.vo.MovieListVo;
+import tech.minesoft.minetv.widget.TextButton;
 
 public class SearchActivity extends AppCompatActivity {
     private ActivitySearchBinding binding;
@@ -95,41 +96,38 @@ public class SearchActivity extends AppCompatActivity {
 
     private void addResult(List<MineMovieInfo> list) {
         LinearLayout vodList = binding.content.vodList;
-        SearchActivity mContext = SearchActivity.this;
-        LinearLayout.LayoutParams params = ScrollViewUtils.layoutParams(mContext);
-
         vodList.removeAllViews();
 
         if (null == list || list.size() == 0) {
-            TextView textView = new TextView(mContext);
+            TextView textView = new TextView(this);
             textView.setText("搜索结果为空");
-            textView.setLayoutParams(params);
+            textView.setLayoutParams(LayoutUtils.lineLayout);
             vodList.addView(textView);
             return;
         } else {
-            TextView textView = new TextView(mContext);
+            TextView textView = new TextView(this);
             textView.setText(String.format("搜索结果:%d(%d/%d)", totalCount, page, totalPage));
-            textView.setLayoutParams(params);
+            textView.setLayoutParams(LayoutUtils.lineLayout);
             vodList.addView(textView);
         }
 
-        ScrollViewUtils.addBlock(mContext, vodList, list, info -> view -> {
+        ScrollViewUtils.addBlock(this, vodList, list, info -> view -> {
             long infoId = DaoHelper.saveInfo(info);
 
-            Intent intent = new Intent(mContext, DetailActivity.class);
+            Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
             intent.putExtra(Const.SELECT_MOVIE_ID, infoId);
             intent.putExtra(Const.SELECT_MOVIE_NAME, info.getVod_name());
-            mContext.startActivity(intent);
+            SearchActivity.this.startActivity(intent);
         });
 
         if (totalPage > 1) {
-            LinearLayout line = new LinearLayout(mContext);
+            LinearLayout line = new LinearLayout(this);
             line.setOrientation(LinearLayout.HORIZONTAL);
-            line.setLayoutParams(params);
+            line.setLayoutParams(LayoutUtils.centerLayout);
             vodList.addView(line);
 
             if (page > 1) {
-                Button prev = new Button(mContext);
+                TextButton prev = new TextButton(this);
                 prev.setText("<");
                 line.addView(prev);
                 prev.setOnClickListener(view -> {
@@ -139,7 +137,8 @@ public class SearchActivity extends AppCompatActivity {
             }
 
             if (page < totalPage) {
-                Button next = new Button(mContext);
+                TextButton next = new TextButton(this);
+                next.setLayoutParams(LayoutUtils.btnLayout);
                 next.setText(">");
                 line.addView(next);
                 next.setOnClickListener(view -> {
