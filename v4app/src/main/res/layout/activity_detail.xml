@@ -40,6 +40,7 @@
                 android:id="@+id/tv_video_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:maxLines="@integer/detail_line_1" />
 
             <TextView
@@ -47,44 +48,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/widget_margin_1x"
+                android:textColor="@color/white"
                 android:maxLines="@integer/detail_line_2" />
 
             <TextView
                 android:id="@+id/tv_video_intro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:maxLines="@integer/detail_line_3" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/widget_margin_1x"
+                android:textColor="@color/white"
                 android:orientation="horizontal">
 
-                <Button
+                <tech.minesoft.minetv.widget.TextButton
                     android:id="@+id/tv_update"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/widget_margin_1x"
                     android:text="@string/action_update" />
 
-                <Button
+                <tech.minesoft.minetv.widget.TextButton
                     android:id="@+id/tv_star"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/widget_margin_1x"
                     android:layout_marginLeft="@dimen/widget_margin_1x"
                     android:text="@string/action_star" />
 
-                <Button
+                <tech.minesoft.minetv.widget.TextButton
                     android:id="@+id/tv_clean"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/widget_margin_1x"
                     android:layout_marginLeft="@dimen/widget_margin_1x"
                     android:text="@string/action_clean" />
 
-                <Button
+                <tech.minesoft.minetv.widget.TextButton
                     android:id="@+id/tv_reverse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/widget_margin_1x"
                     android:layout_marginLeft="@dimen/widget_margin_1x"
                     android:text="@string/action_reverse" />
 

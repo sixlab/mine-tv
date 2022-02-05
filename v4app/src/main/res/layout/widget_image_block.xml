@@ -5,7 +5,7 @@
     android:layout_width="@dimen/block_width"
     android:layout_height="@dimen/block_height"
     android:layout_marginHorizontal="@dimen/widget_margin_1x"
-    android:layout_marginVertical="@dimen/widget_margin_1x"
+    android:layout_marginVertical="@dimen/widget_margin_1"
     android:orientation="vertical">
 
     <ImageView

@@ -10,8 +10,9 @@ import androidx.appcompat.widget.AppCompatImageButton;
 
 import tech.minesoft.minetv.R;
 
-public class IconButton extends AppCompatImageButton implements View.OnFocusChangeListener {
+public class IconButton extends AppCompatImageButton {
     private Context context;
+
     public IconButton(@NonNull Context context) {
         super(context);
         this.init(context, null, 0);
@@ -27,18 +28,17 @@ public class IconButton extends AppCompatImageButton implements View.OnFocusChan
         this.init(context, attrs, defStyleAttr);
     }
 
-    private void init(Context context, AttributeSet attrs, int defStyleAttr){
+    private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         this.context = context;
         setNormalStyle();
         setScaleType(ScaleType.CENTER_INSIDE);
-        setOnFocusChangeListener(this);
+        setOnFocusChangeListener(this::onFocusChange);
     }
 
-    @Override
     public void onFocusChange(View view, boolean focus) {
         if (focus) {
             setFocusStyle();
-        }else{
+        } else {
             setNormalStyle();
         }
     }

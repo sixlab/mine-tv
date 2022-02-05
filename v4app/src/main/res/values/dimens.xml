@@ -1,4 +1,5 @@
 <resources>
+    <dimen name="widget_margin_1">1dp</dimen>
     <dimen name="widget_margin_1x">6dp</dimen>
     <dimen name="widget_margin_2x">12dp</dimen>
     <dimen name="widget_margin_5x">30dp</dimen>

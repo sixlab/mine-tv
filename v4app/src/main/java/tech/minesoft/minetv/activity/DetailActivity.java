@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +27,7 @@ import tech.minesoft.minetv.bean.MineViewInfo;
 import tech.minesoft.minetv.databinding.ActivityDetailBinding;
 import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.utils.Const;
+import tech.minesoft.minetv.utils.LayoutUtils;
 import tech.minesoft.minetv.utils.ListUtils;
 import tech.minesoft.minetv.utils.MineCallback;
 import tech.minesoft.minetv.utils.RetrofitHelper;
@@ -36,6 +36,7 @@ import tech.minesoft.minetv.utils.ScrollViewUtils;
 import tech.minesoft.minetv.utils.SizeUtils;
 import tech.minesoft.minetv.vo.MovieListVo;
 import tech.minesoft.minetv.vo.UrlInfo;
+import tech.minesoft.minetv.widget.TextButton;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -203,46 +204,47 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void renderEpisodes() {
+        // 分组
         binding.tvEpisodeSource.removeAllViews();
-        binding.content.episodeList.removeAllViews();
-
+        boolean first = true;
         for (String group : validateGroup) {
-            Button btn = new Button(this);
+            TextButton btn = new TextButton(this);
+            if (first) {
+                first = false;
+            } else {
+                btn.setLayoutParams(LayoutUtils.btnLayout);
+            }
             btn.setText(group);
             btn.setOnClickListener(view -> {
                 currentGroup = btn.getText().toString();
                 renderEpisodes();
             });
+            // btn.setLayoutParams(btnLayoutParams);
             if (group.equals(currentGroup)) {
-                btn.setBackgroundColor(getColor(R.color.mtv_selected));
-                btn.setTextColor(getColor(R.color.white));
+                btn.setNormalColor(R.color.mtv_viewed);
             }
             binding.tvEpisodeSource.addView(btn);
         }
 
-        binding.tvEpisodeSource.requestFocus();
-
-        List<UrlInfo> infoList = vodMap.get(currentGroup);
+        // 剧集
         LinearLayout episodeList = binding.content.episodeList;
-        DetailActivity mContext = DetailActivity.this;
-        LinearLayout.LayoutParams params = ScrollViewUtils.layoutParams(mContext);
-
         episodeList.removeAllViews();
 
+        List<UrlInfo> infoList = vodMap.get(currentGroup);
         if (null == infoList || infoList.size() == 0) {
-            TextView textView = new TextView(mContext);
+            TextView textView = new TextView(this);
             textView.setText("结果为空");
-            textView.setLayoutParams(params);
+            textView.setLayoutParams(LayoutUtils.lineLayout);
             episodeList.addView(textView);
             return;
         }
 
-        ScrollViewUtils.addBtn(mContext, episodeList, infoList, info -> view -> {
+        ScrollViewUtils.addBtn(this, episodeList, infoList, info -> view -> {
             DaoHelper.addView(info);
 
-            Intent intent = new Intent(mContext, PlayerActivity.class);
+            Intent intent = new Intent(DetailActivity.this, PlayerActivity.class);
             intent.putExtra(Const.SELECT_EPISODE, info);
-            mContext.startActivity(intent);
+            DetailActivity.this.startActivity(intent);
         });
     }
 

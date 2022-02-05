@@ -1,8 +1,6 @@
 package tech.minesoft.minetv.utils;
 
 import android.content.Context;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,19 +14,10 @@ import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.bean.MineMovieInfo;
 import tech.minesoft.minetv.vo.UrlInfo;
 import tech.minesoft.minetv.widget.ImageBlock;
+import tech.minesoft.minetv.widget.TextButton;
 
 public class ScrollViewUtils {
-    private static LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    private static boolean init = false;
-
-    public static LinearLayout.LayoutParams layoutParams(Context mContext) {
-        init(mContext);
-        return layoutParams;
-    }
-
     public static void addBlock(Context mContext, LinearLayout vodList, List<MineMovieInfo> list, BlockCallback<MineMovieInfo> callback) {
-        init(mContext);
-
         LinearLayout line = null;
         for (int i = 0; i < list.size(); i++) {
             MineMovieInfo info = list.get(i);
@@ -36,7 +25,7 @@ public class ScrollViewUtils {
             if (i % 5 == 0) {
                 line = new LinearLayout(mContext);
                 line.setOrientation(LinearLayout.HORIZONTAL);
-                line.setLayoutParams(layoutParams);
+                line.setLayoutParams(LayoutUtils.lineLayout);
                 vodList.addView(line);
             }
 
@@ -62,46 +51,36 @@ public class ScrollViewUtils {
     }
 
     public static void addBtn(Context mContext, LinearLayout episodeList, List<UrlInfo> list, BlockCallback<UrlInfo> callback) {
-        init(mContext);
-
-        LinearLayout.LayoutParams btnLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        int dimension = (int) mContext.getResources().getDimension(R.dimen.widget_margin_1x);
-        btnLayoutParams.setMargins(0, 0, dimension, dimension);
-
-
         LinearLayout line = null;
+        boolean first = true;
         for (int i = 0; i < list.size(); i++) {
             UrlInfo info = list.get(i);
 
             if (i % 10 == 0) {
                 line = new LinearLayout(mContext);
                 line.setOrientation(LinearLayout.HORIZONTAL);
-                line.setLayoutParams(layoutParams);
+                line.setLayoutParams(LayoutUtils.lineLayout);
                 episodeList.addView(line);
+
+                first = true;
             }
 
-            Button btn = new Button(mContext);
+            TextButton btn = new TextButton(mContext);
+            if (first) {
+                first = false;
+            } else {
+                btn.setLayoutParams(LayoutUtils.btnLayout);
+            }
+            btn.setWidth(SizeUtils.dp2px(mContext, mContext.getResources().getDimension(R.dimen.widget_margin_5x)));
             btn.setText(info.getItemName());
             btn.setOnClickListener(callback.click(info));
-            btn.setLayoutParams(btnLayoutParams);
 
-            btn.setTextColor(mContext.getColor(R.color.white));
-            if(info.isViewed()){
-                btn.setBackgroundColor(mContext.getColor(R.color.mtv_viewed));
-            }else{
-                btn.setBackgroundColor(mContext.getColor(R.color.mtv_btn_normal));
+            if (info.isViewed()) {
+                btn.setNormalColor(R.color.mtv_viewed);
             }
 
             line.addView(btn);
         }
     }
 
-    private static void init(Context mContext) {
-        if (!init) {
-            init = true;
-
-            int dimension = (int) mContext.getResources().getDimension(R.dimen.widget_margin_1x);
-            layoutParams.setMargins(dimension, 0, dimension, 0);
-        }
-    }
 }

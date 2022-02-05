@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import tech.minesoft.minetv.R;
 
-public class TextButton extends AppCompatButton implements View.OnFocusChangeListener {
+public class TextButton extends AppCompatButton {
     private Context context;
     private int normalColor;
     public TextButton(@NonNull Context context) {
@@ -30,17 +30,17 @@ public class TextButton extends AppCompatButton implements View.OnFocusChangeLis
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr){
         this.context = context;
+        normalColor = R.color.mtv_btn_normal;
         setNormalStyle();
-        // setFocusableInTouchMode(true);
-        setOnFocusChangeListener(this);
-        normalColor = context.getColor(R.color.mtv_btn_normal);
+        setOnFocusChangeListener(this::onFocusChange);
+        setTextColor(context.getColor(R.color.white));
     }
 
     public void setNormalColor(int normalColor) {
         this.normalColor = normalColor;
+        setNormalStyle();
     }
 
-    @Override
     public void onFocusChange(View view, boolean focus) {
         if (focus) {
             setFocusStyle();
@@ -49,16 +49,11 @@ public class TextButton extends AppCompatButton implements View.OnFocusChangeLis
         }
     }
 
-    @Override
-    public void setOnClickListener(@Nullable OnClickListener l) {
-        super.setOnClickListener(l);
-    }
-
     private void setFocusStyle() {
         setBackgroundColor(context.getColor(R.color.mtv_selected));
     }
 
     private void setNormalStyle() {
-        setBackgroundColor(normalColor);
+        setBackgroundColor(context.getColor(normalColor));
     }
 }
