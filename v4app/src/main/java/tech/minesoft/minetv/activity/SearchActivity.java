@@ -1,5 +1,6 @@
 package tech.minesoft.minetv.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,6 +25,7 @@ import tech.minesoft.minetv.utils.LayoutUtils;
 import tech.minesoft.minetv.utils.MineCallback;
 import tech.minesoft.minetv.utils.ScrollViewUtils;
 import tech.minesoft.minetv.vo.MovieListVo;
+import tech.minesoft.minetv.widget.ImageBlock;
 import tech.minesoft.minetv.widget.TextButton;
 
 public class SearchActivity extends AppCompatActivity {
@@ -111,14 +113,7 @@ public class SearchActivity extends AppCompatActivity {
             vodList.addView(textView);
         }
 
-        ScrollViewUtils.addBlock(this, vodList, list, info -> view -> {
-            long infoId = DaoHelper.saveInfo(info);
-
-            Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
-            intent.putExtra(Const.SELECT_MOVIE_ID, infoId);
-            intent.putExtra(Const.SELECT_MOVIE_NAME, info.getVod_name());
-            SearchActivity.this.startActivity(intent);
-        });
+        ScrollViewUtils.addBlock(this, vodList, list, null);
 
         if (totalPage > 1) {
             LinearLayout line = new LinearLayout(this);
@@ -151,4 +146,5 @@ public class SearchActivity extends AppCompatActivity {
         SearchScrollingBinding content = binding.content;
         content.getRoot().scrollTo(0, 0);
     }
+
 }

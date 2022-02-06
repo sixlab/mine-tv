@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.MediaMetadata;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 
@@ -77,7 +78,10 @@ public class PlayerActivity extends AppCompatActivity {
         playerView.setKeepScreenOn(true);
 
         // Build the media item.
-        MediaItem mediaItem = MediaItem.fromUri(info.getPlayUrl());
+        MediaItem.Builder builder = new MediaItem.Builder();
+        builder.setUri(info.getPlayUrl());
+        builder.setMediaMetadata(new MediaMetadata.Builder().setDisplayTitle(info.getItemName()).build());
+        MediaItem mediaItem = builder.build();
 
         // Set the media item to be played.
         player.setMediaItem(mediaItem);
@@ -104,14 +108,14 @@ public class PlayerActivity extends AppCompatActivity {
                 // case KeyEvent.KEYCODE_DPAD_RIGHT:  // 22
                 //     player.seekForward();
                 //     return true;
-                case KeyEvent.KEYCODE_DPAD_CENTER:  // 23
-                case KeyEvent.KEYCODE_ENTER: // 66
-                    if (player.isPlaying()) {
-                        player.pause();
-                    } else {
-                        player.play();
-                    }
-                    return true;
+                // case KeyEvent.KEYCODE_DPAD_CENTER:  // 23
+                // case KeyEvent.KEYCODE_ENTER: // 66
+                //     if (player.isPlaying()) {
+                //         player.pause();
+                //     } else {
+                //         player.play();
+                //     }
+                //     return true;
                 case KeyEvent.KEYCODE_BACK: // 4
                     playerView.hideController();
                     new AlertDialog.Builder(this)
