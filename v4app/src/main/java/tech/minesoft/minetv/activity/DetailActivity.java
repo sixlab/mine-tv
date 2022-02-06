@@ -61,22 +61,41 @@ public class DetailActivity extends AppCompatActivity {
         binding.toolbar.setTitle(getString(R.string.title_detail, vodName));
 
         currentInfo = DaoHelper.getInfo(infoId);
-
-        initInfoView();
         initListener();
-
-        loadData();
-
-        updateInfo();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadData();
+        renderInfo();
+
+        renderData();
+
+        updateInfo();
     }
 
-    private void initInfoView() {
+    private void initListener() {
+        binding.tvUpdate.setOnClickListener(view -> {
+            updateInfo();
+        });
+        binding.tvStar.setOnClickListener(view -> {
+            currentInfo = DaoHelper.changeStar(currentInfo.getId());
+            showText("操作成功");
+            renderData();
+        });
+        binding.tvClean.setOnClickListener(view -> {
+            DaoHelper.delViews(currentInfo.getId());
+            showText("操作成功");
+            renderData();
+        });
+        binding.tvReverse.setOnClickListener(view -> {
+            currentInfo = DaoHelper.changeReverse(currentInfo.getId());
+            showText("操作成功");
+            renderData();
+        });
+    }
+
+    private void renderInfo() {
         Glide.with(this)
                 .load(currentInfo.getVod_pic())
                 .apply(new RequestOptions()
@@ -106,7 +125,7 @@ public class DetailActivity extends AppCompatActivity {
         binding.tvVideoIntro.setText(Html.fromHtml(currentInfo.getVod_content()));
     }
 
-    private void loadData() {
+    private void renderData() {
         String playFrom = currentInfo.getVod_play_from();
         String playUrl = currentInfo.getVod_play_url();
 
@@ -181,28 +200,6 @@ public class DetailActivity extends AppCompatActivity {
         binding.tvStar.setText(text);
     }
 
-    private void initListener() {
-        binding.tvUpdate.setOnClickListener(view -> {
-            updateInfo();
-            loadData();
-        });
-        binding.tvStar.setOnClickListener(view -> {
-            currentInfo = DaoHelper.changeStar(currentInfo.getId());
-            showText("操作成功");
-            loadData();
-        });
-        binding.tvClean.setOnClickListener(view -> {
-            DaoHelper.delViews(currentInfo.getId());
-            showText("操作成功");
-            loadData();
-        });
-        binding.tvReverse.setOnClickListener(view -> {
-            currentInfo = DaoHelper.changeReverse(currentInfo.getId());
-            showText("操作成功");
-            loadData();
-        });
-    }
-
     private void renderEpisodes() {
         // 分组
         binding.tvEpisodeSource.removeAllViews();
@@ -259,7 +256,9 @@ public class DetailActivity extends AppCompatActivity {
 
                             showText("更新成功");
 
-                            loadData();
+                            renderInfo();
+
+                            renderData();
                         } else {
                             showText("返回的list长度为：" + list.size());
                         }
@@ -302,7 +301,7 @@ public class DetailActivity extends AppCompatActivity {
             btn.setOnKeyListener((view, keyCode, event) -> {
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
                     DaoHelper.clearViews(info.getInfoId(), info.getGroupName(), info.getItemName());
-                    loadData();
+                    renderData();
                     return true;
                 }
 

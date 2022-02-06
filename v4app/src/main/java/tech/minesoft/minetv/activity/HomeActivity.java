@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -40,8 +41,6 @@ public class HomeActivity extends AppCompatActivity {
         if (null != bundle) {
             star = bundle.getBoolean(Const.ACTIVITY_STAR, false);
         }
-
-        loadData();
     }
 
     @Override
@@ -60,7 +59,9 @@ public class HomeActivity extends AppCompatActivity {
             infoList = DaoHelper.loadAll();
         }
 
-        ScrollViewUtils.addBlock(this, binding.content.vodList, infoList, this::onKey);
+        LinearLayout vodList = binding.content.vodList;
+        vodList.removeAllViews();
+        ScrollViewUtils.addBlock(this, vodList, infoList, this::onKey);
     }
 
     private void onKey(ImageBlock block, MineMovieInfo info) {
