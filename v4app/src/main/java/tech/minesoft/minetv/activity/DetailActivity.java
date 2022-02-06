@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,6 @@ import tech.minesoft.minetv.utils.ListUtils;
 import tech.minesoft.minetv.utils.MineCallback;
 import tech.minesoft.minetv.utils.RetrofitHelper;
 import tech.minesoft.minetv.utils.RetrofitService;
-import tech.minesoft.minetv.utils.ScrollViewUtils;
 import tech.minesoft.minetv.utils.SizeUtils;
 import tech.minesoft.minetv.vo.MovieListVo;
 import tech.minesoft.minetv.vo.UrlInfo;
@@ -239,13 +239,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        ScrollViewUtils.addBtn(this, episodeList, infoList, info -> view -> {
-            DaoHelper.addView(info);
-
-            Intent intent = new Intent(DetailActivity.this, PlayerActivity.class);
-            intent.putExtra(Const.SELECT_EPISODE, info);
-            DetailActivity.this.startActivity(intent);
-        });
+        addBtn(episodeList, infoList);
     }
 
     private void updateInfo() {
@@ -272,6 +266,54 @@ public class DetailActivity extends AppCompatActivity {
                     }
                 }
             });
+        }
+    }
+
+    public void addBtn(LinearLayout episodeList, List<UrlInfo> list) {
+        LinearLayout line = null;
+        boolean first = true;
+        for (int i = 0; i < list.size(); i++) {
+            UrlInfo info = list.get(i);
+
+            if (i % 10 == 0) {
+                line = new LinearLayout(this);
+                line.setOrientation(LinearLayout.HORIZONTAL);
+                line.setLayoutParams(LayoutUtils.lineLayout);
+                episodeList.addView(line);
+
+                first = true;
+            }
+
+            TextButton btn = new TextButton(this);
+            if (first) {
+                first = false;
+            } else {
+                btn.setLayoutParams(LayoutUtils.btnLayout);
+            }
+            btn.setWidth(SizeUtils.dp2px(this,getResources().getDimension(R.dimen.widget_margin_5x)));
+            btn.setText(info.getItemName());
+            btn.setOnClickListener(view -> {
+                DaoHelper.addView(info);
+
+                Intent intent = new Intent(DetailActivity.this, PlayerActivity.class);
+                intent.putExtra(Const.SELECT_EPISODE, info);
+                DetailActivity.this.startActivity(intent);
+            });
+            btn.setOnKeyListener((view, keyCode, event) -> {
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
+                    DaoHelper.clearViews(info.getInfoId(), info.getGroupName(), info.getItemName());
+                    loadData();
+                    return true;
+                }
+
+                return false;
+            });
+
+            if (info.isViewed()) {
+                btn.setNormalColor(R.color.mtv_viewed);
+            }
+
+            line.addView(btn);
         }
     }
 
