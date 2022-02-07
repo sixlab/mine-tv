@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import tech.minesoft.minetv.MineApplication;
+import tech.minesoft.minetv.bean.MineChannel;
 import tech.minesoft.minetv.bean.MineMeta;
 import tech.minesoft.minetv.bean.MineMovieInfo;
 import tech.minesoft.minetv.bean.MineSiteInfo;
@@ -278,7 +279,6 @@ public class DaoHelper {
             siteInfoDao.insert(info);
         } else {
             siteInfo.setStatus(1);
-            siteInfo.setName(info.getName());
             siteInfo.setUrl(info.getUrl());
             siteInfoDao.update(siteInfo);
         }
@@ -310,5 +310,52 @@ public class DaoHelper {
                 MineViewInfoDao.Properties.Vod_from.eq(groupName),
                 MineViewInfoDao.Properties.Vod_item_name.eq(itemName)
         ).buildDelete().executeDeleteWithoutDetachingEntities();
+    }
+
+    public static void saveChannel(String[] originGroups) {
+        MineChannelDao channelDao = Holder.daoSession.getMineChannelDao();
+
+        for (String group : originGroups) {
+            MineChannel mineChannel = channelDao.queryBuilder().where(
+                    MineChannelDao.Properties.Name.eq(group)
+            ).limit(1).unique();
+
+            if (null == mineChannel) {
+                mineChannel = new MineChannel(null, group, 1, 1);
+                channelDao.save(mineChannel);
+            }
+        }
+    }
+
+    public static List<MineChannel> statusChannels(int status) {
+        MineChannelDao siteInfoDao = Holder.daoSession.getMineChannelDao();
+
+        return siteInfoDao.queryBuilder().where(
+                MineChannelDao.Properties.Status.eq(status)
+        ).list();
+    }
+
+    public static int channelStatus(String group) {
+        MineChannelDao channelDao = Holder.daoSession.getMineChannelDao();
+
+        MineChannel mineChannel = channelDao.queryBuilder().where(
+                MineChannelDao.Properties.Name.eq(group)
+        ).limit(1).unique();
+
+        if (null == mineChannel) {
+            return 0;
+        }
+
+        return mineChannel.getStatus();
+    }
+
+    public static void updateChannel(MineChannel channel) {
+        MineChannelDao channelDao = Holder.daoSession.getMineChannelDao();
+        channelDao.update(channel);
+    }
+
+    public static void delChannel(Long id) {
+        MineChannelDao channelDao = Holder.daoSession.getMineChannelDao();
+        channelDao.deleteByKey(id);
     }
 }

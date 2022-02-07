@@ -26,10 +26,9 @@ public class MineSiteInfoDao extends AbstractDao<MineSiteInfo, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Code = new Property(1, String.class, "code", false, "CODE");
-        public final static Property Name = new Property(2, String.class, "name", false, "NAME");
-        public final static Property Url = new Property(3, String.class, "url", false, "URL");
-        public final static Property Primary = new Property(4, Integer.class, "primary", false, "PRIMARY");
-        public final static Property Status = new Property(5, Integer.class, "status", false, "STATUS");
+        public final static Property Url = new Property(2, String.class, "url", false, "URL");
+        public final static Property Primary = new Property(3, Integer.class, "primary", false, "PRIMARY");
+        public final static Property Status = new Property(4, Integer.class, "status", false, "STATUS");
     }
 
 
@@ -47,10 +46,9 @@ public class MineSiteInfoDao extends AbstractDao<MineSiteInfo, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"MINE_SITE_INFO\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"CODE\" TEXT UNIQUE ," + // 1: code
-                "\"NAME\" TEXT," + // 2: name
-                "\"URL\" TEXT," + // 3: url
-                "\"PRIMARY\" INTEGER," + // 4: primary
-                "\"STATUS\" INTEGER);"); // 5: status
+                "\"URL\" TEXT," + // 2: url
+                "\"PRIMARY\" INTEGER," + // 3: primary
+                "\"STATUS\" INTEGER);"); // 4: status
     }
 
     /** Drops the underlying database table. */
@@ -73,24 +71,19 @@ public class MineSiteInfoDao extends AbstractDao<MineSiteInfo, Long> {
             stmt.bindString(2, code);
         }
  
-        String name = entity.getName();
-        if (name != null) {
-            stmt.bindString(3, name);
-        }
- 
         String url = entity.getUrl();
         if (url != null) {
-            stmt.bindString(4, url);
+            stmt.bindString(3, url);
         }
  
         Integer primary = entity.getPrimary();
         if (primary != null) {
-            stmt.bindLong(5, primary);
+            stmt.bindLong(4, primary);
         }
  
         Integer status = entity.getStatus();
         if (status != null) {
-            stmt.bindLong(6, status);
+            stmt.bindLong(5, status);
         }
     }
 
@@ -108,24 +101,19 @@ public class MineSiteInfoDao extends AbstractDao<MineSiteInfo, Long> {
             stmt.bindString(2, code);
         }
  
-        String name = entity.getName();
-        if (name != null) {
-            stmt.bindString(3, name);
-        }
- 
         String url = entity.getUrl();
         if (url != null) {
-            stmt.bindString(4, url);
+            stmt.bindString(3, url);
         }
  
         Integer primary = entity.getPrimary();
         if (primary != null) {
-            stmt.bindLong(5, primary);
+            stmt.bindLong(4, primary);
         }
  
         Integer status = entity.getStatus();
         if (status != null) {
-            stmt.bindLong(6, status);
+            stmt.bindLong(5, status);
         }
     }
 
@@ -139,10 +127,9 @@ public class MineSiteInfoDao extends AbstractDao<MineSiteInfo, Long> {
         MineSiteInfo entity = new MineSiteInfo( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // code
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // name
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // url
-            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // primary
-            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5) // status
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // url
+            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // primary
+            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4) // status
         );
         return entity;
     }
@@ -151,10 +138,9 @@ public class MineSiteInfoDao extends AbstractDao<MineSiteInfo, Long> {
     public void readEntity(Cursor cursor, MineSiteInfo entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setCode(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setUrl(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setPrimary(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
-        entity.setStatus(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
+        entity.setUrl(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setPrimary(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
+        entity.setStatus(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
      }
     
     @Override

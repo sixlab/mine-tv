@@ -2,7 +2,6 @@ package tech.minesoft.minetv.activity;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -11,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 
 import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.bean.MineChannel;
 import tech.minesoft.minetv.bean.MineSiteInfo;
 import tech.minesoft.minetv.databinding.ActivitySettingBinding;
 import tech.minesoft.minetv.greendao.DaoHelper;
-import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.LayoutUtils;
 import tech.minesoft.minetv.widget.TextButton;
 
@@ -87,35 +86,23 @@ public class SettingActivity extends AppCompatActivity {
             mineChannel.removeViews(1, childCount - 1);
         }
 
-        String channels = DaoHelper.meta(Const.PLAY_CHANNELS);
-        String[] channelList = TextUtils.split(channels, ",");
-        boolean first = true;
-        for (String channelText : channelList) {
+        List<MineChannel> channels = DaoHelper.statusChannels(1);
+        for (MineChannel channel : channels) {
             TextButton btn = new TextButton(this);
-            if (first) {
-                first = false;
-            } else {
-                btn.setLayoutParams(LayoutUtils.btnLayout);
-            }
-            btn.setText(channelText);
+            btn.setLayoutParams(LayoutUtils.btnLayout);
+            btn.setText(channel.getName());
 
             btn.setOnClickListener(view -> {
                 new AlertDialog.Builder(this)
                         .setMessage("请选择操作！")
                         .setNeutralButton("删除", (dialog, id) -> {
-                            String val = channels.replace("," + channelText + ",", ",");
-                            DaoHelper.updateMeta(Const.PLAY_CHANNELS, val);
+                            DaoHelper.delChannel(channel.getId());
 
                             loadData();
                         })
-                        .setNegativeButton("排除", (dialog, id) -> {
-                            String excludes = DaoHelper.meta(Const.PLAY_EXCLUDES);
-                            if(TextUtils.isEmpty(excludes)){
-                                excludes = ",";
-                            }
-                            excludes = excludes + channelText + ",";
-
-                            DaoHelper.updateMeta(Const.PLAY_EXCLUDES, excludes);
+                        .setNegativeButton("隐藏", (dialog, id) -> {
+                            channel.setStatus(0);
+                            DaoHelper.updateChannel(channel);
 
                             loadData();
                         })
@@ -134,23 +121,17 @@ public class SettingActivity extends AppCompatActivity {
             mineExclude.removeViews(1, childCount - 1);
         }
 
-        String excludes = DaoHelper.meta(Const.PLAY_EXCLUDES);
-        String[] excludeList = TextUtils.split(excludes, ",");
-        boolean first = true;
-        for (String excludeText : excludeList) {
+        List<MineChannel> excludeList = DaoHelper.statusChannels(0);
+        for (MineChannel channel : excludeList) {
             TextButton btn = new TextButton(this);
-            if (first) {
-                first = false;
-            } else {
-                btn.setLayoutParams(LayoutUtils.btnLayout);
-            }
-            btn.setText(excludeText);
+            btn.setLayoutParams(LayoutUtils.btnLayout);
+            btn.setText(channel.getName());
             btn.setOnClickListener(view -> {
                 new AlertDialog.Builder(this)
-                        .setMessage("是否删除？")
+                        .setMessage("是否取消隐藏？")
                         .setNegativeButton("确定", (dialog, id) -> {
-                            String val = excludes.replace("," + excludeText + ",", ",");
-                            DaoHelper.updateMeta(Const.PLAY_EXCLUDES, val);
+                            channel.setStatus(1);
+                            DaoHelper.updateChannel(channel);
 
                             loadData();
                         })

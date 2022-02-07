@@ -32,21 +32,20 @@ public class MineMovieInfoDao extends AbstractDao<MineMovieInfo, Long> {
         public final static Property Last_open = new Property(5, java.util.Date.class, "last_open", false, "LAST_OPEN");
         public final static Property Api_url = new Property(6, String.class, "api_url", false, "API_URL");
         public final static Property Api_code = new Property(7, String.class, "api_code", false, "API_CODE");
-        public final static Property Api_name = new Property(8, String.class, "api_name", false, "API_NAME");
-        public final static Property Vod_id = new Property(9, Integer.class, "vod_id", false, "VOD_ID");
-        public final static Property Vod_name = new Property(10, String.class, "vod_name", false, "VOD_NAME");
-        public final static Property Vod_pic = new Property(11, String.class, "vod_pic", false, "VOD_PIC");
-        public final static Property Type_name = new Property(12, String.class, "type_name", false, "TYPE_NAME");
-        public final static Property Vod_director = new Property(13, String.class, "vod_director", false, "VOD_DIRECTOR");
-        public final static Property Vod_actor = new Property(14, String.class, "vod_actor", false, "VOD_ACTOR");
-        public final static Property Vod_area = new Property(15, String.class, "vod_area", false, "VOD_AREA");
-        public final static Property Vod_year = new Property(16, String.class, "vod_year", false, "VOD_YEAR");
-        public final static Property Vod_remarks = new Property(17, String.class, "vod_remarks", false, "VOD_REMARKS");
-        public final static Property Vod_content = new Property(18, String.class, "vod_content", false, "VOD_CONTENT");
-        public final static Property Vod_play_from = new Property(19, String.class, "vod_play_from", false, "VOD_PLAY_FROM");
-        public final static Property Vod_play_server = new Property(20, String.class, "vod_play_server", false, "VOD_PLAY_SERVER");
-        public final static Property Vod_play_note = new Property(21, String.class, "vod_play_note", false, "VOD_PLAY_NOTE");
-        public final static Property Vod_play_url = new Property(22, String.class, "vod_play_url", false, "VOD_PLAY_URL");
+        public final static Property Vod_id = new Property(8, Integer.class, "vod_id", false, "VOD_ID");
+        public final static Property Vod_name = new Property(9, String.class, "vod_name", false, "VOD_NAME");
+        public final static Property Vod_pic = new Property(10, String.class, "vod_pic", false, "VOD_PIC");
+        public final static Property Type_name = new Property(11, String.class, "type_name", false, "TYPE_NAME");
+        public final static Property Vod_director = new Property(12, String.class, "vod_director", false, "VOD_DIRECTOR");
+        public final static Property Vod_actor = new Property(13, String.class, "vod_actor", false, "VOD_ACTOR");
+        public final static Property Vod_area = new Property(14, String.class, "vod_area", false, "VOD_AREA");
+        public final static Property Vod_year = new Property(15, String.class, "vod_year", false, "VOD_YEAR");
+        public final static Property Vod_remarks = new Property(16, String.class, "vod_remarks", false, "VOD_REMARKS");
+        public final static Property Vod_content = new Property(17, String.class, "vod_content", false, "VOD_CONTENT");
+        public final static Property Vod_play_from = new Property(18, String.class, "vod_play_from", false, "VOD_PLAY_FROM");
+        public final static Property Vod_play_server = new Property(19, String.class, "vod_play_server", false, "VOD_PLAY_SERVER");
+        public final static Property Vod_play_note = new Property(20, String.class, "vod_play_note", false, "VOD_PLAY_NOTE");
+        public final static Property Vod_play_url = new Property(21, String.class, "vod_play_url", false, "VOD_PLAY_URL");
     }
 
 
@@ -70,21 +69,20 @@ public class MineMovieInfoDao extends AbstractDao<MineMovieInfo, Long> {
                 "\"LAST_OPEN\" INTEGER," + // 5: last_open
                 "\"API_URL\" TEXT," + // 6: api_url
                 "\"API_CODE\" TEXT," + // 7: api_code
-                "\"API_NAME\" TEXT," + // 8: api_name
-                "\"VOD_ID\" INTEGER," + // 9: vod_id
-                "\"VOD_NAME\" TEXT," + // 10: vod_name
-                "\"VOD_PIC\" TEXT," + // 11: vod_pic
-                "\"TYPE_NAME\" TEXT," + // 12: type_name
-                "\"VOD_DIRECTOR\" TEXT," + // 13: vod_director
-                "\"VOD_ACTOR\" TEXT," + // 14: vod_actor
-                "\"VOD_AREA\" TEXT," + // 15: vod_area
-                "\"VOD_YEAR\" TEXT," + // 16: vod_year
-                "\"VOD_REMARKS\" TEXT," + // 17: vod_remarks
-                "\"VOD_CONTENT\" TEXT," + // 18: vod_content
-                "\"VOD_PLAY_FROM\" TEXT," + // 19: vod_play_from
-                "\"VOD_PLAY_SERVER\" TEXT," + // 20: vod_play_server
-                "\"VOD_PLAY_NOTE\" TEXT," + // 21: vod_play_note
-                "\"VOD_PLAY_URL\" TEXT);"); // 22: vod_play_url
+                "\"VOD_ID\" INTEGER," + // 8: vod_id
+                "\"VOD_NAME\" TEXT," + // 9: vod_name
+                "\"VOD_PIC\" TEXT," + // 10: vod_pic
+                "\"TYPE_NAME\" TEXT," + // 11: type_name
+                "\"VOD_DIRECTOR\" TEXT," + // 12: vod_director
+                "\"VOD_ACTOR\" TEXT," + // 13: vod_actor
+                "\"VOD_AREA\" TEXT," + // 14: vod_area
+                "\"VOD_YEAR\" TEXT," + // 15: vod_year
+                "\"VOD_REMARKS\" TEXT," + // 16: vod_remarks
+                "\"VOD_CONTENT\" TEXT," + // 17: vod_content
+                "\"VOD_PLAY_FROM\" TEXT," + // 18: vod_play_from
+                "\"VOD_PLAY_SERVER\" TEXT," + // 19: vod_play_server
+                "\"VOD_PLAY_NOTE\" TEXT," + // 20: vod_play_note
+                "\"VOD_PLAY_URL\" TEXT);"); // 21: vod_play_url
     }
 
     /** Drops the underlying database table. */
@@ -137,79 +135,74 @@ public class MineMovieInfoDao extends AbstractDao<MineMovieInfo, Long> {
             stmt.bindString(8, api_code);
         }
  
-        String api_name = entity.getApi_name();
-        if (api_name != null) {
-            stmt.bindString(9, api_name);
-        }
- 
         Integer vod_id = entity.getVod_id();
         if (vod_id != null) {
-            stmt.bindLong(10, vod_id);
+            stmt.bindLong(9, vod_id);
         }
  
         String vod_name = entity.getVod_name();
         if (vod_name != null) {
-            stmt.bindString(11, vod_name);
+            stmt.bindString(10, vod_name);
         }
  
         String vod_pic = entity.getVod_pic();
         if (vod_pic != null) {
-            stmt.bindString(12, vod_pic);
+            stmt.bindString(11, vod_pic);
         }
  
         String type_name = entity.getType_name();
         if (type_name != null) {
-            stmt.bindString(13, type_name);
+            stmt.bindString(12, type_name);
         }
  
         String vod_director = entity.getVod_director();
         if (vod_director != null) {
-            stmt.bindString(14, vod_director);
+            stmt.bindString(13, vod_director);
         }
  
         String vod_actor = entity.getVod_actor();
         if (vod_actor != null) {
-            stmt.bindString(15, vod_actor);
+            stmt.bindString(14, vod_actor);
         }
  
         String vod_area = entity.getVod_area();
         if (vod_area != null) {
-            stmt.bindString(16, vod_area);
+            stmt.bindString(15, vod_area);
         }
  
         String vod_year = entity.getVod_year();
         if (vod_year != null) {
-            stmt.bindString(17, vod_year);
+            stmt.bindString(16, vod_year);
         }
  
         String vod_remarks = entity.getVod_remarks();
         if (vod_remarks != null) {
-            stmt.bindString(18, vod_remarks);
+            stmt.bindString(17, vod_remarks);
         }
  
         String vod_content = entity.getVod_content();
         if (vod_content != null) {
-            stmt.bindString(19, vod_content);
+            stmt.bindString(18, vod_content);
         }
  
         String vod_play_from = entity.getVod_play_from();
         if (vod_play_from != null) {
-            stmt.bindString(20, vod_play_from);
+            stmt.bindString(19, vod_play_from);
         }
  
         String vod_play_server = entity.getVod_play_server();
         if (vod_play_server != null) {
-            stmt.bindString(21, vod_play_server);
+            stmt.bindString(20, vod_play_server);
         }
  
         String vod_play_note = entity.getVod_play_note();
         if (vod_play_note != null) {
-            stmt.bindString(22, vod_play_note);
+            stmt.bindString(21, vod_play_note);
         }
  
         String vod_play_url = entity.getVod_play_url();
         if (vod_play_url != null) {
-            stmt.bindString(23, vod_play_url);
+            stmt.bindString(22, vod_play_url);
         }
     }
 
@@ -257,79 +250,74 @@ public class MineMovieInfoDao extends AbstractDao<MineMovieInfo, Long> {
             stmt.bindString(8, api_code);
         }
  
-        String api_name = entity.getApi_name();
-        if (api_name != null) {
-            stmt.bindString(9, api_name);
-        }
- 
         Integer vod_id = entity.getVod_id();
         if (vod_id != null) {
-            stmt.bindLong(10, vod_id);
+            stmt.bindLong(9, vod_id);
         }
  
         String vod_name = entity.getVod_name();
         if (vod_name != null) {
-            stmt.bindString(11, vod_name);
+            stmt.bindString(10, vod_name);
         }
  
         String vod_pic = entity.getVod_pic();
         if (vod_pic != null) {
-            stmt.bindString(12, vod_pic);
+            stmt.bindString(11, vod_pic);
         }
  
         String type_name = entity.getType_name();
         if (type_name != null) {
-            stmt.bindString(13, type_name);
+            stmt.bindString(12, type_name);
         }
  
         String vod_director = entity.getVod_director();
         if (vod_director != null) {
-            stmt.bindString(14, vod_director);
+            stmt.bindString(13, vod_director);
         }
  
         String vod_actor = entity.getVod_actor();
         if (vod_actor != null) {
-            stmt.bindString(15, vod_actor);
+            stmt.bindString(14, vod_actor);
         }
  
         String vod_area = entity.getVod_area();
         if (vod_area != null) {
-            stmt.bindString(16, vod_area);
+            stmt.bindString(15, vod_area);
         }
  
         String vod_year = entity.getVod_year();
         if (vod_year != null) {
-            stmt.bindString(17, vod_year);
+            stmt.bindString(16, vod_year);
         }
  
         String vod_remarks = entity.getVod_remarks();
         if (vod_remarks != null) {
-            stmt.bindString(18, vod_remarks);
+            stmt.bindString(17, vod_remarks);
         }
  
         String vod_content = entity.getVod_content();
         if (vod_content != null) {
-            stmt.bindString(19, vod_content);
+            stmt.bindString(18, vod_content);
         }
  
         String vod_play_from = entity.getVod_play_from();
         if (vod_play_from != null) {
-            stmt.bindString(20, vod_play_from);
+            stmt.bindString(19, vod_play_from);
         }
  
         String vod_play_server = entity.getVod_play_server();
         if (vod_play_server != null) {
-            stmt.bindString(21, vod_play_server);
+            stmt.bindString(20, vod_play_server);
         }
  
         String vod_play_note = entity.getVod_play_note();
         if (vod_play_note != null) {
-            stmt.bindString(22, vod_play_note);
+            stmt.bindString(21, vod_play_note);
         }
  
         String vod_play_url = entity.getVod_play_url();
         if (vod_play_url != null) {
-            stmt.bindString(23, vod_play_url);
+            stmt.bindString(22, vod_play_url);
         }
     }
 
@@ -349,21 +337,20 @@ public class MineMovieInfoDao extends AbstractDao<MineMovieInfo, Long> {
             cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // last_open
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // api_url
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // api_code
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // api_name
-            cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9), // vod_id
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // vod_name
-            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // vod_pic
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // type_name
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // vod_director
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // vod_actor
-            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // vod_area
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // vod_year
-            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // vod_remarks
-            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // vod_content
-            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // vod_play_from
-            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // vod_play_server
-            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // vod_play_note
-            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22) // vod_play_url
+            cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8), // vod_id
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // vod_name
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // vod_pic
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // type_name
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // vod_director
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // vod_actor
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // vod_area
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // vod_year
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // vod_remarks
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // vod_content
+            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // vod_play_from
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // vod_play_server
+            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // vod_play_note
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21) // vod_play_url
         );
         return entity;
     }
@@ -378,21 +365,20 @@ public class MineMovieInfoDao extends AbstractDao<MineMovieInfo, Long> {
         entity.setLast_open(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
         entity.setApi_url(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setApi_code(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setApi_name(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setVod_id(cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9));
-        entity.setVod_name(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setVod_pic(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
-        entity.setType_name(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
-        entity.setVod_director(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
-        entity.setVod_actor(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
-        entity.setVod_area(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
-        entity.setVod_year(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
-        entity.setVod_remarks(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
-        entity.setVod_content(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
-        entity.setVod_play_from(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
-        entity.setVod_play_server(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
-        entity.setVod_play_note(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
-        entity.setVod_play_url(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
+        entity.setVod_id(cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8));
+        entity.setVod_name(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setVod_pic(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setType_name(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setVod_director(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setVod_actor(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setVod_area(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setVod_year(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setVod_remarks(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setVod_content(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setVod_play_from(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setVod_play_server(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
+        entity.setVod_play_note(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
+        entity.setVod_play_url(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
      }
     
     @Override

@@ -1,7 +1,5 @@
 package tech.minesoft.minetv.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -18,14 +16,11 @@ import tech.minesoft.minetv.bean.MineMovieInfo;
 import tech.minesoft.minetv.bean.MineSiteInfo;
 import tech.minesoft.minetv.databinding.ActivitySearchBinding;
 import tech.minesoft.minetv.databinding.SearchScrollingBinding;
-import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.request.RequestService;
-import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.LayoutUtils;
 import tech.minesoft.minetv.utils.MineCallback;
 import tech.minesoft.minetv.utils.ScrollViewUtils;
 import tech.minesoft.minetv.vo.MovieListVo;
-import tech.minesoft.minetv.widget.ImageBlock;
 import tech.minesoft.minetv.widget.TextButton;
 
 public class SearchActivity extends AppCompatActivity {
@@ -80,7 +75,6 @@ public class SearchActivity extends AppCompatActivity {
 
                     for (MineMovieInfo item : list) {
                         item.setApi_code(activeSite.getCode());
-                        item.setApi_name(activeSite.getName());
                         item.setApi_url(activeSite.getUrl());
                     }
 
