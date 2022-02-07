@@ -8,11 +8,13 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
+import tech.minesoft.minetv.bean.MineChannel;
 import tech.minesoft.minetv.bean.MineMeta;
 import tech.minesoft.minetv.bean.MineMovieInfo;
 import tech.minesoft.minetv.bean.MineSiteInfo;
 import tech.minesoft.minetv.bean.MineViewInfo;
 
+import tech.minesoft.minetv.greendao.MineChannelDao;
 import tech.minesoft.minetv.greendao.MineMetaDao;
 import tech.minesoft.minetv.greendao.MineMovieInfoDao;
 import tech.minesoft.minetv.greendao.MineSiteInfoDao;
@@ -27,11 +29,13 @@ import tech.minesoft.minetv.greendao.MineViewInfoDao;
  */
 public class DaoSession extends AbstractDaoSession {
 
+    private final DaoConfig mineChannelDaoConfig;
     private final DaoConfig mineMetaDaoConfig;
     private final DaoConfig mineMovieInfoDaoConfig;
     private final DaoConfig mineSiteInfoDaoConfig;
     private final DaoConfig mineViewInfoDaoConfig;
 
+    private final MineChannelDao mineChannelDao;
     private final MineMetaDao mineMetaDao;
     private final MineMovieInfoDao mineMovieInfoDao;
     private final MineSiteInfoDao mineSiteInfoDao;
@@ -40,6 +44,9 @@ public class DaoSession extends AbstractDaoSession {
     public DaoSession(Database db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
         super(db);
+
+        mineChannelDaoConfig = daoConfigMap.get(MineChannelDao.class).clone();
+        mineChannelDaoConfig.initIdentityScope(type);
 
         mineMetaDaoConfig = daoConfigMap.get(MineMetaDao.class).clone();
         mineMetaDaoConfig.initIdentityScope(type);
@@ -53,11 +60,13 @@ public class DaoSession extends AbstractDaoSession {
         mineViewInfoDaoConfig = daoConfigMap.get(MineViewInfoDao.class).clone();
         mineViewInfoDaoConfig.initIdentityScope(type);
 
+        mineChannelDao = new MineChannelDao(mineChannelDaoConfig, this);
         mineMetaDao = new MineMetaDao(mineMetaDaoConfig, this);
         mineMovieInfoDao = new MineMovieInfoDao(mineMovieInfoDaoConfig, this);
         mineSiteInfoDao = new MineSiteInfoDao(mineSiteInfoDaoConfig, this);
         mineViewInfoDao = new MineViewInfoDao(mineViewInfoDaoConfig, this);
 
+        registerDao(MineChannel.class, mineChannelDao);
         registerDao(MineMeta.class, mineMetaDao);
         registerDao(MineMovieInfo.class, mineMovieInfoDao);
         registerDao(MineSiteInfo.class, mineSiteInfoDao);
@@ -65,10 +74,15 @@ public class DaoSession extends AbstractDaoSession {
     }
     
     public void clear() {
+        mineChannelDaoConfig.clearIdentityScope();
         mineMetaDaoConfig.clearIdentityScope();
         mineMovieInfoDaoConfig.clearIdentityScope();
         mineSiteInfoDaoConfig.clearIdentityScope();
         mineViewInfoDaoConfig.clearIdentityScope();
+    }
+
+    public MineChannelDao getMineChannelDao() {
+        return mineChannelDao;
     }
 
     public MineMetaDao getMineMetaDao() {
