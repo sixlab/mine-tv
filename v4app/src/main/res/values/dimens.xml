@@ -1,8 +1,11 @@
 <resources>
     <dimen name="widget_margin_1">1dp</dimen>
-    <dimen name="widget_margin_1x">6dp</dimen>
-    <dimen name="widget_margin_2x">12dp</dimen>
-    <dimen name="widget_margin_5x">30dp</dimen>
+    <dimen name="base_size_1x">6dp</dimen>
+    <dimen name="base_size_2x">12dp</dimen>
+    <dimen name="base_size_5x">30dp</dimen>
+    <dimen name="base_size_10x">60dp</dimen>
+    <dimen name="base_size_15x">90dp</dimen>
+    <dimen name="base_size_20x">120dp</dimen>
 
     <dimen name="icon_btn_width">60dp</dimen>
     <dimen name="icon_btn_height">36dp</dimen>

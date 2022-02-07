@@ -17,7 +17,7 @@ public class LayoutUtils {
     public static void init(Context mContext) {
         context = mContext;
 
-        int dimension = (int) mContext.getResources().getDimension(R.dimen.widget_margin_1x);
+        int dimension = (int) mContext.getResources().getDimension(R.dimen.base_size_1x);
         lineLayout.setMargins(0, dimension, 0, 0);
 
         centerLayout.setMargins(0, dimension, 0, 0);

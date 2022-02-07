@@ -1,6 +1,7 @@
 package tech.minesoft.minetv.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,4 +36,16 @@ public class ListUtils {
         return map;
     }
 
+    public static String[] excludeArray(String[] originGroups, String[] excludeList) {
+        List<String> excludesList = Arrays.asList(excludeList);
+
+        List<String> groupsList = new ArrayList<>();
+        for (String originGroup : originGroups) {
+            if (!excludesList.contains(originGroup)) {
+                groupsList.add(originGroup);
+            }
+        }
+
+        return groupsList.toArray(originGroups);
+    }
 }

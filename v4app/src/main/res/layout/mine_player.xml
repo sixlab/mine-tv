@@ -69,71 +69,71 @@
                 android:id="@+id/mine_title"
                 android:layout_width="@dimen/block_width"
                 android:layout_height="@dimen/icon_btn_height"
-                android:layout_marginEnd="@dimen/widget_margin_1x"
+                android:layout_marginEnd="@dimen/base_size_1x"
                 android:gravity="center"
                 android:textColor="@color/white" />
-
-            <tech.minesoft.minetv.widget.IconButton
-                android:id="@id/exo_prev"
-                android:layout_width="@dimen/icon_btn_width"
-                android:layout_height="@dimen/icon_btn_height"
-                android:layout_marginEnd="@dimen/widget_margin_1x"
-                app:srcCompat="@drawable/player_file_prev" />
-
-            <tech.minesoft.minetv.widget.IconButton
-                android:id="@id/exo_next"
-                android:layout_width="@dimen/icon_btn_width"
-                android:layout_height="@dimen/icon_btn_height"
-                android:layout_marginEnd="@dimen/widget_margin_1x"
-                app:srcCompat="@drawable/player_file_next" />
 
             <tech.minesoft.minetv.widget.IconButton
                 android:id="@id/exo_rew"
                 android:layout_width="@dimen/icon_btn_width"
                 android:layout_height="@dimen/icon_btn_height"
-                android:layout_marginEnd="@dimen/widget_margin_1x"
+                android:layout_marginEnd="@dimen/base_size_1x"
                 app:srcCompat="@drawable/player_seek_rewind" />
 
             <tech.minesoft.minetv.widget.IconButton
                 android:id="@id/exo_play"
                 android:layout_width="@dimen/icon_btn_width"
                 android:layout_height="@dimen/icon_btn_height"
-                android:layout_marginEnd="@dimen/widget_margin_1x"
+                android:layout_marginEnd="@dimen/base_size_1x"
                 app:srcCompat="@drawable/player_play" />
 
             <tech.minesoft.minetv.widget.IconButton
                 android:id="@id/exo_pause"
                 android:layout_width="@dimen/icon_btn_width"
                 android:layout_height="@dimen/icon_btn_height"
-                android:layout_marginEnd="@dimen/widget_margin_1x"
+                android:layout_marginEnd="@dimen/base_size_1x"
                 app:srcCompat="@drawable/player_pause" />
 
             <tech.minesoft.minetv.widget.IconButton
                 android:id="@id/exo_ffwd"
                 android:layout_width="@dimen/icon_btn_width"
                 android:layout_height="@dimen/icon_btn_height"
-                android:layout_marginEnd="@dimen/widget_margin_1x"
+                android:layout_marginEnd="@dimen/base_size_1x"
                 app:srcCompat="@drawable/player_seek_forward" />
+
+            <tech.minesoft.minetv.widget.IconButton
+                android:id="@id/exo_prev"
+                android:layout_width="@dimen/icon_btn_width"
+                android:layout_height="@dimen/icon_btn_height"
+                android:layout_marginEnd="@dimen/base_size_1x"
+                app:srcCompat="@drawable/player_file_prev" />
+
+            <tech.minesoft.minetv.widget.IconButton
+                android:id="@id/exo_next"
+                android:layout_width="@dimen/icon_btn_width"
+                android:layout_height="@dimen/icon_btn_height"
+                android:layout_marginEnd="@dimen/base_size_1x"
+                app:srcCompat="@drawable/player_file_next" />
 
             <tech.minesoft.minetv.widget.IconButton
                 android:id="@+id/mine_speed_down"
                 android:layout_width="@dimen/icon_btn_width"
                 android:layout_height="@dimen/icon_btn_height"
-                android:layout_marginEnd="@dimen/widget_margin_1x"
+                android:layout_marginEnd="@dimen/base_size_1x"
                 app:srcCompat="@drawable/player_speed_down" />
 
             <tech.minesoft.minetv.widget.IconButton
                 android:id="@+id/mine_speed_1x"
                 android:layout_width="@dimen/icon_btn_width"
                 android:layout_height="@dimen/icon_btn_height"
-                android:layout_marginEnd="@dimen/widget_margin_1x"
+                android:layout_marginEnd="@dimen/base_size_1x"
                 app:srcCompat="@drawable/player_speed_1x" />
 
             <tech.minesoft.minetv.widget.IconButton
                 android:id="@+id/mine_speed_up"
                 android:layout_width="@dimen/icon_btn_width"
                 android:layout_height="@dimen/icon_btn_height"
-                android:layout_marginEnd="@dimen/widget_margin_1x"
+                android:layout_marginEnd="@dimen/base_size_1x"
                 app:srcCompat="@drawable/player_speed_up" />
 
             <TextView

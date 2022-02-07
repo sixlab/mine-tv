@@ -75,7 +75,8 @@ public class PlayerActivity extends AppCompatActivity {
         info = (UrlInfo) bundle.get(Const.SELECT_EPISODE);
 
         player = new ExoPlayer.Builder(this)
-                .setSeekForwardIncrementMs(5000)
+                .setSeekBackIncrementMs(10000)
+                .setSeekForwardIncrementMs(10000)
                 .build();
 
         playerView = binding.playerView;
@@ -173,11 +174,17 @@ public class PlayerActivity extends AppCompatActivity {
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (KeyEvent.ACTION_DOWN == event.getAction()) {
             int keyCode = event.getKeyCode();
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_BACK: // 4
-                    if (playerView.isControllerVisible()) {
+
+            if (playerView.isControllerVisible()) {
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_BACK: // 4
+                    case KeyEvent.KEYCODE_MENU: // 82
                         playerView.hideController();
-                    } else {
+                        return true;
+                }
+            } else {
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_BACK: // 4
                         new AlertDialog.Builder(this)
                                 .setMessage("是否退出？")
                                 .setNegativeButton("确定", (dialog, id) -> {
@@ -186,15 +193,22 @@ public class PlayerActivity extends AppCompatActivity {
                                 })
                                 .setPositiveButton("取消", null)
                                 .show();
-                    }
-                    return true;
-                case KeyEvent.KEYCODE_MENU: // 82
-                    if (playerView.isControllerVisible()) {
-                        playerView.hideController();
-                    } else {
+                        return true;
+                    case KeyEvent.KEYCODE_DPAD_CENTER:  // 23
+                    case KeyEvent.KEYCODE_ENTER: // 66
+                        if (player.isPlaying()) {
+                            player.pause();
+                        } else {
+                            player.play();
+                        }
+                    case KeyEvent.KEYCODE_DPAD_UP: // 19
+                    case KeyEvent.KEYCODE_DPAD_DOWN: // 20
+                    case KeyEvent.KEYCODE_DPAD_LEFT: // 21
+                    case KeyEvent.KEYCODE_DPAD_RIGHT:  // 22
+                    case KeyEvent.KEYCODE_MENU: // 82
                         playerView.showController();
-                    }
-                    return true;
+                        return true;
+                }
             }
         }
         return super.dispatchKeyEvent(event);

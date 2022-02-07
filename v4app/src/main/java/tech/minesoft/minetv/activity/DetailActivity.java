@@ -129,7 +129,23 @@ public class DetailActivity extends AppCompatActivity {
         String playFrom = currentInfo.getVod_play_from();
         String playUrl = currentInfo.getVod_play_url();
 
-        String[] groups = TextUtils.split(playFrom, "\\$\\$\\$");
+        String[] originGroups = TextUtils.split(playFrom, "\\$\\$\\$");
+        String channels = DaoHelper.meta(Const.PLAY_CHANNELS);
+        if (TextUtils.isEmpty(channels)) {
+            channels = ",";
+        }
+
+        for (String originGroup : originGroups) {
+            if (!channels.contains("," + originGroup + ",")) {
+                channels = channels + originGroup + ",";
+                DaoHelper.updateMeta(Const.PLAY_CHANNELS, channels);
+            }
+        }
+
+        String excludes = DaoHelper.meta(Const.PLAY_EXCLUDES);
+        String[] excludeList = TextUtils.split(excludes, ",");
+        String[] groups = ListUtils.excludeArray(originGroups, excludeList);
+
         String[] groupsUrls = TextUtils.split(playUrl, "\\$\\$\\$");
         Map<String, String> links = ListUtils.split2Map(groups, groupsUrls);
 
@@ -289,7 +305,7 @@ public class DetailActivity extends AppCompatActivity {
             } else {
                 btn.setLayoutParams(LayoutUtils.btnLayout);
             }
-            btn.setWidth(SizeUtils.dp2px(this,getResources().getDimension(R.dimen.widget_margin_5x)));
+            btn.setWidth(SizeUtils.dp2px(this,getResources().getDimension(R.dimen.base_size_5x)));
             btn.setText(info.getItemName());
             btn.setOnClickListener(view -> {
                 DaoHelper.addView(info);

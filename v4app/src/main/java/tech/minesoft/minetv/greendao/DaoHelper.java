@@ -42,39 +42,25 @@ public class DaoHelper {
         return "";
     }
 
-    public static void clearHis() {
-        Holder.daoSession.getMineMovieInfoDao().queryBuilder().buildDelete().executeDeleteWithoutDetachingEntities();
-    }
+    public static void updateMeta(String meta, String val) {
+        MineMetaDao metaDao = Holder.daoSession.getMineMetaDao();
 
-    public static void clearUnStar(){
-        //获取对象DAO
-        MineMovieInfoDao infoDao = Holder.daoSession.getMineMovieInfoDao();
+        MineMeta mineMeta = metaDao.queryBuilder().where(
+                MineMetaDao.Properties.Meta.eq(meta)
+        ).orderDesc(MineMetaDao.Properties.Id).limit(1).unique();
+        if (null != mineMeta) {
+            mineMeta.setVal(val);
 
-        infoDao.queryBuilder().where(
-                MineMovieInfoDao.Properties.Star_flag.eq("0")
-        ).buildDelete().executeDeleteWithoutDetachingEntities();
-    }
-
-    public static void clearStar() {
-        //获取对象DAO
-        MineMovieInfoDao infoDao = Holder.daoSession.getMineMovieInfoDao();
-
-        //获取到所有实体类，并在内存中先处理好数据
-        List<MineMovieInfo> infoList = infoDao.queryRaw(" where star_flag = ? ", "1");
-        for (MineMovieInfo info : infoList) {
-            info.setStar_flag(0);
+            metaDao.update(mineMeta);
+        }else{
+            mineMeta = new MineMeta();
+            mineMeta.setMeta(meta);
+            mineMeta.setVal(val);
+            metaDao.update(mineMeta);
         }
-
-        // 在一次事物中提交全部实体类
-        infoDao.updateInTx(infoList);
-    }
-
-    public static void clearViews() {
-        Holder.daoSession.getMineViewInfoDao().queryBuilder().buildDelete().executeDeleteWithoutDetachingEntities();
     }
 
     public static long saveInfo(MineMovieInfo info) {
-
         MineMovieInfoDao infoDao = Holder.daoSession.getMineMovieInfoDao();
 
         List<MineMovieInfo> infoList = infoDao.queryRaw(" where api_code = ? and vod_id = ? ",
@@ -227,21 +213,6 @@ public class DaoHelper {
         }
     }
 
-    public static List<MineMovieInfo> loadUnStar() {
-        MineMovieInfoDao infoDao = Holder.daoSession.getMineMovieInfoDao();
-
-        if(Holder.showHidden){
-            return infoDao.queryBuilder().where(
-                    MineMovieInfoDao.Properties.Star_flag.eq("0")
-            ).orderDesc(MineMovieInfoDao.Properties.Last_open).list();
-        }else{
-            return infoDao.queryBuilder().where(
-                    MineMovieInfoDao.Properties.Vod_hide.eq("0"),
-                    MineMovieInfoDao.Properties.Star_flag.eq("0")
-            ).orderDesc(MineMovieInfoDao.Properties.Last_open).list();
-        }
-    }
-
     public static List<MineSiteInfo> getActiveSites() {
         MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
 
@@ -295,19 +266,6 @@ public class DaoHelper {
         Holder.daoSession.insert(viewInfo);
     }
 
-    public static void disableAllSite() {
-        MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
-        List<MineSiteInfo> list = siteInfoDao.queryBuilder().where(
-                MineSiteInfoDao.Properties.Status.eq("1")
-        ).list();
-
-        for (MineSiteInfo siteInfo : list) {
-            siteInfo.setStatus(0);
-        }
-
-        siteInfoDao.updateInTx(list);
-    }
-
     public static void updateSite(MineSiteInfo info) {
         MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
 
@@ -326,7 +284,7 @@ public class DaoHelper {
         }
     }
 
-    public static void updatePrimary(String primary) {
+    public static void updatePrimary(String code) {
         MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
         List<MineSiteInfo> list = siteInfoDao.queryBuilder().where(
                 MineSiteInfoDao.Properties.Primary.eq("1"),
@@ -335,28 +293,11 @@ public class DaoHelper {
 
         if (list.size() == 0) {
             MineSiteInfo siteInfo = siteInfoDao.queryBuilder().where(
-                    MineSiteInfoDao.Properties.Code.eq(primary)
+                    MineSiteInfoDao.Properties.Code.eq(code)
             ).limit(1).unique();
 
             if (null != siteInfo) {
                 siteInfo.setPrimary(1);
-                siteInfoDao.update(siteInfo);
-            }
-        }
-    }
-
-    public static void updatePrimary(Long id) {
-        MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
-        List<MineSiteInfo> list = siteInfoDao.queryBuilder().where(
-                MineSiteInfoDao.Properties.Status.eq("1")
-        ).list();
-
-        for (MineSiteInfo siteInfo : list) {
-            if (siteInfo.getId() == id.longValue()) {
-                siteInfo.setPrimary(1);
-                siteInfoDao.update(siteInfo);
-            } else if (siteInfo.getPrimary() == 1) {
-                siteInfo.setPrimary(0);
                 siteInfoDao.update(siteInfo);
             }
         }
