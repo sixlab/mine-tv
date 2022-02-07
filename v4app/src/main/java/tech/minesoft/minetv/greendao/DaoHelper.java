@@ -267,19 +267,22 @@ public class DaoHelper {
         Holder.daoSession.insert(viewInfo);
     }
 
-    public static void updateSite(MineSiteInfo info) {
+    public static void updateSite(String code, String url, int primary) {
         MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
 
         MineSiteInfo siteInfo = siteInfoDao.queryBuilder().where(
-                MineSiteInfoDao.Properties.Code.eq(info.getCode())
+                MineSiteInfoDao.Properties.Code.eq(code)
         ).limit(1).unique();
 
         if (null == siteInfo) {
-            info.setStatus(1);
-            siteInfoDao.insert(info);
-        } else {
+            siteInfo = new MineSiteInfo();
+            siteInfo.setCode(code);
+            siteInfo.setUrl(url);
+            siteInfo.setPrimary(primary);
             siteInfo.setStatus(1);
-            siteInfo.setUrl(info.getUrl());
+            siteInfoDao.insert(siteInfo);
+        } else {
+            siteInfo.setUrl(url);
             siteInfoDao.update(siteInfo);
         }
     }
