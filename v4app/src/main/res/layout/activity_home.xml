@@ -13,8 +13,8 @@
         android:id="@+id/toolbar"
         android:layout_height="@dimen/btn_height"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/widget_margin_2x"
-        android:layout_marginHorizontal="@dimen/widget_margin_2x" />
+        android:layout_marginTop="@dimen/base_size_2x"
+        android:layout_marginHorizontal="@dimen/base_size_2x" />
 
     <include
         android:id="@+id/content"

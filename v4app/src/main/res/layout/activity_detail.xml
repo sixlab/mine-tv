@@ -14,14 +14,14 @@
         android:id="@+id/toolbar"
         android:layout_height="@dimen/btn_height"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/widget_margin_2x"
-        android:layout_marginHorizontal="@dimen/widget_margin_2x"/>
+        android:layout_marginTop="@dimen/base_size_2x"
+        android:layout_marginHorizontal="@dimen/base_size_2x"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/widget_margin_1x"
-        android:layout_marginHorizontal="@dimen/widget_margin_2x"
+        android:layout_marginVertical="@dimen/base_size_1x"
+        android:layout_marginHorizontal="@dimen/base_size_2x"
         android:orientation="horizontal">
 
         <ImageView
@@ -33,7 +33,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/widget_margin_2x"
+            android:layout_marginLeft="@dimen/base_size_2x"
             android:orientation="vertical">
 
             <TextView
@@ -47,7 +47,7 @@
                 android:id="@+id/tv_video_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/widget_margin_1x"
+                android:layout_marginVertical="@dimen/base_size_1x"
                 android:textColor="@color/white"
                 android:maxLines="@integer/detail_line_2" />
 
@@ -61,7 +61,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/widget_margin_1x"
+                android:layout_marginVertical="@dimen/base_size_1x"
                 android:textColor="@color/white"
                 android:orientation="horizontal">
 
@@ -69,31 +69,31 @@
                     android:id="@+id/tv_update"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/widget_margin_1x"
+                    android:paddingHorizontal="@dimen/base_size_1x"
                     android:text="@string/action_update" />
 
                 <tech.minesoft.minetv.widget.TextButton
                     android:id="@+id/tv_star"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/widget_margin_1x"
-                    android:layout_marginLeft="@dimen/widget_margin_1x"
+                    android:paddingHorizontal="@dimen/base_size_1x"
+                    android:layout_marginLeft="@dimen/base_size_1x"
                     android:text="@string/action_star" />
 
                 <tech.minesoft.minetv.widget.TextButton
                     android:id="@+id/tv_clean"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/widget_margin_1x"
-                    android:layout_marginLeft="@dimen/widget_margin_1x"
+                    android:paddingHorizontal="@dimen/base_size_1x"
+                    android:layout_marginLeft="@dimen/base_size_1x"
                     android:text="@string/action_clean" />
 
                 <tech.minesoft.minetv.widget.TextButton
                     android:id="@+id/tv_reverse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/widget_margin_1x"
-                    android:layout_marginLeft="@dimen/widget_margin_1x"
+                    android:paddingHorizontal="@dimen/base_size_1x"
+                    android:layout_marginLeft="@dimen/base_size_1x"
                     android:text="@string/action_reverse" />
 
             </LinearLayout>
