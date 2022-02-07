@@ -22,7 +22,6 @@ public class Init {
         for (Map infoMap : siteInfoList) {
             MineSiteInfo siteInfo = new MineSiteInfo();
             siteInfo.setCode((String) infoMap.get("code"));
-            siteInfo.setName((String) infoMap.get("name"));
             siteInfo.setUrl((String) infoMap.get("url"));
             siteInfo.setPrimary(((Double) infoMap.get("primary")).intValue());
             DaoHelper.updateSite(siteInfo);

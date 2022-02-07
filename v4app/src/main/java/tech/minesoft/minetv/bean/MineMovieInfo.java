@@ -19,7 +19,6 @@ public class MineMovieInfo {
 
     private String api_url;
     private String api_code;
-    private String api_name;
     private Integer vod_id;
     private String vod_name;
     private String vod_pic;
@@ -34,11 +33,11 @@ public class MineMovieInfo {
     private String vod_play_server;
     private String vod_play_note;
     private String vod_play_url;
-    @Generated(hash = 1105747096)
+    @Generated(hash = 1825223762)
     public MineMovieInfo(Long id, Integer star_flag, Integer vod_hide,
             Integer vod_reverse, Date star_time, Date last_open, String api_url,
-            String api_code, String api_name, Integer vod_id, String vod_name,
-            String vod_pic, String type_name, String vod_director, String vod_actor,
+            String api_code, Integer vod_id, String vod_name, String vod_pic,
+            String type_name, String vod_director, String vod_actor,
             String vod_area, String vod_year, String vod_remarks,
             String vod_content, String vod_play_from, String vod_play_server,
             String vod_play_note, String vod_play_url) {
@@ -50,7 +49,6 @@ public class MineMovieInfo {
         this.last_open = last_open;
         this.api_url = api_url;
         this.api_code = api_code;
-        this.api_name = api_name;
         this.vod_id = vod_id;
         this.vod_name = vod_name;
         this.vod_pic = vod_pic;
@@ -81,6 +79,12 @@ public class MineMovieInfo {
     public void setStar_flag(Integer star_flag) {
         this.star_flag = star_flag;
     }
+    public Integer getVod_hide() {
+        return this.vod_hide;
+    }
+    public void setVod_hide(Integer vod_hide) {
+        this.vod_hide = vod_hide;
+    }
     public Integer getVod_reverse() {
         return this.vod_reverse;
     }
@@ -110,12 +114,6 @@ public class MineMovieInfo {
     }
     public void setApi_code(String api_code) {
         this.api_code = api_code;
-    }
-    public String getApi_name() {
-        return this.api_name;
-    }
-    public void setApi_name(String api_name) {
-        this.api_name = api_name;
     }
     public Integer getVod_id() {
         return this.vod_id;
@@ -200,12 +198,6 @@ public class MineMovieInfo {
     }
     public void setVod_play_url(String vod_play_url) {
         this.vod_play_url = vod_play_url;
-    }
-    public Integer getVod_hide() {
-        return this.vod_hide;
-    }
-    public void setVod_hide(Integer vod_hide) {
-        this.vod_hide = vod_hide;
     }
 
 }

@@ -26,7 +26,8 @@ public class MineChannelDao extends AbstractDao<MineChannel, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
-        public final static Property Exclude = new Property(2, Integer.class, "exclude", false, "EXCLUDE");
+        public final static Property Weight = new Property(2, Integer.class, "weight", false, "WEIGHT");
+        public final static Property Status = new Property(3, Integer.class, "status", false, "STATUS");
     }
 
 
@@ -44,7 +45,8 @@ public class MineChannelDao extends AbstractDao<MineChannel, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"MINE_CHANNEL\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"NAME\" TEXT UNIQUE ," + // 1: name
-                "\"EXCLUDE\" INTEGER);"); // 2: exclude
+                "\"WEIGHT\" INTEGER," + // 2: weight
+                "\"STATUS\" INTEGER);"); // 3: status
     }
 
     /** Drops the underlying database table. */
@@ -67,9 +69,14 @@ public class MineChannelDao extends AbstractDao<MineChannel, Long> {
             stmt.bindString(2, name);
         }
  
-        Integer exclude = entity.getExclude();
-        if (exclude != null) {
-            stmt.bindLong(3, exclude);
+        Integer weight = entity.getWeight();
+        if (weight != null) {
+            stmt.bindLong(3, weight);
+        }
+ 
+        Integer status = entity.getStatus();
+        if (status != null) {
+            stmt.bindLong(4, status);
         }
     }
 
@@ -87,9 +94,14 @@ public class MineChannelDao extends AbstractDao<MineChannel, Long> {
             stmt.bindString(2, name);
         }
  
-        Integer exclude = entity.getExclude();
-        if (exclude != null) {
-            stmt.bindLong(3, exclude);
+        Integer weight = entity.getWeight();
+        if (weight != null) {
+            stmt.bindLong(3, weight);
+        }
+ 
+        Integer status = entity.getStatus();
+        if (status != null) {
+            stmt.bindLong(4, status);
         }
     }
 
@@ -103,7 +115,8 @@ public class MineChannelDao extends AbstractDao<MineChannel, Long> {
         MineChannel entity = new MineChannel( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
-            cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2) // exclude
+            cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // weight
+            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3) // status
         );
         return entity;
     }
@@ -112,7 +125,8 @@ public class MineChannelDao extends AbstractDao<MineChannel, Long> {
     public void readEntity(Cursor cursor, MineChannel entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setExclude(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
+        entity.setWeight(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
+        entity.setStatus(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
      }
     
     @Override

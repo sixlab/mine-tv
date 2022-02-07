@@ -14,17 +14,15 @@ public class MineSiteInfo {
     @Unique
     private String code;
 
-    private String name;
     private String url;
 
     private Integer primary;
     private Integer status;
-    @Generated(hash = 1178978546)
-    public MineSiteInfo(Long id, String code, String name, String url,
-            Integer primary, Integer status) {
+    @Generated(hash = 328745038)
+    public MineSiteInfo(Long id, String code, String url, Integer primary,
+            Integer status) {
         this.id = id;
         this.code = code;
-        this.name = name;
         this.url = url;
         this.primary = primary;
         this.status = status;
@@ -43,12 +41,6 @@ public class MineSiteInfo {
     }
     public void setCode(String code) {
         this.code = code;
-    }
-    public String getName() {
-        return this.name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
     public String getUrl() {
         return this.url;

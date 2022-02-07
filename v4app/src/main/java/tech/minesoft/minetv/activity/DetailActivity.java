@@ -129,22 +129,8 @@ public class DetailActivity extends AppCompatActivity {
         String playFrom = currentInfo.getVod_play_from();
         String playUrl = currentInfo.getVod_play_url();
 
-        String[] originGroups = TextUtils.split(playFrom, "\\$\\$\\$");
-        String channels = DaoHelper.meta(Const.PLAY_CHANNELS);
-        if (TextUtils.isEmpty(channels)) {
-            channels = ",";
-        }
-
-        for (String originGroup : originGroups) {
-            if (!channels.contains("," + originGroup + ",")) {
-                channels = channels + originGroup + ",";
-                DaoHelper.updateMeta(Const.PLAY_CHANNELS, channels);
-            }
-        }
-
-        String excludes = DaoHelper.meta(Const.PLAY_EXCLUDES);
-        String[] excludeList = TextUtils.split(excludes, ",");
-        String[] groups = ListUtils.excludeArray(originGroups, excludeList);
+        String[] groups = TextUtils.split(playFrom, "\\$\\$\\$");
+        DaoHelper.saveChannel(groups);
 
         String[] groupsUrls = TextUtils.split(playUrl, "\\$\\$\\$");
         Map<String, String> links = ListUtils.split2Map(groups, groupsUrls);
@@ -158,6 +144,10 @@ public class DetailActivity extends AppCompatActivity {
             currentGroup = viewInfo.getVod_from();
         }
         for (String group : groups) {
+            if(0 == DaoHelper.channelStatus(group)){
+                continue;
+            }
+
             String groupUrls = links.get(group);
             if (!TextUtils.isEmpty(groupUrls)) {
                 validateGroup.add(group);

@@ -1,32 +1,9 @@
 package tech.minesoft.minetv.utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ListUtils {
-
-    public static List<List> splitList(List list, int groupSize) {
-        if(null==list || list.size() == 0){
-            return new ArrayList<>();
-        }
-        int length = list.size();
-
-        // 计算可以分成多少组
-        int num = (length + groupSize - 1) / groupSize;
-
-        List<List> newList = new ArrayList<>(num);
-        for (int i = 0; i < num; i++) {
-            // 开始位置
-            int fromIndex = i * groupSize;
-            // 结束位置
-            int toIndex = (i + 1) * groupSize < length ? (i + 1) * groupSize : length;
-            newList.add(list.subList(fromIndex, toIndex));
-        }
-        return newList;
-    }
 
     public static Map<String, String> split2Map(String[] keys, String[] vals) {
         Map<String, String> map = new HashMap<>();
@@ -36,16 +13,4 @@ public class ListUtils {
         return map;
     }
 
-    public static String[] excludeArray(String[] originGroups, String[] excludeList) {
-        List<String> excludesList = Arrays.asList(excludeList);
-
-        List<String> groupsList = new ArrayList<>();
-        for (String originGroup : originGroups) {
-            if (!excludesList.contains(originGroup)) {
-                groupsList.add(originGroup);
-            }
-        }
-
-        return groupsList.toArray(originGroups);
-    }
 }

@@ -74,6 +74,13 @@
                 android:textColor="@color/white" />
 
             <tech.minesoft.minetv.widget.IconButton
+                android:id="@id/exo_prev"
+                android:layout_width="@dimen/icon_btn_width"
+                android:layout_height="@dimen/icon_btn_height"
+                android:layout_marginEnd="@dimen/base_size_1x"
+                app:srcCompat="@drawable/player_file_prev" />
+
+            <tech.minesoft.minetv.widget.IconButton
                 android:id="@id/exo_rew"
                 android:layout_width="@dimen/icon_btn_width"
                 android:layout_height="@dimen/icon_btn_height"
@@ -100,13 +107,6 @@
                 android:layout_height="@dimen/icon_btn_height"
                 android:layout_marginEnd="@dimen/base_size_1x"
                 app:srcCompat="@drawable/player_seek_forward" />
-
-            <tech.minesoft.minetv.widget.IconButton
-                android:id="@id/exo_prev"
-                android:layout_width="@dimen/icon_btn_width"
-                android:layout_height="@dimen/icon_btn_height"
-                android:layout_marginEnd="@dimen/base_size_1x"
-                app:srcCompat="@drawable/player_file_prev" />
 
             <tech.minesoft.minetv.widget.IconButton
                 android:id="@id/exo_next"
