@@ -1,11 +1,13 @@
 package tech.minesoft.minetv.activity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -185,14 +187,16 @@ public class PlayerActivity extends AppCompatActivity {
             } else {
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_BACK: // 4
-                        new AlertDialog.Builder(this)
+                        Button dialogBtn = new AlertDialog.Builder(this)
                                 .setMessage("是否退出？")
                                 .setNegativeButton("确定", (dialog, id) -> {
                                     player.release();
                                     PlayerActivity.this.finish();
                                 })
                                 .setPositiveButton("取消", null)
-                                .show();
+                                .show().getButton(DialogInterface.BUTTON_NEGATIVE);
+
+                        if (dialogBtn != null) dialogBtn.requestFocus();
                         return true;
                     case KeyEvent.KEYCODE_DPAD_CENTER:  // 23
                     case KeyEvent.KEYCODE_ENTER: // 66

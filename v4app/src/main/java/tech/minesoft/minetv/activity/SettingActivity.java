@@ -1,7 +1,9 @@
 package tech.minesoft.minetv.activity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -93,7 +95,7 @@ public class SettingActivity extends AppCompatActivity {
             btn.setText(channel.getName());
 
             btn.setOnClickListener(view -> {
-                new AlertDialog.Builder(this)
+                Button dialogBtn = new AlertDialog.Builder(this)
                         .setMessage("请选择操作！")
                         .setNeutralButton("删除", (dialog, id) -> {
                             DaoHelper.delChannel(channel.getId());
@@ -107,7 +109,9 @@ public class SettingActivity extends AppCompatActivity {
                             loadData();
                         })
                         .setPositiveButton("取消", null)
-                        .show();
+                        .show().getButton(DialogInterface.BUTTON_NEGATIVE);
+
+                if (dialogBtn != null) dialogBtn.requestFocus();
             });
 
             mineChannel.addView(btn);
@@ -127,7 +131,7 @@ public class SettingActivity extends AppCompatActivity {
             btn.setLayoutParams(LayoutUtils.btnLayout);
             btn.setText(channel.getName());
             btn.setOnClickListener(view -> {
-                new AlertDialog.Builder(this)
+                Button dialogBtn = new AlertDialog.Builder(this)
                         .setMessage("是否取消隐藏？")
                         .setNegativeButton("确定", (dialog, id) -> {
                             channel.setStatus(1);
@@ -136,7 +140,9 @@ public class SettingActivity extends AppCompatActivity {
                             loadData();
                         })
                         .setPositiveButton("取消", null)
-                        .show();
+                        .show().getButton(DialogInterface.BUTTON_NEGATIVE);
+
+                if (dialogBtn != null) dialogBtn.requestFocus();
             });
             mineExclude.addView(btn);
         }

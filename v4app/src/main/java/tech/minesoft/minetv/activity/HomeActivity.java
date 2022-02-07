@@ -2,9 +2,11 @@ package tech.minesoft.minetv.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,23 +70,27 @@ public class HomeActivity extends AppCompatActivity {
         block.setOnKeyListener((view, keycode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN && keycode == KeyEvent.KEYCODE_MENU) {
                 if (star) {
-                    new AlertDialog.Builder(this)
+                    Button dialogBtn = new AlertDialog.Builder(this)
                             .setMessage("是否取消收藏？")
                             .setNegativeButton("确定", (dialog, id) -> {
                                 DaoHelper.changeStar(info.getId());
                                 loadData();
                             })
                             .setPositiveButton("取消", null)
-                            .show();
+                            .show().getButton(DialogInterface.BUTTON_NEGATIVE);
+
+                    if (dialogBtn != null) dialogBtn.requestFocus();
                 } else {
-                    new AlertDialog.Builder(this)
+                    Button dialogBtn = new AlertDialog.Builder(this)
                             .setMessage("是否删除记录？")
                             .setNegativeButton("确定", (dialog, id) -> {
                                 DaoHelper.delInfo(info.getId());
                                 loadData();
                             })
                             .setPositiveButton("取消", null)
-                            .show();
+                            .show().getButton(DialogInterface.BUTTON_NEGATIVE);
+
+                    if (dialogBtn != null) dialogBtn.requestFocus();
                 }
                 return true;
             }
