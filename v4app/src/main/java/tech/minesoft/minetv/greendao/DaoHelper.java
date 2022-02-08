@@ -289,20 +289,24 @@ public class DaoHelper {
 
     public static void updatePrimary(String code) {
         MineSiteInfoDao siteInfoDao = Holder.daoSession.getMineSiteInfoDao();
-        List<MineSiteInfo> list = siteInfoDao.queryBuilder().where(
-                MineSiteInfoDao.Properties.Primary.eq("1"),
-                MineSiteInfoDao.Properties.Status.eq("1")
-        ).list();
 
-        if (list.size() == 0) {
-            MineSiteInfo siteInfo = siteInfoDao.queryBuilder().where(
-                    MineSiteInfoDao.Properties.Code.eq(code)
-            ).limit(1).unique();
+        MineSiteInfo siteInfo = siteInfoDao.queryBuilder().where(
+                MineSiteInfoDao.Properties.Code.eq(code)
+        ).limit(1).unique();
 
-            if (null != siteInfo) {
-                siteInfo.setPrimary(1);
-                siteInfoDao.update(siteInfo);
+        if (null != siteInfo) {
+            //获取到所有实体类，并在内存中先处理好数据
+            List<MineSiteInfo> infoList = siteInfoDao.loadAll();
+            for (MineSiteInfo info : infoList) {
+                if(info.getCode().equals(code)){
+                    info.setPrimary(1);
+                }else{
+                    info.setPrimary(0);
+                }
             }
+
+            // 在一次事物中提交全部实体类
+            siteInfoDao.updateInTx(infoList);
         }
     }
 

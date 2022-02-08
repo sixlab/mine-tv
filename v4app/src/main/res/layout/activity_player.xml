@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_marginTop="@dimen/base_size_5x"
-            android:layout_marginEnd="@dimen/base_size_5x"
+            android:layout_marginStart="@dimen/base_size_5x"
             android:textAlignment="center" />
 
 

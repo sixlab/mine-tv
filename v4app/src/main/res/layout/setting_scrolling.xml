@@ -27,13 +27,13 @@
                 android:text="播放源"
                 android:gravity="center"
                 android:layout_width="@dimen/base_size_20x"
-                android:layout_height="@dimen/base_size_5x"
+                android:layout_height="@dimen/base_size_8x"
                 android:textColor="@color/white" />
 
             <tech.minesoft.minetv.widget.IconButton
                 android:id="@+id/btn_add_source"
-                android:layout_width="@dimen/base_size_5x"
-                android:layout_height="@dimen/base_size_5x"
+                android:layout_width="@dimen/base_size_8x"
+                android:layout_height="@dimen/base_size_8x"
                 android:layout_marginStart="@dimen/base_size_1x"
                 app:srcCompat="@drawable/icon_plus" />
 
@@ -50,7 +50,7 @@
                 android:text="禁用频道"
                 android:gravity="center"
                 android:layout_width="@dimen/base_size_20x"
-                android:layout_height="@dimen/base_size_5x"
+                android:layout_height="@dimen/base_size_8x"
                 android:textColor="@color/white" />
 
         </LinearLayout>
@@ -65,7 +65,7 @@
                 android:text="隐藏的频道"
                 android:gravity="center"
                 android:layout_width="@dimen/base_size_20x"
-                android:layout_height="@dimen/base_size_5x"
+                android:layout_height="@dimen/base_size_8x"
                 android:textColor="@color/white" />
 
         </LinearLayout>
