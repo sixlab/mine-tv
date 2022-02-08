@@ -3,6 +3,7 @@ package tech.minesoft.minetv.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -56,23 +57,20 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         List<MineSiteInfo> siteInfoList = DaoHelper.getActiveSites();
-        boolean first = true;
         for (MineSiteInfo siteInfo : siteInfoList) {
             TextButton btn = new TextButton(this);
-            if (first) {
-                first = false;
-            } else {
-                btn.setLayoutParams(LayoutUtils.btnLayout);
-            }
+            btn.setLayoutParams(LayoutUtils.btnLayout);
             btn.setText(siteInfo.getCode());
             btn.setOnClickListener(view -> {
                 DaoHelper.updatePrimary(siteInfo.getCode());
                 loadData();
             });
-            btn.setOnFocusChangeListener((view, focus) -> {
-                if(focus){
+            btn.setOnKeyListener((view, keyCode, event) -> {
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
                     Toast.makeText(SettingActivity.this, siteInfo.getUrl(), Toast.LENGTH_SHORT).show();
                 }
+
+                return false;
             });
             if (1 == siteInfo.getPrimary()) {
                 btn.setNormalColor(R.color.mtv_viewed);

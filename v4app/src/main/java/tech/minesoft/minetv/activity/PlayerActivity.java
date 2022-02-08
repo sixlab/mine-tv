@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.MediaMetadata;
@@ -26,12 +27,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.databinding.ActivityPlayerBinding;
 import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.utils.Const;
+import tech.minesoft.minetv.utils.TimeUtils;
 import tech.minesoft.minetv.vo.UrlInfo;
 
 public class PlayerActivity extends AppCompatActivity {
@@ -51,14 +52,17 @@ public class PlayerActivity extends AppCompatActivity {
     private class MyHandler extends Handler {
         @Override
         public void handleMessage(@NotNull Message msg) {
-            long duration = player.getDuration();
-            long position = player.getCurrentPosition();
-
             SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
             String t = formatter.format(new Date().getTime());
-            formatter.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
-            String d = formatter.format(duration);
-            String p = formatter.format(position);
+
+            long position = player.getCurrentPosition();
+            String p = TimeUtils.hh_mm_ss(position);
+
+            long duration = player.getDuration();
+            if (C.TIME_UNSET == duration) {
+                duration = 0;
+            }
+            String d = TimeUtils.hh_mm_ss(duration);
 
             binding.timeTv.setText(t + "\n" + p + "/" + d);
 

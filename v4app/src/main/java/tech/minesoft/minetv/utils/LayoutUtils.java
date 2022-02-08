@@ -10,7 +10,6 @@ import tech.minesoft.minetv.R;
 public class LayoutUtils {
     public static LinearLayout.LayoutParams lineLayout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     public static LinearLayout.LayoutParams centerLayout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    public static LinearLayout.LayoutParams btnFirstLayout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     public static LinearLayout.LayoutParams btnLayout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     private static Context context;
 
