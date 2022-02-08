@@ -54,7 +54,6 @@ public class HomeActivity extends AppCompatActivity {
     private void loadData() {
         if (star) {
             binding.toolbar.setTitle(R.string.title_star);
-            binding.toolbar.focusStar();
             infoList = DaoHelper.loadStar();
         } else {
             binding.toolbar.setTitle(R.string.title_main);
@@ -64,6 +63,8 @@ public class HomeActivity extends AppCompatActivity {
         LinearLayout vodList = binding.content.vodList;
         vodList.removeAllViews();
         ScrollViewUtils.addBlock(this, vodList, infoList, this::onKey);
+
+        vodList.requestFocus();
     }
 
     private void onKey(ImageBlock block, MineMovieInfo info) {

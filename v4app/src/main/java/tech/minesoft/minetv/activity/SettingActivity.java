@@ -37,6 +37,8 @@ public class SettingActivity extends AppCompatActivity {
         binding.toolbar.setTitle(R.string.title_setting);
 
         binding.content.btnAddSource.setOnClickListener(this::clickAddSource);
+
+        binding.content.btnAddSource.requestFocus();
     }
 
     private void clickAddSource(View view) {
@@ -62,6 +64,8 @@ public class SettingActivity extends AppCompatActivity {
         loadSource();
 
         loadChannel();
+
+        binding.content.btnAddSource.requestFocus();
     }
 
     private void loadSource() {
@@ -104,11 +108,15 @@ public class SettingActivity extends AppCompatActivity {
             }
             mineSource.addView(btn);
         }
+
+        binding.content.btnAddSource.requestFocus();
     }
 
     private void loadChannel() {
         loadActive();
         loadExclude();
+
+        binding.content.mineChannel.requestFocus();
     }
     private void loadActive() {
         LinearLayout mineChannel = binding.content.mineChannel;
