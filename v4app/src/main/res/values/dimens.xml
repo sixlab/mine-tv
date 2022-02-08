@@ -8,6 +8,10 @@
     <dimen name="base_size_10x">60dp</dimen>
     <dimen name="base_size_15x">90dp</dimen>
     <dimen name="base_size_20x">120dp</dimen>
+    <dimen name="base_size_30x">180dp</dimen>
+    <dimen name="base_size_35x">210dp</dimen>
+    <dimen name="base_size_50x">300dp</dimen>
+    <dimen name="base_size_100x">600dp</dimen>
 
     <dimen name="icon_btn_width">60dp</dimen>
     <dimen name="icon_btn_height">36dp</dimen>

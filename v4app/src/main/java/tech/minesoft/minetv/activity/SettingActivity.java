@@ -3,7 +3,9 @@ package tech.minesoft.minetv.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -18,6 +20,7 @@ import tech.minesoft.minetv.bean.MineSiteInfo;
 import tech.minesoft.minetv.databinding.ActivitySettingBinding;
 import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.utils.LayoutUtils;
+import tech.minesoft.minetv.widget.SourceDialog;
 import tech.minesoft.minetv.widget.TextButton;
 
 public class SettingActivity extends AppCompatActivity {
@@ -32,21 +35,33 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.toolbar.setTitle(R.string.title_setting);
+
+        binding.content.btnAddSource.setOnClickListener(this::clickAddSource);
+    }
+
+    private void clickAddSource(View view) {
+        SourceDialog dialog = new SourceDialog(this);
+        dialog.setOnOkListener(view1 -> {
+            String code = dialog.inputCode.getText().toString();
+            String url = dialog.inputUrl.getText().toString();
+            if (TextUtils.isEmpty(code) || TextUtils.isEmpty(url)) {
+                Toast.makeText(SettingActivity.this, "请输入编号和接口地址", Toast.LENGTH_SHORT).show();
+            } else {
+                DaoHelper.updateSite(code, url, 0);
+                dialog.cancel();
+                loadSource();
+            }
+        });
+        dialog.show();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        loadData();
-    }
-
-    private void loadData() {
         loadSource();
 
         loadChannel();
-
-        loadExclude();
     }
 
     private void loadSource() {
@@ -62,8 +77,20 @@ public class SettingActivity extends AppCompatActivity {
             btn.setLayoutParams(LayoutUtils.btnLayout);
             btn.setText(siteInfo.getCode());
             btn.setOnClickListener(view -> {
-                DaoHelper.updatePrimary(siteInfo.getCode());
-                loadData();
+                Button dialogBtn = new AlertDialog.Builder(this)
+                        .setMessage("请选择操作！")
+                        .setNeutralButton("删除", (dialog, id) -> {
+                            DaoHelper.delSite(siteInfo.getId());
+                            loadSource();
+                        })
+                        .setNegativeButton("设为默认", (dialog, id) -> {
+                            DaoHelper.updatePrimary(siteInfo.getCode());
+                            loadSource();
+                        })
+                        .setPositiveButton("取消", null)
+                        .show().getButton(DialogInterface.BUTTON_NEGATIVE);
+
+                if (dialogBtn != null) dialogBtn.requestFocus();
             });
             btn.setOnKeyListener((view, keyCode, event) -> {
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
@@ -80,6 +107,10 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void loadChannel() {
+        loadActive();
+        loadExclude();
+    }
+    private void loadActive() {
         LinearLayout mineChannel = binding.content.mineChannel;
         int childCount = mineChannel.getChildCount();
         if (childCount > 1) {
@@ -98,13 +129,13 @@ public class SettingActivity extends AppCompatActivity {
                         .setNeutralButton("删除", (dialog, id) -> {
                             DaoHelper.delChannel(channel.getId());
 
-                            loadData();
+                            loadChannel();
                         })
                         .setNegativeButton("隐藏", (dialog, id) -> {
                             channel.setStatus(0);
                             DaoHelper.updateChannel(channel);
 
-                            loadData();
+                            loadChannel();
                         })
                         .setPositiveButton("取消", null)
                         .show().getButton(DialogInterface.BUTTON_NEGATIVE);
@@ -135,7 +166,7 @@ public class SettingActivity extends AppCompatActivity {
                             channel.setStatus(1);
                             DaoHelper.updateChannel(channel);
 
-                            loadData();
+                            loadChannel();
                         })
                         .setPositiveButton("取消", null)
                         .show().getButton(DialogInterface.BUTTON_NEGATIVE);

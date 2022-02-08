@@ -47,7 +47,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="禁用频道"
+                android:text="可用频道"
                 android:gravity="center"
                 android:layout_width="@dimen/base_size_20x"
                 android:layout_height="@dimen/base_size_8x"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="隐藏的频道"
+                android:text="禁用频道"
                 android:gravity="center"
                 android:layout_width="@dimen/base_size_20x"
                 android:layout_height="@dimen/base_size_8x"
