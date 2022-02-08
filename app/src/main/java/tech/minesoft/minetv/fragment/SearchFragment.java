@@ -29,7 +29,7 @@ import tech.minesoft.minetv.activity.MineActivity;
 import tech.minesoft.minetv.base.BaseLazyLoadFragment;
 import tech.minesoft.minetv.bean.MineMovieInfo;
 import tech.minesoft.minetv.bean.MineSiteInfo;
-import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.greendao.V3DaoHelper;
 import tech.minesoft.minetv.presenter.BlockContentPresenter;
 import tech.minesoft.minetv.presenter.MinePresenterSelector;
 import tech.minesoft.minetv.utils.Const;
@@ -250,7 +250,7 @@ public class SearchFragment extends BaseLazyLoadFragment {
     }
 
     private void searchPage(int step) {
-        MineSiteInfo activeSite = DaoHelper.getPrimarySite();
+        MineSiteInfo activeSite = V3DaoHelper.getPrimarySite();
 
         if (null != activeSite) {
             RetrofitService service = RetrofitHelper.get(activeSite.getCode());

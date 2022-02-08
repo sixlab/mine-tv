@@ -41,7 +41,7 @@ import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.adapter.ContentViewPagerAdapter;
 import tech.minesoft.minetv.base.BaseActivity;
 import tech.minesoft.minetv.fragment.OnFragmentInteractionListener;
-import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.greendao.V3DaoHelper;
 import tech.minesoft.minetv.presenter.TitlePresenter;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.Holder;
@@ -135,7 +135,7 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
                         break;
                 }
             }else if(keyCode == KeyEvent.KEYCODE_MENU && v.getId()==R.id.btn_clear_view){
-                Holder.showHidden = DaoHelper.toggleHiddenDisplay();
+                Holder.showHidden = V3DaoHelper.toggleHiddenDisplay();
                 initHiddenIcon();
                 showText("操作成功");
     
@@ -151,16 +151,16 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
         Log.i(Const.LOG_TAG, v.toString());
         switch (v.getId()) {
             case R.id.btn_clear_record:
-                DaoHelper.clearHis();
+                V3DaoHelper.clearHis();
                 break;
             case R.id.btn_clear_star:
-                DaoHelper.clearStar();
+                V3DaoHelper.clearStar();
                 break;
             case R.id.btn_clear_unstar:
-                DaoHelper.clearUnStar();
+                V3DaoHelper.clearUnStar();
                 break;
             case R.id.btn_clear_view:
-                DaoHelper.clearViews();
+                V3DaoHelper.clearViews();
                 break;
             case R.id.info_tips:
                 String[] tips = getResources().getStringArray(R.array.tips);
@@ -217,7 +217,7 @@ public class MineActivity extends BaseActivity implements OnFragmentInteractionL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine);
     
-        Holder.showHidden = DaoHelper.showHidden();
+        Holder.showHidden = V3DaoHelper.showHidden();
         RetrofitHelper.initPlayFrom();
         
         initView();
