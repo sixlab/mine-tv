@@ -71,17 +71,19 @@ public class DetailActivity extends AppCompatActivity {
 
         renderData();
 
-        updateInfo();
+        binding.content.episodeList.requestFocus();
+
+        updateInfo(true);
     }
 
     private void initListener() {
         binding.tvUpdate.setOnClickListener(view -> {
-            updateInfo();
+            updateInfo(false);
         });
         binding.tvStar.setOnClickListener(view -> {
             currentInfo = DaoHelper.changeStar(currentInfo.getId());
             showText("操作成功");
-            renderData();
+            setStar();
         });
         binding.tvClean.setOnClickListener(view -> {
             DaoHelper.delViews(currentInfo.getId());
@@ -93,6 +95,16 @@ public class DetailActivity extends AppCompatActivity {
             showText("操作成功");
             renderData();
         });
+    }
+
+    private void setStar(){
+        String text;
+        if (1 == currentInfo.getStar_flag()) {
+            text = getString(R.string.action_unstar);
+        } else {
+            text = getString(R.string.action_star);
+        }
+        binding.tvStar.setText(text);
     }
 
     private void renderInfo() {
@@ -123,6 +135,8 @@ public class DetailActivity extends AppCompatActivity {
         );
 
         binding.tvVideoIntro.setText(Html.fromHtml(currentInfo.getVod_content()));
+
+        setStar();
     }
 
     private void renderData() {
@@ -195,18 +209,12 @@ public class DetailActivity extends AppCompatActivity {
         if (validateGroup.size() > 0 && TextUtils.isEmpty(currentGroup)) {
             currentGroup = validateGroup.get(0);
         }
-        renderEpisodes();
 
-        String text;
-        if (1 == currentInfo.getStar_flag()) {
-            text = getString(R.string.action_unstar);
-        } else {
-            text = getString(R.string.action_star);
-        }
-        binding.tvStar.setText(text);
+        renderEpisodeGroup(null);
+        renderEpisodes();
     }
 
-    private void renderEpisodes() {
+    private void renderEpisodeGroup(String focusGroup) {
         // 分组
         binding.tvEpisodeSource.removeAllViews();
         boolean first = true;
@@ -220,6 +228,8 @@ public class DetailActivity extends AppCompatActivity {
             btn.setText(group);
             btn.setOnClickListener(view -> {
                 currentGroup = btn.getText().toString();
+
+                renderEpisodeGroup(group);
                 renderEpisodes();
             });
             // btn.setLayoutParams(btnLayoutParams);
@@ -227,8 +237,14 @@ public class DetailActivity extends AppCompatActivity {
                 btn.setNormalColor(R.color.mtv_viewed);
             }
             binding.tvEpisodeSource.addView(btn);
-        }
 
+            if(group.equals(focusGroup)){
+                btn.requestFocus();
+            }
+        }
+    }
+
+    private void renderEpisodes() {
         // 剧集
         LinearLayout episodeList = binding.content.episodeList;
         episodeList.removeAllViews();
@@ -245,7 +261,7 @@ public class DetailActivity extends AppCompatActivity {
         addBtn(episodeList, infoList);
     }
 
-    private void updateInfo() {
+    private void updateInfo(boolean focus) {
         RetrofitService service = RetrofitHelper.get(currentInfo.getApi_code());
         if (service != null) {
             service.detail(currentInfo.getVod_id()).enqueue(new MineCallback<MovieListVo>(this) {
@@ -264,7 +280,9 @@ public class DetailActivity extends AppCompatActivity {
 
                             renderInfo();
 
-                            renderData();
+                            if (focus) {
+                                binding.content.episodeList.requestFocus();
+                            }
                         } else {
                             showText("返回的list长度为：" + list.size());
                         }
@@ -307,7 +325,7 @@ public class DetailActivity extends AppCompatActivity {
             btn.setOnKeyListener((view, keyCode, event) -> {
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
                     DaoHelper.clearViews(info.getInfoId(), info.getGroupName(), info.getItemName());
-                    renderData();
+                    btn.setNormalColor(R.color.mtv_btn_normal);
                     return true;
                 }
 

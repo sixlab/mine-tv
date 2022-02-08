@@ -92,7 +92,4 @@ public class Toolbar extends LinearLayout {
         binding.title.setText(resId);
     }
 
-    public void focusStar(){
-        binding.starBtn.requestFocus();
-    }
 }
