@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_source_dialog"
+    android:layout_width="@dimen/base_size_50x"
+    android:layout_height="wrap_content"
+    android:minWidth="@dimen/base_size_50x"
+    android:background="@color/colorPrimaryVariant"
+    android:orientation="vertical"
+    android:paddingVertical="@dimen/base_size_2x"
+    android:paddingHorizontal="@dimen/base_size_5x">
+
+    <EditText
+        android:id="@+id/input_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/base_size_1x"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:background="@color/colorPrimary"
+        android:hint="编号"
+        android:maxLines="1"
+        android:inputType="text"
+        android:nextFocusDown="@id/input_url"
+        android:minHeight="@dimen/base_size_6x" />
+
+    <EditText
+        android:id="@+id/input_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/base_size_1x"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:background="@color/colorPrimary"
+        android:hint="API 地址"
+        android:maxLines="1"
+        android:inputType="text"
+        android:nextFocusDown="@id/btn_save_pop"
+        android:minHeight="@dimen/base_size_6x" />
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_save_pop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_cancel_pop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消" />
+    </LinearLayout>
+
+</LinearLayout>
