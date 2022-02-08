@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import tech.minesoft.minetv.bean.MineSiteInfo;
-import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.greendao.V3DaoHelper;
 import tech.minesoft.minetv.greendao.DaoMaster;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.IOUtils;
@@ -29,7 +29,7 @@ public class Init {
             siteInfo.setName((String) infoMap.get("name"));
             siteInfo.setUrl((String) infoMap.get("url"));
             siteInfo.setPrimary(((Double) infoMap.get("primary")).intValue());
-            DaoHelper.updateSite(siteInfo);
+            V3DaoHelper.updateSite(siteInfo);
         }
 
         RetrofitHelper.get("github").init().enqueue(new MineCallback<InitVo>(context) {
@@ -49,10 +49,10 @@ public class Init {
                         // 更新所有旧链接
                         for (MineSiteInfo info : sites) {
                             info.setPrimary(0);
-                            DaoHelper.updateSite(info);
+                            V3DaoHelper.updateSite(info);
                         }
 
-                        DaoHelper.updatePrimary(body.getPrimary());
+                        V3DaoHelper.updatePrimary(body.getPrimary());
                     }
                 } else {
                     // new AlertDialog.Builder(context)
@@ -66,7 +66,7 @@ public class Init {
                     //         .show();
                 }
 
-                List<MineSiteInfo> activeSites = DaoHelper.getActiveSites();
+                List<MineSiteInfo> activeSites = V3DaoHelper.getActiveSites();
                 for (MineSiteInfo info : activeSites) {
                     RetrofitHelper.add(info.getCode(), info.getUrl());
                 }

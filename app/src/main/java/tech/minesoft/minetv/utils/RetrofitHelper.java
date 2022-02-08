@@ -12,7 +12,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import tech.minesoft.minetv.bean.MineSiteInfo;
-import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.greendao.V3DaoHelper;
 
 public class RetrofitHelper {
     public static List<String> PLAY_FROM = Arrays.asList(
@@ -26,7 +26,7 @@ public class RetrofitHelper {
     );
 
     public static void initPlayFrom() {
-        String playFrom = DaoHelper.playFrom();
+        String playFrom = V3DaoHelper.playFrom();
         if (!TextUtils.isEmpty(playFrom)) {
             PLAY_FROM = Arrays.asList(TextUtils.split(playFrom, ","));
         }
@@ -58,7 +58,7 @@ public class RetrofitHelper {
 
     public static RetrofitService get(String code) {
         if (!SERVICE.containsKey(code)) {
-            MineSiteInfo site = DaoHelper.getSite(code);
+            MineSiteInfo site = V3DaoHelper.getSite(code);
             if (null != site) {
                 add(code, site.getUrl());
             }

@@ -13,7 +13,7 @@ import androidx.leanback.widget.Presenter;
 import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.activity.V3DetailActivity;
 import tech.minesoft.minetv.activity.V3PlayerActivity;
-import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.greendao.V3DaoHelper;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.vo.UrlInfo;
 
@@ -44,7 +44,7 @@ public class EpisodeItemPresenter extends Presenter {
                     switch (keyCode) {
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
-                            DaoHelper.addView(urlInfo);
+                            V3DaoHelper.addView(urlInfo);
 
                             Intent intent = new Intent(mContext, V3PlayerActivity.class);
                             intent.putExtra(Const.SELECT_EPISODE, urlInfo);

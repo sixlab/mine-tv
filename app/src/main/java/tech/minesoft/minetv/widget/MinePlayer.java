@@ -11,7 +11,7 @@ import com.shuyu.gsyvideoplayer.video.ListGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 
 import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.greendao.V3DaoHelper;
 import tech.minesoft.minetv.vo.VideoPlayerModel;
 
 public class MinePlayer extends ListGSYVideoPlayer {
@@ -114,7 +114,7 @@ public class MinePlayer extends ListGSYVideoPlayer {
         if (next) {
             Log.i(TAG, "View:" + getTitleTextView());
             VideoPlayerModel current = (VideoPlayerModel) currentModel();
-            DaoHelper.addView(current.getUrlInfo(), current.getItemName());
+            V3DaoHelper.addView(current.getUrlInfo(), current.getItemName());
         }
         return next;
     }
@@ -137,7 +137,7 @@ public class MinePlayer extends ListGSYVideoPlayer {
 
             Log.i(TAG, "View:" + getTitleTextView());
             VideoPlayerModel current = (VideoPlayerModel) currentModel();
-            DaoHelper.addView(current.getUrlInfo(), current.getItemName());
+            V3DaoHelper.addView(current.getUrlInfo(), current.getItemName());
 
             return true;
         }

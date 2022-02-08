@@ -20,6 +20,6 @@ public class DaoOpenHelper extends DaoMaster.DevOpenHelper {
         Log.i("greenDAO", "Upgrading schema from version " + oldVersion + " to " + newVersion + " by dropping all tables");
         // dropAllTables(db, true);
         // onCreate(db);
-        DaoHelper.upgrade(db, oldVersion, newVersion);
+        V3DaoHelper.upgrade(db, oldVersion, newVersion);
     }
 }

@@ -31,7 +31,7 @@ import java.util.Map;
 import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.base.BaseActivity;
 import tech.minesoft.minetv.bean.MineMovieInfo;
-import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.greendao.V3DaoHelper;
 import tech.minesoft.minetv.presenter.EpisodeGroupPresenter;
 import tech.minesoft.minetv.presenter.EpisodeItemPresenter;
 import tech.minesoft.minetv.presenter.MinePresenterSelector;
@@ -90,7 +90,7 @@ public class V3DetailActivity extends BaseActivity implements View.OnClickListen
 
         long id = (long) getIntent().getSerializableExtra(Const.SELECT_MOVIE_ID);
 
-        currentInfo = DaoHelper.getInfo(id);
+        currentInfo = V3DaoHelper.getInfo(id);
 
         initView();
         loadData();
@@ -156,7 +156,7 @@ public class V3DetailActivity extends BaseActivity implements View.OnClickListen
         String[] groupsUrls = TextUtils.split(playUrl, "\\$\\$\\$");
         Map<String, String> links = ListUtils.split2Map(groups, groupsUrls);
 
-        Map<String, Integer> map = DaoHelper.selectView(currentInfo.getId());
+        Map<String, Integer> map = V3DaoHelper.selectView(currentInfo.getId());
 
         List<String> validateGroup = new ArrayList<>();
 
@@ -307,17 +307,17 @@ public class V3DetailActivity extends BaseActivity implements View.OnClickListen
                 reload();
                 break;
             case R.id.tv_star:
-                currentInfo = DaoHelper.changeStar(currentInfo.getId());
+                currentInfo = V3DaoHelper.changeStar(currentInfo.getId());
                 showText("操作成功");
                 reload();
                 break;
             case R.id.tv_clean:
-                DaoHelper.delViews(currentInfo.getId());
+                V3DaoHelper.delViews(currentInfo.getId());
                 showText("操作成功");
                 reload();
                 break;
             case R.id.tv_reverse:
-                currentInfo = DaoHelper.changeReverse(currentInfo.getId());
+                currentInfo = V3DaoHelper.changeReverse(currentInfo.getId());
                 showText("操作成功");
                 reload();
                 break;
@@ -329,7 +329,7 @@ public class V3DetailActivity extends BaseActivity implements View.OnClickListen
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU && v.getId()==R.id.tv_clean) {
-            currentInfo = DaoHelper.toggleVodHidden(currentInfo.getId());
+            currentInfo = V3DaoHelper.toggleVodHidden(currentInfo.getId());
             initHidden();
             showText("操作成功");
         }
@@ -359,7 +359,7 @@ public class V3DetailActivity extends BaseActivity implements View.OnClickListen
                         } else if (list.size() == 1) {
                             MineMovieInfo info = list.get(0);
 
-                            currentInfo = DaoHelper.updateInfo(currentInfo.getId(), info);
+                            currentInfo = V3DaoHelper.updateInfo(currentInfo.getId(), info);
 
                             showText("更新成功");
 
@@ -387,7 +387,7 @@ public class V3DetailActivity extends BaseActivity implements View.OnClickListen
     }
 
     public void clean(UrlInfo urlInfo) {
-        DaoHelper.clearViews(urlInfo.getInfoId(), urlInfo.getGroupName(), urlInfo.getItemName());
+        V3DaoHelper.clearViews(urlInfo.getInfoId(), urlInfo.getGroupName(), urlInfo.getItemName());
         reload();
     }
 }

@@ -21,7 +21,7 @@ import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.activity.V3DetailActivity;
 import tech.minesoft.minetv.base.BaseLazyLoadFragment;
 import tech.minesoft.minetv.bean.MineMovieInfo;
-import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.greendao.V3DaoHelper;
 import tech.minesoft.minetv.utils.Const;
 import tech.minesoft.minetv.utils.SizeUtils;
 
@@ -81,7 +81,7 @@ public class BlockContentPresenter extends Presenter {
                                 showText("播放地址为空");
                                 return true;
                             }
-                            long infoId = DaoHelper.saveInfo(info);
+                            long infoId = V3DaoHelper.saveInfo(info);
 
                             Intent intent = new Intent(mContext, V3DetailActivity.class);
                             intent.putExtra(Const.SELECT_MOVIE_ID, infoId);

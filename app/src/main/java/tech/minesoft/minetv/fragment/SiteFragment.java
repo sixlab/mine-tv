@@ -19,7 +19,7 @@ import java.util.List;
 
 import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.bean.MineSiteInfo;
-import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.greendao.V3DaoHelper;
 import tech.minesoft.minetv.widget.ScaleConstraintLayout;
 
 
@@ -50,7 +50,7 @@ public class SiteFragment extends Fragment {
             String code = codeText.getText().toString();
             String site = siteText.getText().toString();
 
-            MineSiteInfo siteInfo = DaoHelper.getSite(code);
+            MineSiteInfo siteInfo = V3DaoHelper.getSite(code);
 
             if (null == siteInfo) {
                 siteInfo = new MineSiteInfo();
@@ -61,7 +61,7 @@ public class SiteFragment extends Fragment {
             }
 
             siteInfo.setUrl(site);
-            DaoHelper.saveSiteInfo(siteInfo);
+            V3DaoHelper.saveSiteInfo(siteInfo);
 
             codeText.setText("");
             siteText.setText("");
@@ -75,7 +75,7 @@ public class SiteFragment extends Fragment {
     }
 
     private void renderUi(){
-        MineSiteInfo primarySite = DaoHelper.getPrimarySite();
+        MineSiteInfo primarySite = V3DaoHelper.getPrimarySite();
         if (primarySite == null) {
             siteDefault.setText(getString(R.string.text_default_text_null));
         } else {
@@ -84,7 +84,7 @@ public class SiteFragment extends Fragment {
 
         siteContainer.removeAllViews();
 
-        List<MineSiteInfo> activeSites = DaoHelper.getActiveSites();
+        List<MineSiteInfo> activeSites = V3DaoHelper.getActiveSites();
         for (MineSiteInfo site : activeSites) {
             TableRow tableRow = new TableRow(getContext());
 
@@ -95,7 +95,7 @@ public class SiteFragment extends Fragment {
             tvDelete.setTextColor(getResources().getColor(R.color.bl_red));
             deleteBtn.addView(tvDelete);
             deleteBtn.setOnClickListener(v -> {
-                DaoHelper.delSite(site.getId());
+                V3DaoHelper.delSite(site.getId());
                 renderUi();
             });
             tableRow.addView(deleteBtn);
@@ -112,7 +112,7 @@ public class SiteFragment extends Fragment {
             }
             primaryBtn.addView(primaryInfo);
             primaryBtn.setOnClickListener(v -> {
-                DaoHelper.updatePrimary(site.getId());
+                V3DaoHelper.updatePrimary(site.getId());
                 renderUi();
             });
 

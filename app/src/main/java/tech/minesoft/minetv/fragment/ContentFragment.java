@@ -25,7 +25,7 @@ import tech.minesoft.minetv.R;
 import tech.minesoft.minetv.activity.MineActivity;
 import tech.minesoft.minetv.base.BaseLazyLoadFragment;
 import tech.minesoft.minetv.bean.MineMovieInfo;
-import tech.minesoft.minetv.greendao.DaoHelper;
+import tech.minesoft.minetv.greendao.V3DaoHelper;
 import tech.minesoft.minetv.presenter.BlockContentPresenter;
 import tech.minesoft.minetv.presenter.MinePresenterSelector;
 import tech.minesoft.minetv.utils.Const;
@@ -155,13 +155,13 @@ public class ContentFragment extends BaseLazyLoadFragment {
             List<MineMovieInfo> list = null;
             switch (mCurrentTabCode) {
                 case Const.TAB_RECORD:
-                    list = DaoHelper.loadAll();
+                    list = V3DaoHelper.loadAll();
                     break;
                 case Const.TAB_STAR:
-                    list = DaoHelper.loadStar();
+                    list = V3DaoHelper.loadStar();
                     break;
                 case Const.TAB_OTHER:
-                    list = DaoHelper.loadUnStar();
+                    list = V3DaoHelper.loadUnStar();
                     break;
             }
 
@@ -177,7 +177,7 @@ public class ContentFragment extends BaseLazyLoadFragment {
                 new AlertDialog.Builder(mContext)
                         .setMessage("是否取消收藏《" + info.getVod_name() + "》？")
                         .setNegativeButton("确定", (dialog, id) -> {
-                            DaoHelper.changeStar(info.getId());
+                            V3DaoHelper.changeStar(info.getId());
                             showText("取消成功");
                             fetchData();
                         })
@@ -189,7 +189,7 @@ public class ContentFragment extends BaseLazyLoadFragment {
                 new AlertDialog.Builder(mContext)
                         .setMessage("是否删除记录《" + info.getVod_name() + "》？")
                         .setNegativeButton("确定", (dialog, id) -> {
-                            DaoHelper.delInfo(info.getId());
+                            V3DaoHelper.delInfo(info.getId());
                             showText("删除成功");
                             fetchData();
                         })

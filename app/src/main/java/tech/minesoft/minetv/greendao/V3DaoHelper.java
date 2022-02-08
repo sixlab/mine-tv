@@ -17,7 +17,7 @@ import tech.minesoft.minetv.utils.Holder;
 import tech.minesoft.minetv.utils.IOUtils;
 import tech.minesoft.minetv.vo.UrlInfo;
 
-public class DaoHelper {
+public class V3DaoHelper {
 
     public static void upgrade(Database db, int oldVersion, int newVersion) {
 
