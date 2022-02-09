@@ -45,6 +45,7 @@ public class DetailActivity extends AppCompatActivity {
     private MineMovieInfo currentInfo;
     private List<String> validateGroup = new ArrayList<>();
     private Map<String, List<UrlInfo>> vodMap = new HashMap<>();
+    private String selectItemName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,8 @@ public class DetailActivity extends AppCompatActivity {
 
         currentInfo = DaoHelper.getInfo(infoId);
         initListener();
+
+        updateInfo(true);
     }
 
     @Override
@@ -71,9 +74,11 @@ public class DetailActivity extends AppCompatActivity {
 
         renderData();
 
-        binding.content.episodeList.requestFocus();
-
-        updateInfo(true);
+        if (TextUtils.isEmpty(selectItemName)) {
+            binding.content.episodeList.requestFocus();
+        } else {
+            selectItemName = null;
+        }
     }
 
     private void initListener() {
@@ -97,7 +102,7 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-    private void setStar(){
+    private void setStar() {
         String text;
         if (1 == currentInfo.getStar_flag()) {
             text = getString(R.string.action_unstar);
@@ -158,7 +163,7 @@ public class DetailActivity extends AppCompatActivity {
             currentGroup = viewInfo.getVod_from();
         }
         for (String group : groups) {
-            if(0 == DaoHelper.channelStatus(group)){
+            if (0 == DaoHelper.channelStatus(group)) {
                 continue;
             }
 
@@ -238,7 +243,7 @@ public class DetailActivity extends AppCompatActivity {
             }
             binding.tvEpisodeSource.addView(btn);
 
-            if(group.equals(focusGroup)){
+            if (group.equals(focusGroup)) {
                 btn.requestFocus();
             }
         }
@@ -280,6 +285,8 @@ public class DetailActivity extends AppCompatActivity {
 
                             renderInfo();
 
+                            renderData();
+
                             if (focus) {
                                 binding.content.episodeList.requestFocus();
                             }
@@ -313,9 +320,10 @@ public class DetailActivity extends AppCompatActivity {
             } else {
                 btn.setLayoutParams(LayoutUtils.btnLayout);
             }
-            btn.setWidth(SizeUtils.dp2px(this,getResources().getDimension(R.dimen.base_size_5x)));
+            btn.setWidth(SizeUtils.dp2px(this, getResources().getDimension(R.dimen.base_size_5x)));
             btn.setText(info.getItemName());
             btn.setOnClickListener(view -> {
+                selectItemName = info.getItemName();
                 DaoHelper.addView(info);
 
                 Intent intent = new Intent(DetailActivity.this, PlayerActivity.class);
@@ -326,6 +334,9 @@ public class DetailActivity extends AppCompatActivity {
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_MENU) {
                     DaoHelper.clearViews(info.getInfoId(), info.getGroupName(), info.getItemName());
                     btn.setNormalColor(R.color.mtv_btn_normal);
+                    btn.clearFocus();
+                    btn.requestFocus();
+                    showText("操作成功");
                     return true;
                 }
 
@@ -337,6 +348,10 @@ public class DetailActivity extends AppCompatActivity {
             }
 
             line.addView(btn);
+
+            if (info.getItemName().equals(selectItemName)) {
+                btn.requestFocus();
+            }
         }
     }
 
