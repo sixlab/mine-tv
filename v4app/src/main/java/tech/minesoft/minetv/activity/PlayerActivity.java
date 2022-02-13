@@ -16,10 +16,12 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.MediaMetadata;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerView;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -167,9 +169,21 @@ public class PlayerActivity extends AppCompatActivity {
         // Start the playback.
         player.play();
 
-        if(null!=viewInfo){
-            player.seekTo(viewInfo.getView_position());
-        }
+        player.seekTo(viewInfo.getView_position());
+
+        player.addListener(new Player.Listener() {
+            @Override
+            public void onMediaItemTransition(@Nullable MediaItem mediaItem, int reason) {
+                String subtitle = mediaItem.mediaMetadata.subtitle.toString();
+                titleTv.setText(info.getVodName() + ":" + subtitle);
+
+                info.setItemName(subtitle);
+
+                viewInfo = DaoHelper.addView(info);
+
+                player.seekTo(viewInfo.getView_position());
+            }
+        });
 
         timeHandler.sendMessage(new Message());
     }
