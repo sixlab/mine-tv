@@ -5,8 +5,11 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Unique;
 
+import java.io.Serializable;
+
 @Entity
-public class MineSiteInfo {
+public class MineSiteInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     private Long id;
