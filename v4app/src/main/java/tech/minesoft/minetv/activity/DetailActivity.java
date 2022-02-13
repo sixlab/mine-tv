@@ -324,10 +324,11 @@ public class DetailActivity extends AppCompatActivity {
             btn.setText(info.getItemName());
             btn.setOnClickListener(view -> {
                 selectItemName = info.getItemName();
-                DaoHelper.addView(info);
+                MineViewInfo viewInfo = DaoHelper.addView(info);
 
                 Intent intent = new Intent(DetailActivity.this, PlayerActivity.class);
                 intent.putExtra(Const.SELECT_EPISODE, info);
+                intent.putExtra(Const.SELECT_EPISODE_VIEW, viewInfo);
                 DetailActivity.this.startActivity(intent);
             });
             btn.setOnKeyListener((view, keyCode, event) -> {

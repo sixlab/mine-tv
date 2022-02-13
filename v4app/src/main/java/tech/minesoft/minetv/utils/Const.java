@@ -9,6 +9,7 @@ public class Const {
     public static final String SELECT_MOVIE_ID = "MineMovieInfo-id";
     public static final String SELECT_MOVIE_NAME = "MineMovieInfo-name";
     public static final String SELECT_EPISODE = "movie-UrlInfo";
+    public static final String SELECT_EPISODE_VIEW = "movie-ViewInfo";
 
     // 19 上
     // 20 下

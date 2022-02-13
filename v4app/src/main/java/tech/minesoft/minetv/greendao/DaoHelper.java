@@ -243,28 +243,34 @@ public class DaoHelper {
         return siteInfo;
     }
 
-    public static void addView(UrlInfo info) {
-        MineViewInfo viewInfo = new MineViewInfo();
-        viewInfo.setInfo_id(info.getInfoId());
-        viewInfo.setVod_from(info.getGroupName());
-        viewInfo.setVod_name(info.getVodName());
-        viewInfo.setVod_item_name(info.getItemName());
-        viewInfo.setVod_time(new Date());
-        viewInfo.setView_position(0);
+    public static MineViewInfo addView(UrlInfo info) {
+        MineViewInfo prevViewInfo = selectViewInfo(info);
+        if (prevViewInfo == null) {
+            prevViewInfo = new MineViewInfo();
+            prevViewInfo.setInfo_id(info.getInfoId());
+            prevViewInfo.setVod_from(info.getGroupName());
+            prevViewInfo.setVod_name(info.getVodName());
+            prevViewInfo.setVod_item_name(info.getItemName());
+            prevViewInfo.setVod_time(new Date());
+            prevViewInfo.setView_position(0L);
+            Holder.daoSession.insert(prevViewInfo);
+        }
 
-        Holder.daoSession.insert(viewInfo);
+        return prevViewInfo;
     }
 
-    public static void addView(UrlInfo info, String itemName) {
-        MineViewInfo viewInfo = new MineViewInfo();
-        viewInfo.setInfo_id(info.getInfoId());
-        viewInfo.setVod_from(info.getGroupName());
-        viewInfo.setVod_name(info.getVodName());
-        viewInfo.setVod_item_name(itemName);
-        viewInfo.setVod_time(new Date());
-        viewInfo.setView_position(0);
+    public static void updateView(MineViewInfo viewInfo) {
+        Holder.daoSession.update(viewInfo);
+    }
 
-        Holder.daoSession.insert(viewInfo);
+    public static MineViewInfo selectViewInfo(UrlInfo urlInfo) {
+        MineViewInfoDao viewDao = Holder.daoSession.getMineViewInfoDao();
+
+        return viewDao.queryBuilder().where(
+                MineViewInfoDao.Properties.Info_id.eq(urlInfo.getInfoId()),
+                MineViewInfoDao.Properties.Vod_from.eq(urlInfo.getGroupName()),
+                MineViewInfoDao.Properties.Vod_item_name.eq(urlInfo.getItemName())
+        ).orderDesc(MineViewInfoDao.Properties.Vod_time).limit(1).unique();
     }
 
     public static void updateSite(String code, String url, int primary) {

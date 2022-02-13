@@ -10,14 +10,12 @@ import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.MediaMetadata;
-import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerView;
 
@@ -29,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.bean.MineViewInfo;
 import tech.minesoft.minetv.databinding.ActivityPlayerBinding;
 import tech.minesoft.minetv.greendao.DaoHelper;
 import tech.minesoft.minetv.utils.Const;
@@ -44,6 +43,7 @@ public class PlayerActivity extends AppCompatActivity {
     private TextView speedTv;
     private UrlInfo info;
     private float speed = 1f;
+    private MineViewInfo viewInfo;
 
     private Handler timeHandler = new MyHandler();
 
@@ -57,6 +57,8 @@ public class PlayerActivity extends AppCompatActivity {
 
             long position = player.getCurrentPosition();
             String p = TimeUtils.hh_mm_ss(position);
+            viewInfo.setView_position(position);
+            DaoHelper.updateView(viewInfo);
 
             long duration = player.getDuration();
             if (C.TIME_UNSET == duration) {
@@ -79,6 +81,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         info = (UrlInfo) bundle.get(Const.SELECT_EPISODE);
+        viewInfo = (MineViewInfo) bundle.get(Const.SELECT_EPISODE_VIEW);
 
         player = new ExoPlayer.Builder(this)
                 .setSeekBackIncrementMs(10000)
@@ -164,14 +167,9 @@ public class PlayerActivity extends AppCompatActivity {
         // Start the playback.
         player.play();
 
-        player.addListener(new Player.Listener() {
-            @Override
-            public void onMediaItemTransition(@Nullable MediaItem mediaItem, int reason) {
-                String subtitle = mediaItem.mediaMetadata.subtitle.toString();
-                titleTv.setText(info.getVodName() + ":" + subtitle);
-                DaoHelper.addView(info, subtitle);
-            }
-        });
+        if(null!=viewInfo){
+            player.seekTo(viewInfo.getView_position());
+        }
 
         timeHandler.sendMessage(new Message());
     }

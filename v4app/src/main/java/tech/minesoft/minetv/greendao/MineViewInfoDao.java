@@ -29,7 +29,7 @@ public class MineViewInfoDao extends AbstractDao<MineViewInfo, Long> {
         public final static Property Vod_name = new Property(2, String.class, "vod_name", false, "VOD_NAME");
         public final static Property Vod_from = new Property(3, String.class, "vod_from", false, "VOD_FROM");
         public final static Property Vod_item_name = new Property(4, String.class, "vod_item_name", false, "VOD_ITEM_NAME");
-        public final static Property View_position = new Property(5, Integer.class, "view_position", false, "VIEW_POSITION");
+        public final static Property View_position = new Property(5, Long.class, "view_position", false, "VIEW_POSITION");
         public final static Property Vod_time = new Property(6, java.util.Date.class, "vod_time", false, "VOD_TIME");
     }
 
@@ -90,7 +90,7 @@ public class MineViewInfoDao extends AbstractDao<MineViewInfo, Long> {
             stmt.bindString(5, vod_item_name);
         }
  
-        Integer view_position = entity.getView_position();
+        Long view_position = entity.getView_position();
         if (view_position != null) {
             stmt.bindLong(6, view_position);
         }
@@ -130,7 +130,7 @@ public class MineViewInfoDao extends AbstractDao<MineViewInfo, Long> {
             stmt.bindString(5, vod_item_name);
         }
  
-        Integer view_position = entity.getView_position();
+        Long view_position = entity.getView_position();
         if (view_position != null) {
             stmt.bindLong(6, view_position);
         }
@@ -154,7 +154,7 @@ public class MineViewInfoDao extends AbstractDao<MineViewInfo, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // vod_name
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // vod_from
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // vod_item_name
-            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // view_position
+            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // view_position
             cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)) // vod_time
         );
         return entity;
@@ -167,7 +167,7 @@ public class MineViewInfoDao extends AbstractDao<MineViewInfo, Long> {
         entity.setVod_name(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setVod_from(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setVod_item_name(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setView_position(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
+        entity.setView_position(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
         entity.setVod_time(cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)));
      }
     
