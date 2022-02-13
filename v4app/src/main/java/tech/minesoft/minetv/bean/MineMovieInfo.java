@@ -4,10 +4,12 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class MineMovieInfo {
+public class MineMovieInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     private Long id;

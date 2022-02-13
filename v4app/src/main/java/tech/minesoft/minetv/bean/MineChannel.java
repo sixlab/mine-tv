@@ -1,12 +1,15 @@
 package tech.minesoft.minetv.bean;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Unique;
-import org.greenrobot.greendao.annotation.Generated;
+
+import java.io.Serializable;
 
 @Entity
-public class MineChannel {
+public class MineChannel implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     private Long id;
