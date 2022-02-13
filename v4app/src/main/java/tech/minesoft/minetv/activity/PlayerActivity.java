@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,7 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.MediaMetadata;
+import com.google.android.exoplayer2.PlaybackException;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerView;
@@ -180,8 +182,11 @@ public class PlayerActivity extends AppCompatActivity {
                 info.setItemName(subtitle);
 
                 viewInfo = DaoHelper.addView(info);
+            }
 
-                player.seekTo(viewInfo.getView_position());
+            @Override
+            public void onPlayerError(PlaybackException error) {
+                Toast.makeText(PlayerActivity.this, "error:" + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
