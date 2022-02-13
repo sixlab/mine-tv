@@ -4,10 +4,11 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class MineViewInfo {
+public class MineViewInfo implements Serializable {
 
     @Id
     private Long id;
@@ -15,11 +16,11 @@ public class MineViewInfo {
     private String vod_name;
     private String vod_from;
     private String vod_item_name;
-    private Integer view_position;
+    private Long view_position;
     private Date vod_time;
-    @Generated(hash = 714643202)
+    @Generated(hash = 1756278864)
     public MineViewInfo(Long id, Long info_id, String vod_name, String vod_from,
-            String vod_item_name, Integer view_position, Date vod_time) {
+            String vod_item_name, Long view_position, Date vod_time) {
         this.id = id;
         this.info_id = info_id;
         this.vod_name = vod_name;
@@ -61,10 +62,10 @@ public class MineViewInfo {
     public void setVod_item_name(String vod_item_name) {
         this.vod_item_name = vod_item_name;
     }
-    public Integer getView_position() {
+    public Long getView_position() {
         return this.view_position;
     }
-    public void setView_position(Integer view_position) {
+    public void setView_position(Long view_position) {
         this.view_position = view_position;
     }
     public Date getVod_time() {
