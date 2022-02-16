@@ -25,6 +25,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -116,11 +117,13 @@ public class PlayerActivity extends AppCompatActivity {
         });
         playerView.findViewById(R.id.mine_speed_up).setOnClickListener(view -> {
             if (speed < 1) {
-                speed = speed + 0.1f;
-            } else if (speed < 5) {
+                speed = new BigDecimal(String.valueOf(speed)).add(new BigDecimal("0.1")).floatValue();
+            } else {
                 speed++;
-            } else if (speed >= 5) {
-                speed = 10;
+            }
+
+            if (speed >= 5) {
+                speed = 5;
             }
 
             player.setPlaybackSpeed(speed);
@@ -128,13 +131,13 @@ public class PlayerActivity extends AppCompatActivity {
         });
 
         playerView.findViewById(R.id.mine_speed_down).setOnClickListener(view -> {
-            if (speed >= 10) {
-                speed = 5;
-            } else if (speed > 1) {
+            if (speed > 1) {
                 speed--;
-            } else if (speed <= 1) {
-                speed = speed - 0.1f;
-            } else if (speed <= 0.2) {
+            } else {
+                speed = new BigDecimal(String.valueOf(speed)).subtract(new BigDecimal("0.1")).floatValue();
+            }
+
+            if (speed <= 0.2) {
                 speed = 0.2f;
             }
 
