@@ -30,7 +30,7 @@
                 android:layout_height="@dimen/base_size_8x"
                 android:textColor="@color/white" />
 
-            <tech.minesoft.minetv.widget.IconButton
+            <tech.minesoft.minetv.v4app.widget.IconButton
                 android:id="@+id/btn_add_source"
                 android:layout_width="@dimen/base_size_8x"
                 android:layout_height="@dimen/base_size_8x"

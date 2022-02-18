@@ -10,7 +10,7 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.SearchActivity">
 
-    <tech.minesoft.minetv.widget.Toolbar
+    <tech.minesoft.minetv.v4app.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/btn_height"
@@ -44,7 +44,7 @@
             android:imeOptions="actionSearch"
             android:importantForAutofill="no" />
 
-<!--        <tech.minesoft.minetv.widget.IconButton-->
+<!--        <tech.minesoft.minetv.v4app.widget.IconButton-->
 <!--            android:id="@+id/search_btn"-->
 <!--            android:layout_width="@dimen/btn_width"-->
 <!--            android:layout_height="@dimen/btn_height"-->

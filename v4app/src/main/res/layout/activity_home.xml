@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.HomeActivity">
 
-    <tech.minesoft.minetv.widget.Toolbar
+    <tech.minesoft.minetv.v4app.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_height="@dimen/btn_height"
         android:layout_width="match_parent"

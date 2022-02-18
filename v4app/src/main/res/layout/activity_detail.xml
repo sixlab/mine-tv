@@ -10,7 +10,7 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.DetailActivity">
 
-    <tech.minesoft.minetv.widget.Toolbar
+    <tech.minesoft.minetv.v4app.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_height="@dimen/btn_height"
         android:layout_width="match_parent"
@@ -65,14 +65,14 @@
                 android:textColor="@color/white"
                 android:orientation="horizontal">
 
-                <tech.minesoft.minetv.widget.TextButton
+                <tech.minesoft.minetv.v4app.widget.TextButton
                     android:id="@+id/tv_update"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="@dimen/base_size_1x"
                     android:text="@string/action_update" />
 
-                <tech.minesoft.minetv.widget.TextButton
+                <tech.minesoft.minetv.v4app.widget.TextButton
                     android:id="@+id/tv_star"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                     android:layout_marginLeft="@dimen/base_size_1x"
                     android:text="@string/action_star" />
 
-                <tech.minesoft.minetv.widget.TextButton
+                <tech.minesoft.minetv.v4app.widget.TextButton
                     android:id="@+id/tv_clean"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                     android:layout_marginLeft="@dimen/base_size_1x"
                     android:text="@string/action_clean" />
 
-                <tech.minesoft.minetv.widget.TextButton
+                <tech.minesoft.minetv.v4app.widget.TextButton
                     android:id="@+id/tv_reverse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
