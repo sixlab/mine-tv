@@ -14,9 +14,9 @@ import androidx.core.app.ActivityCompat;
 
 import java.util.List;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v4app.R;
 import tech.minesoft.minetv.v4app.bean.MineMovieInfo;
-import tech.minesoft.minetv.databinding.ActivityHomeBinding;
+import tech.minesoft.minetv.v4app.databinding.ActivityHomeBinding;
 import tech.minesoft.minetv.v4app.greendao.DaoHelper;
 import tech.minesoft.minetv.v4app.utils.Const;
 import tech.minesoft.minetv.v4app.utils.ScrollViewUtils;

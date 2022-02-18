@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v4app.R;
 
 public class TextButton extends AppCompatButton {
     private Context context;

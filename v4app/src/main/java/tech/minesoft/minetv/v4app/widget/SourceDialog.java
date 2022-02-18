@@ -8,7 +8,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import tech.minesoft.minetv.databinding.WidgetSourceDialogBinding;
+import tech.minesoft.minetv.v4app.databinding.WidgetSourceDialogBinding;
 
 public class SourceDialog extends Dialog {
     private WidgetSourceDialogBinding binding;

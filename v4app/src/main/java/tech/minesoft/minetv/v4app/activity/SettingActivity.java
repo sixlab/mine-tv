@@ -14,10 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v4app.R;
 import tech.minesoft.minetv.v4app.bean.MineChannel;
 import tech.minesoft.minetv.v4app.bean.MineSiteInfo;
-import tech.minesoft.minetv.databinding.ActivitySettingBinding;
+import tech.minesoft.minetv.v4app.databinding.ActivitySettingBinding;
 import tech.minesoft.minetv.v4app.greendao.DaoHelper;
 import tech.minesoft.minetv.v4app.utils.LayoutUtils;
 import tech.minesoft.minetv.v4app.widget.SourceDialog;

@@ -31,9 +31,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v4app.R;
 import tech.minesoft.minetv.v4app.bean.MineViewInfo;
-import tech.minesoft.minetv.databinding.ActivityPlayerBinding;
+import tech.minesoft.minetv.v4app.databinding.ActivityPlayerBinding;
 import tech.minesoft.minetv.v4app.greendao.DaoHelper;
 import tech.minesoft.minetv.v4app.utils.Const;
 import tech.minesoft.minetv.v4app.utils.TimeUtils;

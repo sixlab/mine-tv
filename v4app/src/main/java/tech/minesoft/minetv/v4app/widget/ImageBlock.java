@@ -8,8 +8,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import tech.minesoft.minetv.R;
-import tech.minesoft.minetv.databinding.WidgetImageBlockBinding;
+import tech.minesoft.minetv.v4app.R;
+import tech.minesoft.minetv.v4app.databinding.WidgetImageBlockBinding;
 
 public class ImageBlock extends LinearLayout {
     private WidgetImageBlockBinding binding;

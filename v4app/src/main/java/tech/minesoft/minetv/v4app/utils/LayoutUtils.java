@@ -5,7 +5,7 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v4app.R;
 
 public class LayoutUtils {
     public static LinearLayout.LayoutParams lineLayout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

@@ -11,11 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v4app.R;
 import tech.minesoft.minetv.v4app.bean.MineMovieInfo;
 import tech.minesoft.minetv.v4app.bean.MineSiteInfo;
-import tech.minesoft.minetv.databinding.ActivitySearchBinding;
-import tech.minesoft.minetv.databinding.SearchScrollingBinding;
+import tech.minesoft.minetv.v4app.databinding.ActivitySearchBinding;
+import tech.minesoft.minetv.v4app.databinding.SearchScrollingBinding;
 import tech.minesoft.minetv.v4app.request.RequestService;
 import tech.minesoft.minetv.v4app.utils.LayoutUtils;
 import tech.minesoft.minetv.v4app.utils.MineCallback;
