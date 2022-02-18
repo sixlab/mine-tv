@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.Group;
 import androidx.leanback.widget.VerticalGridView;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v3app.R;
 
 
 public class TabVerticalGridView extends VerticalGridView {

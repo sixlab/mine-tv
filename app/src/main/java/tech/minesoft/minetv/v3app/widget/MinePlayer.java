@@ -10,7 +10,7 @@ import com.shuyu.gsyvideoplayer.model.GSYVideoModel;
 import com.shuyu.gsyvideoplayer.video.ListGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v3app.R;
 import tech.minesoft.minetv.v3app.greendao.V3DaoHelper;
 import tech.minesoft.minetv.v3app.vo.VideoPlayerModel;
 

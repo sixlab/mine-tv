@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.List;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v3app.R;
 import tech.minesoft.minetv.v3app.bean.MineSiteInfo;
 import tech.minesoft.minetv.v3app.greendao.V3DaoHelper;
 import tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout;

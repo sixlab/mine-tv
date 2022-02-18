@@ -1,5 +1,11 @@
 package tech.minesoft.minetv.v3app.widget.focus;
 
+import static androidx.leanback.widget.FocusHighlight.ZOOM_FACTOR_LARGE;
+import static androidx.leanback.widget.FocusHighlight.ZOOM_FACTOR_MEDIUM;
+import static androidx.leanback.widget.FocusHighlight.ZOOM_FACTOR_NONE;
+import static androidx.leanback.widget.FocusHighlight.ZOOM_FACTOR_SMALL;
+import static androidx.leanback.widget.FocusHighlight.ZOOM_FACTOR_XSMALL;
+
 import android.animation.TimeAnimator;
 import android.content.res.Resources;
 import android.util.TypedValue;
@@ -16,13 +22,7 @@ import androidx.leanback.widget.ShadowOverlayContainer;
 import androidx.leanback.widget.ShadowOverlayHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import tech.minesoft.minetv.R;
-
-import static androidx.leanback.widget.FocusHighlight.ZOOM_FACTOR_LARGE;
-import static androidx.leanback.widget.FocusHighlight.ZOOM_FACTOR_MEDIUM;
-import static androidx.leanback.widget.FocusHighlight.ZOOM_FACTOR_NONE;
-import static androidx.leanback.widget.FocusHighlight.ZOOM_FACTOR_SMALL;
-import static androidx.leanback.widget.FocusHighlight.ZOOM_FACTOR_XSMALL;
+import tech.minesoft.minetv.v3app.R;
 
 public class MyFocusHighlightHelper {
     public static final int ZOOM_FACTOR_XXSMALL = 5;

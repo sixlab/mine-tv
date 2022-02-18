@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.leanback.widget.Presenter;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v3app.R;
 import tech.minesoft.minetv.v3app.fragment.SearchFragment;
 import tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout;
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.appcompat.widget.SearchView;
 import androidx.leanback.widget.Presenter;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v3app.R;
 import tech.minesoft.minetv.v3app.fragment.SearchFragment;
 
 public class SearchPresenter extends Presenter {

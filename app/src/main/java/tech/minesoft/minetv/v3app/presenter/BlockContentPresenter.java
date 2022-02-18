@@ -17,7 +17,7 @@ import androidx.leanback.widget.Presenter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v3app.R;
 import tech.minesoft.minetv.v3app.activity.V3DetailActivity;
 import tech.minesoft.minetv.v3app.base.BaseLazyLoadFragment;
 import tech.minesoft.minetv.v3app.bean.MineMovieInfo;

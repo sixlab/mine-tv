@@ -7,7 +7,7 @@ import androidx.leanback.widget.HorizontalGridView;
 import androidx.leanback.widget.RowHeaderPresenter;
 import androidx.leanback.widget.RowPresenter;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v3app.R;
 import tech.minesoft.minetv.v3app.base.BaseListRowPresenter;
 import tech.minesoft.minetv.v3app.utils.SizeUtils;
 
