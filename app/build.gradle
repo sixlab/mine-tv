@@ -11,7 +11,7 @@ android {
     // 4.4 19
     // 4.0 14
     defaultConfig {
-        applicationId "tech.minesoft.minetv.v3"
+        applicationId "tech.minesoft.minetv.v3app"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
@@ -41,7 +41,7 @@ android {
 greendao {
     schemaVersion 2
     // 设置DaoMaster、DaoSession、Dao 包名
-    daoPackage 'tech.minesoft.minetv.greendao'
+    daoPackage 'tech.minesoft.minetv.v3app.greendao'
     // 设置DaoMaster、DaoSession、Dao目录,请注意，这里路径用/不要用.
     targetGenDir 'src/main/java'
     // 设置为true以自动生成单元测试。

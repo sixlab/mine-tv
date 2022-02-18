@@ -54,7 +54,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_code" />
 
-        <tech.minesoft.minetv.widget.ScaleConstraintLayout
+        <tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout
                 android:id="@+id/btn_add_site"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-        </tech.minesoft.minetv.widget.ScaleConstraintLayout>
+        </tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout>
 
         <TextView
                 android:id="@+id/tv_site_default"

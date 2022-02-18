@@ -5,12 +5,12 @@
         android:layout_height="match_parent"
         android:background="#000000">
 
-    <tech.minesoft.minetv.widget.MinePlayer
+    <tech.minesoft.minetv.v3app.widget.MinePlayer
             android:id="@+id/video_player"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true" >
-    </tech.minesoft.minetv.widget.MinePlayer>
+    </tech.minesoft.minetv.v3app.widget.MinePlayer>
 
     <LinearLayout
             android:visibility="invisible"

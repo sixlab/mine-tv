@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="146dp">
 
-    <tech.minesoft.minetv.widget.ScaleConstraintLayout
+    <tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout
             android:id="@+id/cl_prev"
             android:layout_width="131dp"
             android:layout_height="30dp"
@@ -26,9 +26,9 @@
                 android:textSize="@dimen/text_size_m"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
+    </tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout>
 
-    <tech.minesoft.minetv.widget.ScaleConstraintLayout
+    <tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout
             android:id="@+id/cl_next"
             android:layout_width="131dp"
             android:layout_height="30dp"
@@ -50,6 +50,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
+    </tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
