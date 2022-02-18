@@ -22,10 +22,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v4app.R;
 import tech.minesoft.minetv.v4app.bean.MineMovieInfo;
 import tech.minesoft.minetv.v4app.bean.MineViewInfo;
-import tech.minesoft.minetv.databinding.ActivityDetailBinding;
+import tech.minesoft.minetv.v4app.databinding.ActivityDetailBinding;
 import tech.minesoft.minetv.v4app.greendao.DaoHelper;
 import tech.minesoft.minetv.v4app.utils.Const;
 import tech.minesoft.minetv.v4app.utils.LayoutUtils;

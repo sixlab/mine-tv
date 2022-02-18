@@ -15,11 +15,11 @@ import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v4app.R;
 import tech.minesoft.minetv.v4app.activity.HomeActivity;
 import tech.minesoft.minetv.v4app.activity.SearchActivity;
 import tech.minesoft.minetv.v4app.activity.SettingActivity;
-import tech.minesoft.minetv.databinding.WidgetToolbarBinding;
+import tech.minesoft.minetv.v4app.databinding.WidgetToolbarBinding;
 import tech.minesoft.minetv.v4app.utils.Const;
 
 public class Toolbar extends LinearLayout {
