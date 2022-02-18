@@ -8,7 +8,7 @@
         android:clipToPadding="false"
         tools:context=".activity.MineActivity">
 
-    <tech.minesoft.minetv.widget.TabHorizontalGridView
+    <tech.minesoft.minetv.v3app.widget.TabHorizontalGridView
             android:id="@+id/row_title"
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -22,14 +22,14 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <tech.minesoft.minetv.widget.TabViewPager
+    <tech.minesoft.minetv.v3app.widget.TabViewPager
             android:id="@+id/tvp_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <tech.minesoft.minetv.widget.ScaleConstraintLayout
+    <tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout
             android:id="@+id/btn_clear_unstar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,9 +66,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
 
-    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
+    </tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout>
 
-    <tech.minesoft.minetv.widget.ScaleConstraintLayout
+    <tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout
             android:id="@+id/btn_clear_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,9 +104,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
 
-    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
+    </tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout>
 
-    <tech.minesoft.minetv.widget.ScaleConstraintLayout
+    <tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout
             android:id="@+id/btn_clear_record"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -142,9 +142,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
 
-    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
+    </tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout>
 
-    <tech.minesoft.minetv.widget.ScaleConstraintLayout
+    <tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout
             android:id="@+id/btn_clear_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
 
-    </tech.minesoft.minetv.widget.ScaleConstraintLayout>
+    </tech.minesoft.minetv.v3app.widget.ScaleConstraintLayout>
 
     <TextView
             android:id="@+id/info_name"
@@ -242,7 +242,7 @@
             app:layout_constraintTop_toTopOf="@+id/info_name"
             tools:ignore="ContentDescription" />
 
-    <tech.minesoft.minetv.widget.ScaleTextView
+    <tech.minesoft.minetv.v3app.widget.ScaleTextView
             android:id="@+id/info_tips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

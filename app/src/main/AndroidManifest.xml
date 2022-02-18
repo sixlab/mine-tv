@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        package="tech.minesoft.minetv">
+        package="tech.minesoft.minetv.v3app">
 
     <uses-feature
             android:name="android.hardware.touchscreen"
@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:name="tech.minesoft.minetv.MineApplication"
+            android:name=".MineApplication"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
@@ -38,9 +38,9 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="tech.minesoft.minetv.activity.V3DetailActivity" />
+        <activity android:name=".activity.V3DetailActivity" />
         <activity
-                android:name="tech.minesoft.minetv.activity.V3PlayerActivity"
+                android:name=".activity.V3PlayerActivity"
                 android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode" />
 
         <meta-data

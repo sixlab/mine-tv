@@ -43,7 +43,7 @@
             android:text="00:00"
             android:textColor="#ffffff" />
 
-        <tech.minesoft.minetv.widget.MineSeekBar
+        <tech.minesoft.minetv.v3app.widget.MineSeekBar
             android:id="@+id/progress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
