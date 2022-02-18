@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <tech.minesoft.minetv.v5app.widget.IconButton
+        android:id="@+id/home_btn"
+        android:layout_width="@dimen/icon_btn_width"
+        android:layout_height="@dimen/icon_btn_height"
+        android:layout_marginEnd="@dimen/base_size_1x"
+        app:srcCompat="@drawable/icon_home" />
+
+    <tech.minesoft.minetv.v5app.widget.IconButton
+        android:id="@+id/search_btn"
+        android:layout_width="@dimen/icon_btn_width"
+        android:layout_height="@dimen/icon_btn_height"
+        android:layout_marginEnd="@dimen/base_size_1x"
+        app:srcCompat="@drawable/icon_search" />
+
+    <tech.minesoft.minetv.v5app.widget.IconButton
+        android:id="@+id/star_btn"
+        android:layout_width="@dimen/icon_btn_width"
+        android:layout_height="@dimen/icon_btn_height"
+        android:layout_marginEnd="@dimen/base_size_1x"
+        app:srcCompat="@drawable/icon_star" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/icon_btn_height"
+        android:layout_weight="1"
+        android:layout_marginEnd="@dimen/base_size_1x"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/tips"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/icon_btn_height"
+        android:layout_marginEnd="@dimen/base_size_1x"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="@string/tips" />
+
+    <TextView
+        android:id="@+id/times"
+        android:layout_width="@dimen/icon_btn_width"
+        android:layout_height="@dimen/icon_btn_height"
+        android:gravity="center"
+        android:layout_marginEnd="@dimen/base_size_1x"
+        android:textColor="@color/white"
+        android:text="@string/times" />
+
+    <tech.minesoft.minetv.v5app.widget.IconButton
+        android:id="@+id/setting_btn"
+        android:layout_width="@dimen/icon_btn_width"
+        android:layout_height="@dimen/icon_btn_height"
+        app:srcCompat="@drawable/icon_setting" />
+</LinearLayout>

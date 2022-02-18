@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Mine TV V5</string>
+    <string name="tips">本 App 资源来自网络公开接口</string>
+    <string name="times">00:00</string>
+
+    <string name="title_main">首页</string>
+    <string name="title_search">搜索</string>
+    <string name="title_star">收藏</string>
+    <string name="title_setting">设置</string>
+    <string name="title_detail">详情:%1$s</string>
+
+    <string name="search">搜索</string>
+
+    <string name="action_unstar">取消收藏</string>
+    <string name="action_star">收藏</string>
+    <string name="action_update">更新</string>
+    <string name="action_clean">清空观影记录</string>
+    <string name="action_reverse">反转排序</string>
+
+    <integer name="detail_line_1">1</integer>
+    <integer name="detail_line_2">2</integer>
+    <integer name="detail_line_3">3</integer>
+</resources>

@@ -1,0 +1,35 @@
+<resources>
+    <dimen name="widget_margin_1">1dp</dimen>
+    <dimen name="base_size_1x">6dp</dimen>
+    <dimen name="base_size_2x">12dp</dimen>
+    <dimen name="base_size_5x">30dp</dimen>
+    <dimen name="base_size_6x">36dp</dimen>
+    <dimen name="base_size_8x">48dp</dimen>
+    <dimen name="base_size_10x">60dp</dimen>
+    <dimen name="base_size_15x">90dp</dimen>
+    <dimen name="base_size_20x">120dp</dimen>
+    <dimen name="base_size_30x">180dp</dimen>
+    <dimen name="base_size_35x">210dp</dimen>
+    <dimen name="base_size_50x">300dp</dimen>
+    <dimen name="base_size_100x">600dp</dimen>
+
+    <dimen name="icon_btn_width">60dp</dimen>
+    <dimen name="icon_btn_height">36dp</dimen>
+
+    <dimen name="btn_height">48dp</dimen>
+    <dimen name="btn_radius">24dp</dimen>
+    <dimen name="btn_space">6dp</dimen>
+
+     <dimen name="block_width">178dp</dimen>
+<!--    <dimen name="block_img_width">150dp</dimen>-->
+
+    <dimen name="block_height">295dp</dimen>
+    <dimen name="block_img_height">245dp</dimen>
+    <dimen name="block_h1_height">30dp</dimen>
+    <dimen name="block_h2_height">20dp</dimen>
+
+    <dimen name="search_width">240dp</dimen>
+</resources>
+
+
+
