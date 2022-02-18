@@ -1,3 +1,4 @@
 rootProject.name = "mine-tv"
 include ':app'
 include ':v4app'
+include ':v5app'

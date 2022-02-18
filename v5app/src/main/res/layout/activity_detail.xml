@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryVariant"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.DetailActivity">
+
+    <tech.minesoft.minetv.v5app.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="@dimen/btn_height"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/base_size_2x"
+        android:layout_marginHorizontal="@dimen/base_size_2x"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/base_size_1x"
+        android:layout_marginHorizontal="@dimen/base_size_2x"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_video_pic"
+            android:layout_width="@dimen/block_width"
+            android:layout_height="@dimen/block_img_height"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/base_size_2x"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_video_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:maxLines="@integer/detail_line_1" />
+
+            <TextView
+                android:id="@+id/tv_video_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/base_size_1x"
+                android:textColor="@color/white"
+                android:maxLines="@integer/detail_line_2" />
+
+            <TextView
+                android:id="@+id/tv_video_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:maxLines="@integer/detail_line_3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/base_size_1x"
+                android:textColor="@color/white"
+                android:orientation="horizontal">
+
+                <tech.minesoft.minetv.v5app.widget.TextButton
+                    android:id="@+id/tv_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/base_size_1x"
+                    android:text="@string/action_update" />
+
+                <tech.minesoft.minetv.v5app.widget.TextButton
+                    android:id="@+id/tv_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/base_size_1x"
+                    android:layout_marginLeft="@dimen/base_size_1x"
+                    android:text="@string/action_star" />
+
+                <tech.minesoft.minetv.v5app.widget.TextButton
+                    android:id="@+id/tv_clean"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/base_size_1x"
+                    android:layout_marginLeft="@dimen/base_size_1x"
+                    android:text="@string/action_clean" />
+
+                <tech.minesoft.minetv.v5app.widget.TextButton
+                    android:id="@+id/tv_reverse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/base_size_1x"
+                    android:layout_marginLeft="@dimen/base_size_1x"
+                    android:text="@string/action_reverse" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tv_episode_source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"></LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/content"
+        layout="@layout/detail_scrolling" />
+
+</LinearLayout>

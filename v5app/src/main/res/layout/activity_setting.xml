@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryVariant"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.SettingActivity">
+
+    <tech.minesoft.minetv.v5app.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="@dimen/btn_height"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/base_size_2x"
+        android:layout_marginHorizontal="@dimen/base_size_2x"/>
+
+    <include
+        android:id="@+id/content"
+        layout="@layout/setting_scrolling" />
+
+</LinearLayout>

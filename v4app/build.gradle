@@ -7,7 +7,7 @@ android {
     compileSdkVersion 32
 
     defaultConfig {
-        applicationId "tech.minesoft.minetv.v4"
+        applicationId "tech.minesoft.minetv.v4app"
         minSdkVersion 23
         targetSdkVersion 32
         versionCode 1

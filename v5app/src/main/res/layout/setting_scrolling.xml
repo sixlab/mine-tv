@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/base_size_1x"
+    android:layout_marginHorizontal="@dimen/base_size_2x"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.SettingActivity"
+    tools:showIn="@layout/activity_home">
+
+    <LinearLayout
+        android:id="@+id/setting_list"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/mine_source"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/base_size_2x"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="播放源"
+                android:gravity="center"
+                android:layout_width="@dimen/base_size_20x"
+                android:layout_height="@dimen/base_size_8x"
+                android:textColor="@color/white" />
+
+            <tech.minesoft.minetv.v5app.widget.IconButton
+                android:id="@+id/btn_add_source"
+                android:layout_width="@dimen/base_size_8x"
+                android:layout_height="@dimen/base_size_8x"
+                android:layout_marginStart="@dimen/base_size_1x"
+                app:srcCompat="@drawable/icon_plus" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mine_channel"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/base_size_2x"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="可用频道"
+                android:gravity="center"
+                android:layout_width="@dimen/base_size_20x"
+                android:layout_height="@dimen/base_size_8x"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mine_exclude"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="禁用频道"
+                android:gravity="center"
+                android:layout_width="@dimen/base_size_20x"
+                android:layout_height="@dimen/base_size_8x"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
