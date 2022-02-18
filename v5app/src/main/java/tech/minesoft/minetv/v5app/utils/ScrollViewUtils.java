@@ -11,7 +11,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v5app.R;
 import tech.minesoft.minetv.v5app.activity.DetailActivity;
 import tech.minesoft.minetv.v5app.bean.MineMovieInfo;
 import tech.minesoft.minetv.v5app.greendao.DaoHelper;

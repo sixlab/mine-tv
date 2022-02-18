@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v5app.R;
 
 public class IconButton extends AppCompatImageButton {
     private Context context;

@@ -22,10 +22,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v5app.R;
 import tech.minesoft.minetv.v5app.bean.MineMovieInfo;
 import tech.minesoft.minetv.v5app.bean.MineViewInfo;
-import tech.minesoft.minetv.databinding.ActivityDetailBinding;
+import tech.minesoft.minetv.v5app.databinding.ActivityDetailBinding;
 import tech.minesoft.minetv.v5app.greendao.DaoHelper;
 import tech.minesoft.minetv.v5app.utils.Const;
 import tech.minesoft.minetv.v5app.utils.LayoutUtils;
@@ -39,7 +39,6 @@ import tech.minesoft.minetv.v5app.vo.UrlInfo;
 import tech.minesoft.minetv.v5app.widget.TextButton;
 
 public class DetailActivity extends AppCompatActivity {
-
     private ActivityDetailBinding binding;
     private String currentGroup = "";
     private MineMovieInfo currentInfo;

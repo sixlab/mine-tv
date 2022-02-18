@@ -59,6 +59,6 @@
 
     <include
         android:id="@+id/content"
-        layout="@layout/search_scrolling" />
+        layout="@layout/search_content" />
 
 </LinearLayout>
