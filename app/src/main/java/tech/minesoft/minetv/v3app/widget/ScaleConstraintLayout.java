@@ -7,7 +7,7 @@ import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v3app.R;
 import tech.minesoft.minetv.v3app.widget.focus.MyFocusHighlightHelper;
 
 

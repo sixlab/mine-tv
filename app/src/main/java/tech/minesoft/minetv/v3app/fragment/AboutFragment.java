@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v3app.R;
 
 
 public class AboutFragment extends Fragment {

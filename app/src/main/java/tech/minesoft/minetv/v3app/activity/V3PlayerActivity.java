@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v3app.R;
 import tech.minesoft.minetv.v3app.base.BaseActivity;
 import tech.minesoft.minetv.v3app.utils.Const;
 import tech.minesoft.minetv.v3app.vo.UrlInfo;

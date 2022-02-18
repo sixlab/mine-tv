@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v3app.R;
 import tech.minesoft.minetv.v3app.base.BaseActivity;
 import tech.minesoft.minetv.v3app.bean.MineMovieInfo;
 import tech.minesoft.minetv.v3app.greendao.V3DaoHelper;

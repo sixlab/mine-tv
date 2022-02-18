@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v3app.R;
 import tech.minesoft.minetv.v3app.activity.MineActivity;
 import tech.minesoft.minetv.v3app.base.BaseLazyLoadFragment;
 import tech.minesoft.minetv.v3app.bean.MineMovieInfo;
