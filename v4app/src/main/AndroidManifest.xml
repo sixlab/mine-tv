@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="tech.minesoft.minetv">
+    package="tech.minesoft.minetv.v4app">
 
     <uses-feature
         android:name="android.hardware.touchscreen"
