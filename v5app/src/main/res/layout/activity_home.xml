@@ -18,6 +18,6 @@
 
     <include
         android:id="@+id/content"
-        layout="@layout/home_scrolling" />
+        layout="@layout/home_content" />
 
 </LinearLayout>

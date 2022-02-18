@@ -14,16 +14,15 @@ import androidx.core.app.ActivityCompat;
 
 import java.util.List;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v5app.R;
 import tech.minesoft.minetv.v5app.bean.MineMovieInfo;
-import tech.minesoft.minetv.databinding.ActivityHomeBinding;
+import tech.minesoft.minetv.v5app.databinding.ActivityHomeBinding;
 import tech.minesoft.minetv.v5app.greendao.DaoHelper;
 import tech.minesoft.minetv.v5app.utils.Const;
 import tech.minesoft.minetv.v5app.utils.ScrollViewUtils;
 import tech.minesoft.minetv.v5app.widget.ImageBlock;
 
 public class HomeActivity extends AppCompatActivity {
-
     private ActivityHomeBinding binding;
     private List<MineMovieInfo> infoList;
     private boolean star = false;

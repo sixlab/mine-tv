@@ -19,6 +19,6 @@
 
     <include
         android:id="@+id/content"
-        layout="@layout/setting_scrolling" />
+        layout="@layout/setting_content" />
 
 </LinearLayout>

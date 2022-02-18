@@ -108,6 +108,6 @@
 
     <include
         android:id="@+id/content"
-        layout="@layout/detail_scrolling" />
+        layout="@layout/detail_content" />
 
 </LinearLayout>

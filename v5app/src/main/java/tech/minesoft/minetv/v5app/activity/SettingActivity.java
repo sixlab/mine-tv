@@ -14,17 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v5app.R;
 import tech.minesoft.minetv.v5app.bean.MineChannel;
 import tech.minesoft.minetv.v5app.bean.MineSiteInfo;
-import tech.minesoft.minetv.databinding.ActivitySettingBinding;
+import tech.minesoft.minetv.v5app.databinding.ActivitySettingBinding;
 import tech.minesoft.minetv.v5app.greendao.DaoHelper;
 import tech.minesoft.minetv.v5app.utils.LayoutUtils;
 import tech.minesoft.minetv.v5app.widget.SourceDialog;
 import tech.minesoft.minetv.v5app.widget.TextButton;
 
 public class SettingActivity extends AppCompatActivity {
-
     private ActivitySettingBinding binding;
 
     @Override

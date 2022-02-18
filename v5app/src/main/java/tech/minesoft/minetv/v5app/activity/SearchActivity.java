@@ -11,11 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
-import tech.minesoft.minetv.R;
+import tech.minesoft.minetv.v5app.R;
 import tech.minesoft.minetv.v5app.bean.MineMovieInfo;
 import tech.minesoft.minetv.v5app.bean.MineSiteInfo;
-import tech.minesoft.minetv.databinding.ActivitySearchBinding;
-import tech.minesoft.minetv.databinding.SearchScrollingBinding;
+import tech.minesoft.minetv.v5app.databinding.ActivitySearchBinding;
 import tech.minesoft.minetv.v5app.request.RequestService;
 import tech.minesoft.minetv.v5app.utils.LayoutUtils;
 import tech.minesoft.minetv.v5app.utils.MineCallback;
@@ -137,8 +136,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         }
 
-        SearchScrollingBinding content = binding.content;
-        content.getRoot().scrollTo(0, 0);
+        binding.content.getRoot().scrollTo(0, 0);
     }
 
 }

@@ -64,7 +64,17 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'me.jessyan:autosize:1.2.1'
 
-    implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
+    implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.1.9-release-jitpack'
+
+//    //是否需要ExoPlayer模式
+//    implementation 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer-exo2:v8.1.9-release-jitpack'
+
+    //根据你的需求ijk模式的so
+    implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-arm64:v8.1.9-release-jitpack'
+    implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv7a:v8.1.9-release-jitpack'
+//    implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv5:v8.1.9-release-jitpack'
+//    implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-x86:v8.1.9-release-jitpack'
+//    implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-x64:v8.1.9-release-jitpack'
 
     // debugImplementation是因为只在debug构建中使用
     debugImplementation "io.github.yvescheung:Uinspector:2.0.10"
