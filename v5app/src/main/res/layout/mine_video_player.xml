@@ -12,27 +12,6 @@
 
     </FrameLayout>
 
-    <RelativeLayout
-        android:id="@+id/thumb"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:background="#000000"
-        android:scaleType="fitCenter">
-
-        <ImageView
-            android:id="@+id/thumbImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
-
-    </RelativeLayout>
-
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
@@ -81,6 +60,24 @@
             android:paddingRight="16dp"
             android:scaleType="center"
             android:src="@drawable/video_enlarge" />
+
+        <ImageView
+            android:id="@+id/prev"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:paddingRight="16dp"
+            android:focusable="true"
+            android:scaleType="center"
+            android:src="@drawable/video_backward_icon" />
+
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:paddingRight="16dp"
+            android:focusable="true"
+            android:scaleType="center"
+            android:src="@drawable/video_forward_icon" />
     </LinearLayout>
 
     <ProgressBar
